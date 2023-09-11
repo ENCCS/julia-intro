@@ -1,26 +1,47 @@
 LESSON NAME
 ===========
 
-Intro
+Julia is a scientific programming language that is free and open
+source - see https://julialang.org/ for downloads, documentation,
+learning resources etc. Bridging high-level interpreted and low-level
+compiled languages, it offers high performance (comparable to C and
+Fortran) without sacrificing simplicity and programming productivity
+(like in Python or R).
 
+Julia has a rich ecosystem of libraries aimed
+towards scientific computing and a powerful in-built package manager
+to install and manage their dependencies. Julia is also gaining ground
+in HPC as it supports both threading and distributed-memory
+parallelisation as well as GPU computing.
 
+This lesson starts with the basics of Julia, its syntax,
+multiple-dispatch paradigm, package development and best practices. It
+then moves on to topics relevant to high-performance scientific
+computing, including an overview of powerful libraries for modeling
+and machine learning, visualization, parallelization and GPU
+computing.
 
 .. prereq::
 
-   prerequisites
-
-
-
-.. csv-table::
-   :widths: auto
-   :delim: ;
-
-   20 min ; :doc:`filename`
-
+   - Experience in one or more programming languages.
 
 .. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Prerequisites
+
+   setup
+
+.. toctree::
+   :hidden:
    :maxdepth: 1
    :caption: The lesson
+
+   motivation
+   syntax-intro
+   overview
+   development
+
 
 
 .. toctree::
