@@ -1,5 +1,5 @@
-LESSON NAME
-===========
+Introduction to programming in Julia
+====================================
 
 Julia is a scientific programming language that is free and open
 source - see https://julialang.org/ for downloads, documentation,
@@ -14,16 +14,19 @@ to install and manage their dependencies. Julia is also gaining ground
 in HPC as it supports both threading and distributed-memory
 parallelisation as well as GPU computing.
 
-This lesson starts with the basics of Julia, its syntax,
-multiple-dispatch paradigm, package development and best practices. It
-then moves on to topics relevant to high-performance scientific
-computing, including an overview of powerful libraries for modeling
-and machine learning, visualization, parallelization and GPU
-computing.
+This lesson covers the basics of Julia: its syntax,
+multiple-dispatch paradigm, package development and best practices. 
+It thus covers the necessary prerequisites to follow the two other ENCCS lessons 
+on Julia:
+
+- `Julia for High Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
+- `Julia for High Performance Data Analysis <https://enccs.github.io/julia-for-hpda/>`__
+
 
 .. prereq::
 
    - Experience in one or more programming languages.
+   - Basic familiarity with a command line (terminal) interface.
 
 .. toctree::
    :hidden:
