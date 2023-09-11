@@ -17,8 +17,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "LESSON NAME"
-copyright = "2021, The contributors"
+project = "Introduction to Julia"
+copyright = "2023, The contributors"
 author = "The contributors"
 github_user = "ENCCS"
 github_repo_name = ""  # auto-detected from dirname if blank
@@ -126,3 +126,16 @@ DIRECTIVES = [SignatureDirective, ParametersDirective, TypealongDirective]
 def setup(app):
     for obj in DIRECTIVES:
         app.add_directive(obj.cssname(), obj)
+
+
+def setup(app):
+#    for obj in DIRECTIVES:
+#        app.add_directive(obj.get_cssname(), obj)
+    app.add_css_file("overrides.css")
+
+import os
+if os.environ.get('GITHUB_REF', '') == 'refs/heads/main':
+    html_js_files = [
+        ('https://plausible.io/js/script.js', {"data-domain": "enccs.github.io/julia-intro", "defer": "defer"}),
+    ]
+
