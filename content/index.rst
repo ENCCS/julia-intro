@@ -44,6 +44,7 @@ on Julia:
    syntax-intro
    overview
    development
+   scientific-computing
 
 
 
