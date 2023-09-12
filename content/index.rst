@@ -11,13 +11,15 @@ Fortran) without sacrificing simplicity and programming productivity
 Julia has a rich ecosystem of libraries aimed
 towards scientific computing and a powerful in-built package manager
 to install and manage their dependencies. Julia is also gaining ground
-in HPC as it supports both threading and distributed-memory
-parallelisation as well as GPU computing.
+in both data science and high-performance computing (HPC), thanks to a rich 
+package ecosystem around data analysis and visualisation, machine learning, 
+deep learning, threading and distributed-memory parallelisation, 
+as well as GPU computing.
 
 This lesson covers the basics of Julia: its syntax,
 multiple-dispatch paradigm, package development and best practices. 
-It thus covers the necessary prerequisites to follow the two other ENCCS lessons 
-on Julia:
+It spans the necessary foundational skills required to follow the two other 
+ENCCS lessons on Julia:
 
 - `Julia for High Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
 - `Julia for High Performance Data Analysis <https://enccs.github.io/julia-for-hpda/>`__
@@ -59,16 +61,23 @@ on Julia:
 
 .. _learner-personas:
 
-Who is the course for?
+Who is the lesson for?
 ----------------------
 
+This lesson is appropriate for researchers, engineers and analysts from academia, 
+industry or the public sector who want to adopt a new programming language into their 
+repertoire. It also represents the prerequisite knowledge to follow other ENCCS lessons 
+on Julia - `Julia for High Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
+and `Julia for High Performance Data Analysis <https://enccs.github.io/julia-for-hpda/>`__.
 
 
 
-
-About the course
+About the lesson
 ----------------
 
+This lesson is developed by `ENCCS <https://enccs.se/>`__ - the Swedish node of the EuroCC network.
+It is open source and can be reused and remixed in derivative work; see detailed 
+license information below.
 
 
 
@@ -77,6 +86,11 @@ About the course
 See also
 --------
 
+Many excellent learning resources exist for the Julia language. For example, see:
+
+- 1
+- 2
+- 3
 
 
 
