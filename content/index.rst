@@ -86,12 +86,8 @@ license information below.
 See also
 --------
 
-Many excellent learning resources exist for the Julia language. For example, see:
-
-- 1
-- 2
-- 3
-
+Many excellent learning resources exist for the Julia language. For an overview, visit
+https://julialang.org/learning/.
 
 
 

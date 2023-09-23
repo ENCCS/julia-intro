@@ -183,42 +183,27 @@ memory for actual computation.
 What you will learn
 -------------------
 
+- Julia's syntax and language constructs.
 - What's different in Julia compared to most other languages.
-- How to efficiently develop Julia packages and write unit tests.
-- How to benchmark and profile Julia code.
-- How to write efficient serial code.
-- How to use multithreading, multiprocessing and MPI.
-- How to write Julia code for GPUs.
+- Tooling for writing Julia.
+- How to efficiently develop Julia modules and packages and write unit tests.
+- Which packages exist in Julia across many scientific domains.
 
-We will be focusing on high-level performance considerations and parallelization 
-approaches and not dig deep into low-level aspects. There is always a tradeoff; 
-to squeeze as much performance out of a code as possible one often needs to drop 
-down to lower levels of memory management, interprocess communication etc.
-But using higher-level approaches can lead to significant performance gain 
-for many scientific problems which makes it a good (initial) time investment.
+This lesson focuses on the basics of the Julia language and how to get started with 
+efficiently developing in Julia. If you want to go further and learn about how Julia 
+can be used for high performance computing (HPC) and data science / high performance 
+data analysis, we recommend the following to ENCCS lessons:
 
+- [Julia for High-Performance Scientific Computing](https://enccs.github.io/julia-for-hpc/)
+- [Julia for High-Performance Data Analytics](https://enccs.github.io/julia-for-hpda/)
 
+This lesson should be seen as the starting point for learning the ins and outs of the 
+Julia language. Make sure to go through the recommended additional reading at the end of each 
+episode to learn more.
 
-What you will not learn
------------------------
-
-- We will only be scratching the surface of the topics we do cover. Make 
-  sure to go through the recommended additional reading at the end of each 
-  episode if you want to learn more.
-- How to interoperate with other languages. Calling code in Python, R, 
-  `C/C++ and Fortran <https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/>`__ 
-  is relatively straightforward but is outside the current scope.
-- Julia has mature packages for scientific computing in many different scientific disciplines.
-  An overview of the package ecosystem will be provided but we 
-  will not go into any details.
 
 
 See also
 --------
 
-- Lin, Wei-Chen, and Simon McIntosh-Smith. 
-  `Comparing Julia to Performance Portable Parallel Programming Models for HPC. <https://ieeexplore.ieee.org/abstract/document/9652798>`_, 
-  2021 International Workshop on Performance Modeling, Benchmarking and Simulation of High Performance Computer Systems (PMBS). IEEE, 2021.
-- `Interfacing with C and Fortran <https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/>`__.
-- `Interfacing with Python via PyCall <https://github.com/JuliaPy/PyCall.jl>`__.
-- `Interfacing to various other languages <https://github.com/JuliaInterop>`__.
+- Jeff Bezanson Stefan Karpinski Viral B. Shah Alan Edelman. `Why We Created Julia <https://julialang.org/blog/2012/02/why-we-created-julia/>`__
