@@ -194,8 +194,8 @@ efficiently developing in Julia. If you want to go further and learn about how J
 can be used for high performance computing (HPC) and data science / high performance 
 data analysis, we recommend the following to ENCCS lessons:
 
-- [Julia for High-Performance Scientific Computing](https://enccs.github.io/julia-for-hpc/)
-- [Julia for High-Performance Data Analytics](https://enccs.github.io/julia-for-hpda/)
+- `Julia for High-Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
+- `Julia for High-Performance Data Analytics <https://enccs.github.io/julia-for-hpda/>`__
 
 This lesson should be seen as the starting point for learning the ins and outs of the 
 Julia language. Make sure to go through the recommended additional reading at the end of each 
