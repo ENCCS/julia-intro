@@ -13,16 +13,10 @@ There are two ways to install Julia:
    for your operating system for the latest stable Julia version.
 2. Using `Juliaup <https://github.com/JuliaLang/juliaup>`__, the Julia version manager.
 
-Option 2 is (as of October 2022) the recommended installation method on Windows, and while 
-`juliaup` is marked as a pre-release on MacOS and Linux it already works smoothly there too.
-
+Option 2 is the recommended installation method on Windows, MacOS and Linux.
 The benefit of `juliaup` is that it allows users to install specific Julia versions, it alerts 
 users when new Julia versions are released and it provides a convenient Julia release channel 
-abstraction.
-
-Both installation methods are documented here. If you are on Windows we recommend using 
-`juliaup`. If you are on MacOS or Linux, choose the installation method you feel most 
-comfortable with.
+abstraction. Both installation methods are nonetheless documented here.
 
 1. Using the Julia installer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
