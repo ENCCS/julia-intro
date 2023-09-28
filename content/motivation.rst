@@ -192,7 +192,7 @@ What you will learn
 This lesson focuses on the basics of the Julia language and how to get started with 
 efficiently developing in Julia. If you want to go further and learn about how Julia 
 can be used for high performance computing (HPC) and data science / high performance 
-data analysis, we recommend the following to ENCCS lessons:
+data analysis, we recommend the following two ENCCS lessons:
 
 - `Julia for High-Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
 - `Julia for High-Performance Data Analytics <https://enccs.github.io/julia-for-hpda/>`__
