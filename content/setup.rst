@@ -62,6 +62,7 @@ see something like in the image below (nevermind the version number).
 .. figure:: img/repl.png
    :align: center
 
+Type ``versioninfo()`` to get detailed information about the installed Julia package.
 To exit the REPL again, hit ``CTRL-d`` or type ``exit()``.
 
 Installing Visual Studio Code
