@@ -153,7 +153,7 @@ according to their functionality.
 
    Pay particular attention to the following aspects:
 
-   - The ``Project.toml`` and ``Manifest.toml`` files
+   - The ``Project.toml`` file
    - The ``test/`` subfolder if it exists
    - Files in the ``src/`` subfolder
    - The structure of the main module file and the other files under ``src/``
