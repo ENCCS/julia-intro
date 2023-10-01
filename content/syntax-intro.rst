@@ -653,6 +653,11 @@ Style conventions
 Exercises
 ---------
 
+.. challenge:: Practice yourself
+
+  Was anything unclear or covered too fast in the walkthrough above? Revisit it, read the material, play around yourself and ask questions in the shared workshop document!
+
+
 .. challenge:: Row vs column-major ordering?
 
    Based on the output of the following loop:
