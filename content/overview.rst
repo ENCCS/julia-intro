@@ -284,9 +284,18 @@ annotate are:
 
       .. code-block:: julia
 
+         struct Point{T}
+             x::T
+             y::T
+         end
+
          function sumsquare(p1::Point, p2::Point)
             return Point(p1.x^2 + p2.x^2, p1.y^2 + p2.y^2)
          end
+
+         p1, p2 = Point(1.0, 2.0), Point(2.0, 3.0)
+
+         sumsquare(p1, p2)  # returns Point{Float64}(5.0, 13.0)
 
 
       Note the output, ``sumsquare`` is now a "generic function with 2
