@@ -18,32 +18,31 @@ Special features of Julia
 Types
 -----
 
-Julia is a dynamically typed language and does not require the
-declaration of types, but its
-sophisticated type system helps optimise Julia's performance.
-This is because types are *inferred* and used at runtime.
+Julia is a dynamically typed language and does not require users to explicitly declare types because types are *inferred* and used at runtime.
+The sophisticated type system helps Julia to generate efficient code.
 
-Julia's type system is also what enables 
-`multiple dispatch <https://en.wikipedia.org/wiki/Multiple_dispatch>`__ 
-on function argument types - this is what sets the language apart from most other
-languages and makes it fast when combined with just-in-time (JIT) compilation 
-using the LLVM compiler toolchain.
+All types in Julia are defined in Julia language itself.
+This means that custom types are just as efficient as built-in types.
+
+Julia's type system is also what enables `multiple dispatch <https://en.wikipedia.org/wiki/Multiple_dispatch>`__ that is, choosing the most specific method of a function based on the argument types.
+Multiple dispatch sets the language apart from most other languages and makes it composable and fast when combined with just-in-time (JIT) compilation using the LLVM compiler toolchain.
 
 Since types play a fundamental role in Julia's design it's important to
 have a mental model of Julia's type system. There are two basic kinds of
 types in Julia: 
 
-- **Abstract types**: Define the kind of a thing, i.e. represent sets of related types. 
-- **Concrete types**: Describe data structures, i.e. concrete implementations that 
-  can be used for variables.
+- **Abstract types** which define the kind of a thing, that is, represent sets of related types. 
+- **Concrete types** which describe data structures, that is, concrete implementations that can be used for variables.
 
-
+Furthermore, a **primitive type** consists of plain bits such as an integer, character or floating point number.
+A **parametric type** represents a set of types.
 Types in Julia form a “type tree”, in which the leaves are concrete
 types.
 
 .. figure:: img/Type-hierarchy-for-julia-numbers.png
 
-   From `Wikimedia <https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png>`__,
+   Type hierarchy of number in Julia.
+   Adapted from `Wikimedia <https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png>`__,
    licensed under `CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0/deed.en>`__.
 
 
@@ -218,9 +217,11 @@ code design in Julia.
 
 Functions and methods
 ---------------------
-
-Functions form the backbone of any Julia code. Their syntax is
-similar to other languages:
+Functions form the backbone of Julia code and we can define them using the :code:`function` keyword.
+Each function can have multiple methods.
+A method is a function defined for specific arguments types.
+We can define methods using the block form or short form syntax.
+Example of a function in the block form:
 
 .. code-block:: julia
 
@@ -228,8 +229,7 @@ similar to other languages:
         return x^2 + y^2
     end
 
-For short functions such as this one, it's also possible to use this 
-short-hand form:
+For short functions such as this one, we can also use the short form:
 
 .. code-block:: julia
 
@@ -329,6 +329,14 @@ We can list all methods defined for a function:
     # [1] sumsquare(p1::Point, p2::Point) in Main at REPL[35]:1
     # [2] sumsquare(x, y) in Main at REPL[14]:1
 
+
+We can even define a function with no methods for documentation purposes.
+
+.. code-block:: julia
+
+   function sumsquare end
+
+
 .. callout:: Methods and functions
 
    -  A **function** describing the "what" can have multiple **methods**
@@ -359,7 +367,7 @@ unfortunately it's possible to write type-unstable functions:
        else 
            return x
        end
-   end           
+   end
 
 We can pass both integer and floating point arguments to this function, 
 but if we pass in a negative float it will return an integer 0, while 
@@ -388,7 +396,7 @@ Other convenience functions exist to make types consistent, including:
   the given element type and size.
 
 
-Just in time compilation
+Just-in-time compilation
 ------------------------
 
 Julia was designed from the beginning for high performance and this is accomplished by 
@@ -486,7 +494,13 @@ A *macro* is like a function, except it accepts expressions as arguments,
 manipulates the expressions, and returns a new expression - thus modifying 
 the AST.
 
-We can for example define a macro to create a `Wilkinson polynomial <https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial>`_. Note the following pattern, we write a helper function that returns an expression and call that function from the macro. This is very useful for debugging while writing macros!
+We can for example define a macro to create a `Wilkinson polynomial <https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial>`_ defined as follows:
+
+.. math::
+
+   w_n(x) = \prod_{i=1}^{n}(x-i)
+
+Note the following pattern, we write a helper function that returns an expression and call that function from the macro. This is very useful for debugging while writing macros!
 
 .. code-block:: Julia
 
