@@ -86,7 +86,7 @@ The difference is how variables defined in the module are brought into scope:
  
       export Point, sumsquare
 
-      struct Point{T}
+      struct Point{T<:Real}
           x::T
           y::T
       end
@@ -431,7 +431,7 @@ Exercises
 
          export Point, sumsquare
          
-         struct Point{T}
+         struct Point{T<:Real}
              x::T
              y::T
          end
