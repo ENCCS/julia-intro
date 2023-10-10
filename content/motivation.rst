@@ -41,7 +41,7 @@ Many researchers and programmers are drawn to Julia because of its
 speed. Indeed, Julia is among the few languages in the exclusive
 `petaflop club
 <https://www.hpcwire.com/off-the-wire/julia-joins-petaflop-club/>`_
-(along with C, C++ and Fortran).
+along with C, C++ and Fortran.
 
 
 .. figure:: img/benchmarks.svg
@@ -79,7 +79,7 @@ translation to assembly. This is also known as the two-language problem.
 
 In many ways **Julia looks like an
 interpreted language**, and mostly behaves like one. But before each
-function is executed, the Julia engine Low-Level Virtual Machine (LLVM) will 
+function is executed, Julia's LLVM compiler will 
 compile it "just in time" (JIT). More on that later.
 Thus you get the flexibility of an interpreted language and the
 execution speed of the compiled language at the cost of waiting a bit
