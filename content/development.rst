@@ -86,7 +86,7 @@ The difference is how variables defined in the module are brought into scope:
  
       export Point, sumsquare
 
-      struct Point{T}
+      struct Point{T<:Real}
           x::T
           y::T
       end
@@ -134,6 +134,12 @@ package always do ``using Revise`` before ``using MyPackage``.
 A caveat when using VSCode is that when developing a script (i.e. not a full package), 
 files need to be included in Revise-tracked mode with ``includet("MyScript")``.
 When developing packages everything works automatically.
+
+Revise should be installed in one's root Julia environment:
+
+.. code-block:: julia
+
+   julia -e 'using Pkg; Pkg.add("Revise")'
 
 Structure of a Julia package
 ----------------------------
@@ -431,7 +437,7 @@ Exercises
 
          export Point, sumsquare
          
-         struct Point{T}
+         struct Point{T<:Real}
              x::T
              y::T
          end

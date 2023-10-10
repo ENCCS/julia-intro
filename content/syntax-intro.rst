@@ -15,14 +15,14 @@ This episodes provides a condensed overview of Julia's main syntax and features.
 
 .. callout:: Video alternative
 
-  As an alternative to going through this page, learners can also watch 
-  `this video <https://www.youtube.com/watch?v=sE67bP2PnOo&t=28s>`_ 
+  As an alternative to going through this page, learners can also watch
+  `this video <https://www.youtube.com/watch?v=sE67bP2PnOo&t=28s>`_
   which covers "a 300 page book on Julia in one hour".
 
 .. callout:: Coming from other languages
 
-  If you are coming from MATLAB, R, Python, C/C++ or Common Lisp, 
-  you should also have a look at `this page 
+  If you are coming from MATLAB, R, Python, C/C++ or Common Lisp,
+  you should also have a look at `this page
   <https://docs.julialang.org/en/v1/manual/noteworthy-differences/>`_
   which lists the respective differences in Julia.
 
@@ -37,7 +37,7 @@ We can write Julia code in various ways:
    The REPL has four modes:
 
    - **Julian mode** - default mode where prompt starts with ``julia>``.
-     Here you enter Julia expressions and see output.       
+     Here you enter Julia expressions and see output.
    - Type ``?`` to go to **Help mode** where prompt starts with ``help?>``.
      Julia will print help/documentation on anything you enter.
    - Type ``;`` to go to **Shell mode** where prompt starts with
@@ -49,7 +49,7 @@ We can write Julia code in various ways:
    - To exit any non-Julian mode, hit Backspace key.
 
 2. `Jupyter <https://jupyter.org/>`_:
-   Jupyter notebooks are familiar to many Python and R users. 
+   Jupyter notebooks are familiar to many Python and R users.
 
 3. `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_:
    Pluto offers a similar notebook experience to Jupyter, but in contrast
@@ -63,16 +63,16 @@ We can write Julia code in various ways:
      very useful for larger codebases. Extensions are needed to
      activate Julia inside VSCode, see the `official documentation
      for instructions <https://code.visualstudio.com/docs/languages/julia>`_.
-     
+
 5. A text editor like nano, emacs, vim, etc., followed by running your
-   code with ``julia filename.jl``. 
+   code with ``julia filename.jl``.
 
 
 .. callout:: Firing up Julia
 
-   If Julia has been installed according to the instructions in 
-   :doc:`setup` it should be possible to open up a Julia session by 
-   typing ``julia`` in a terminal window or by clicking on the Julia 
+   If Julia has been installed according to the instructions in
+   :doc:`setup` it should be possible to open up a Julia session by
+   typing ``julia`` in a terminal window or by clicking on the Julia
    application in a file browser. The result should look something like this:
 
    .. figure:: img/repl.png
@@ -99,16 +99,17 @@ Basic syntax
 +------------------+-------------------------------------------------------------------+
 | Types            | - ``A = 3.14``                      Scalar, float                 |
 |                  | - ``B = 10``                        Scalar, integer               |
-|                  | - ``C = "hello"``                   String                        |
-|                  | - ``C[1]``                          Char                          |
-|                  | - ``D = true``                      Boolean                       |
+|                  | - ``C = true``                      Boolean                       |
+|                  | - ``D = 3+4im``                     Complex                       |
+|                  | - ``E = "hello"``                   String                        |
+|                  | - ``E[1]``                          Char                          |
 |                  | - ``typeof(A)``                     Find type                     |
 |                  | - ``supertype(Integer)``            Find supertypes               |
 |                  | - ``subtypes(Integer)``             Find subtypes                 |
 |                  | - ``Integer <: Real``               "Subtype of", returns True    |
 |                  | - ``struct``                        Immutable composite type      |
 |                  | - ``mutable struct``                Mutable composite type        |
-|                  | - ``:something``                   Symbol for a name or label     | 
+|                  | - ``:something``                   Symbol for a name or label     |
 +------------------+-------------------------------------------------------------------+
 | Special values   | - ``Inf``                           Infinity (e.g. ``1 / 0``)     |
 |                  | - ``Nan``                           Not a number (e.g. ``0 / 0``) |
@@ -119,19 +120,19 @@ Let us explore some basic types in the Julia REPL:
 
 .. code-block:: julia
 
-    typeof(1)  
+    typeof(1)
     # Int64
-  
-    typeof(1.0) 
+
+    typeof(1.0)
     # Float64
 
-    typeof(1.0+2.0im) 
+    typeof(1.0+2.0im)
     # ComplexF64
-  
-    supertypes(Float64) 
+
+    supertypes(Float64)
     # (Float64, AbstractFloat, Real, Number, Any)
 
-    subtypes(Real) 
+    subtypes(Real)
     # 4-element Vector{Any}:
     #  AbstractFloat
     #  AbstractIrrational
@@ -211,7 +212,7 @@ We can play around with Vectors and Arrays to get used to their syntax:
    A = [v1 v2 [7.0, 6.0, 5.0]]
    size(A)
    length(A)
-   A[1:2, 1] = [3,3] # types are cast automatically   
+   A[1:2, 1] = [3,3] # types are cast automatically
 
    # solve Ax=b
    b = [4.0, 3.0, 2.0]
@@ -257,7 +258,7 @@ Loops and conditionals
 Conditionals work like in other languages.
 
 .. code-block:: julia
-	  
+
    if x > 5
        println("x > 5")
    elseif x < 5    # optional elseif
@@ -288,7 +289,7 @@ While loops:
 Working with files
 ------------------
 
-Obtain a file handle to start reading from file, 
+Obtain a file handle to start reading from file,
 and then close it:
 
 .. code-block:: julia
@@ -297,8 +298,8 @@ and then close it:
    # work with file...
    close(f)
 
-The recommended way to work with files is to use a 
-do-block. At the end of the do-block the file will 
+The recommended way to work with files is to use a
+do-block. At the end of the do-block the file will
 be closed automatically:
 
 .. code-block:: julia
@@ -335,7 +336,7 @@ Some useful functions to work with files:
 +----------------------+---------------------------------------------------------+
 | ``joinpath(p1, p2)`` | Join two paths                                          |
 +----------------------+---------------------------------------------------------+
-| ``isdir(path)``      | Check if path is a directory                            |         
+| ``isdir(path)``      | Check if path is a directory                            |
 +----------------------+---------------------------------------------------------+
 | ``splitdir(path)``   | Split path into tuple of dirname and filename           |
 +----------------------+---------------------------------------------------------+
@@ -352,16 +353,16 @@ Example of a regular, named function:
 .. code-block:: julia
 
 	  function f(x,y)
-	      x + y   # can also use "return" keyword 
+	      x + y   # can also use "return" keyword
 	  end
 
 A more compact form:
 
 .. code-block:: julia
 
-	  f(x,y) = x + y	  
+	  f(x,y) = x + y
 
-This function can be called by ``f(4,5)``.	  
+This function can be called by ``f(4,5)``.
 
 The expression ``f`` refers to the function object, and can be passed
 around like any other value (functions in Julia are `first-class objects`):
@@ -381,11 +382,11 @@ Functions can be combined by composition:
 
    f(g(3))   # returns 3.0
 
-An alternative syntax is to use ∘ (typed by ``\circ<tab>``)   
+An alternative syntax is to use ∘ (typed by ``\circ<tab>``)
 
 .. code-block:: julia
 
-	  (f ∘ g)(3)   # returns 3.0 
+	  (f ∘ g)(3)   # returns 3.0
 
 Most operators (``+``, ``-``, ``*`` etc) are in fact functions, and can be used as such:
 
@@ -403,12 +404,12 @@ by dot-operators (e.g. ``[1, 2, 3].^2``), functions can also be vectorized
 .. code-block:: julia
 
 	  sin.([1.0, 2.0, 3.0])
-	  
-	  
+
+
 Keyword arguments can be added after ``;``:
 
 .. code-block:: julia
-	  
+
 	  function greet_dog(; greeting = "Hi", dog_name = "Fido")  # note the ;
 	      println("$greeting $dog_name")
 	  end
@@ -429,7 +430,7 @@ Optional arguments are given default value:
 	  date(2021)   # "2021-01-01
 	  date(2021, 2)   # "2021-02-01
 	  date(2021, 2, 3)   # "2021-02-03
-	  
+
 Argument types can be specified explicitly:
 
 .. code-block:: julia
@@ -463,7 +464,7 @@ function call:
 .. code-block:: julia
 
 	  @which f(3, 4)
-   
+
 As functions in Julia are first-class objects, they can be passed
 as arguments to other functions.
 `Anonymous functions` are useful for such constructs:
@@ -472,7 +473,7 @@ as arguments to other functions.
 
    map(x -> x^2 + 2x - 1, [1, 3, -1])  # passes each element of the vector to the anonymous function
 
-   
+
 `Varargs` functions can take an arbitrary number of arguments:
 
 .. code-block:: julia
@@ -494,7 +495,7 @@ are split into individual arguments of a function call:
 	  # also possible:
 	  x = [1, 2, 3, 4, 5]
 
-	  f(x...)    # 15	  
+	  f(x...)    # 15
 
 
 Julia functions can be piped (chained) together:
@@ -503,8 +504,8 @@ Julia functions can be piped (chained) together:
 
 	  1:10 |> sum |> sqrt    # 7.416198487095663 (first summed, then square root)
 
-Inbuilt functions ending with ``!`` mutate their input variables, and this 
-convention should be adhered to when writing own functions. 
+Inbuilt functions ending with ``!`` mutate their input variables, and this
+convention should be adhered to when writing own functions.
 Compare, for example:
 
 .. code-block:: julia
@@ -513,7 +514,7 @@ Compare, for example:
 	sum(A)   # gives 10
 	sum!([1 1], A)  # mutates A into 1x2 Matrix with elements 4, 6
 
-	 
+
 Exception handling
 ------------------
 
@@ -568,17 +569,17 @@ The ``@assert`` *macro* can be used to throw an AssertionError if a condition do
 .. code-block:: julia
 
   @assert iseven(3) "3 is an odd number!"
-  # ERROR: AssertionError: 3 is an odd number!   
+  # ERROR: AssertionError: 3 is an odd number!
 
 
 Scope
 -----
 
-The scope of a variable is the region of code within which a variable is visible. 
+The scope of a variable is the region of code within which a variable is visible.
 Certain constructs introduce *scope blocks*:
 
-- Modules introduce a global scope that is separate from the global 
-  scopes of other modules. 
+- Modules introduce a global scope that is separate from the global
+  scopes of other modules.
 - There is no all-encompassing global scope.
 - Functions and macros define *hard* local scopes.
 - for, while and try blocks and structs define *soft* local scopes.
@@ -586,9 +587,9 @@ Certain constructs introduce *scope blocks*:
 When ``x = 123`` occurs in a local scope, the following rules apply:
 
 - Existing local: If x is already a local variable, then the existing local ``x`` is assigned.
-- Hard scope: If ``x`` is not already a local variable, a new local named ``x`` 
+- Hard scope: If ``x`` is not already a local variable, a new local named ``x``
   is created in the same scope.
-- Soft scope: If ``x`` is not already a local variable the behavior depends on whether 
+- Soft scope: If ``x`` is not already a local variable the behavior depends on whether
   the *global* variable ``x`` is defined:
 
   - if global ``x`` is undefined, a new local named ``x`` is created.
@@ -631,7 +632,7 @@ Examples:
    println(x)
    # returns 123
 
-Further details can be found at 
+Further details can be found at
 https://docs.julialang.org/en/v1/manual/variables-and-scoping/
 
 
@@ -668,12 +669,12 @@ Exercises
       # visit each index of A efficiently
       for i in eachindex(A)
           println("i = $i, A[i] = $(A[i])")
-      end         
+      end
 
-   can you tell whether Julia is row or column-major 
+   can you tell whether Julia is row or column-major
    ordered? (i.e., whether arrays are stacked one row or one column at a time in memory)
 
-   .. solution:: 
+   .. solution::
 
       .. code-block:: julia
 
@@ -682,7 +683,7 @@ Exercises
          # i = 1, A[i] = 1
          # i = 2, A[i] = 3
          # i = 3, A[i] = 2
-         # i = 4, A[i] = 4         
+         # i = 4, A[i] = 4
 
       which shows that Julia loops over columns since it's a column-major language!
 
@@ -692,12 +693,12 @@ Exercises
    Write a function which opens and reads a file and returns the number of words in it.
    Here are example codes for this task in other languages which you can translate:
 
-   .. tabs:: 
+   .. tabs::
 
       .. tab:: Python
 
          .. code-block:: python
-         
+
             def count_word_occurrence_in_file(file_name, word):
                 """
                 Counts how often word appears in file file_name.
@@ -788,10 +789,10 @@ Exercises
    - for multiples of five, print "Buzz" instead of the number
    - for multiples of both three and five, print "FizzBuzz" instead of the number
 
-   If you prefer translating a FizzBuzz code from your favorite language to Julia, you 
+   If you prefer translating a FizzBuzz code from your favorite language to Julia, you
    can find it on `Rosetta Code <https://rosettacode.org/wiki/FizzBuzz>`__.
 
-   .. solution:: 
+   .. solution::
 
       .. code-block:: julia
 
@@ -805,8 +806,8 @@ Exercises
              else
                  println(i)
              end
-         end         
+         end
 
 
-      On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`__  
+      On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`__
       you find several other Julia versions.

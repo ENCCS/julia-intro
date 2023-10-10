@@ -138,11 +138,12 @@ can not be redefined):
 
 .. code-block:: julia
 
-    struct Point{T}
+    struct Point{T<:Real}
         x::T
         y::T
     end
 
+Note that we restrict the type T to be a subtype of ``Real``.
 We can now create ``Point`` variables with explicitly different types:
 
 .. code-block:: julia
@@ -284,7 +285,7 @@ annotate are:
 
       .. code-block:: julia
 
-         struct Point{T}
+         struct Point{T<:Real}
              x::T
              y::T
          end
@@ -602,7 +603,7 @@ Exercises
 
       .. code-block:: julia
 
-         struct Point{T}
+         struct Point{T<:Real}
              x::T
              y::T
          end
