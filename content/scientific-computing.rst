@@ -35,6 +35,7 @@ Mathematics
 - `JuliaSparse <https://github.com/JuliaSparse>`_     – Sparse matrix solvers
 - `JuMP-dev <https://github.com/jump-dev>`__          - Modeling language for mathematical optimization
 
+
 Scientific domains
 ^^^^^^^^^^^^^^^^^^
 

@@ -21,38 +21,34 @@ Types
 Julia is a dynamically typed language and does not require users to explicitly declare types because types are *inferred* and used at runtime.
 The sophisticated type system helps Julia to generate efficient code.
 
-All types in Julia are defined in Julia language itself.
-This means that custom types are just as efficient as built-in types.
+All types in Julia are defined in Julia language itself. This means that custom types are just as efficient as built-in types.
 
 Julia's type system is also what enables `multiple dispatch <https://en.wikipedia.org/wiki/Multiple_dispatch>`__ that is, choosing the most specific method of a function based on the argument types.
 Multiple dispatch sets the language apart from most other languages and makes it composable and fast when combined with just-in-time (JIT) compilation using the LLVM compiler toolchain.
 
-Since types play a fundamental role in Julia's design it's important to
-have a mental model of Julia's type system. There are two basic kinds of
-types in Julia: 
+Since types play a fundamental role in Julia's design it's important to have a mental model of Julia's type system.
+There are two basic kinds of types in Julia: 
 
 - **Abstract types** which define the kind of a thing, that is, represent sets of related types. 
 - **Concrete types** which describe data structures, that is, concrete implementations that can be used for variables.
 
 Furthermore, a **primitive type** consists of plain bits such as an integer, character or floating point number.
 A **parametric type** represents a set of types.
-Types in Julia form a “type tree”, in which the leaves are concrete
-types.
+Types in Julia form a “type tree”, in which the leaves are concrete types.
 
 .. figure:: img/Type-hierarchy-for-julia-numbers.png
 
    Type hierarchy of number in Julia.
-   Adapted from `Wikimedia <https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png>`__,
-   licensed under `CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0/deed.en>`__.
+   Adapted from `Wikimedia <https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png>`_,
+   licensed under `CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0/deed.en>`_.
 
 
 Composite types
 ~~~~~~~~~~~~~~~
 
-New types, i.e. new kinds of data structures, can be defined with the
-``struct`` keyword, or ``mutable struct`` if you want to be able to
-change the values of fields in the new data structure. To take a
-classical example:
+New types, *i.e.*, new kinds of data structures, can be defined with the ``struct`` keyword,
+or ``mutable struct`` if you want to be able to change the values of fields in the new data structure.
+To take a classical example:
 
 .. code-block:: julia
 
@@ -61,8 +57,7 @@ classical example:
         y
     end
 
-One can also specify types of the individual fields (but we can't redefine structs, try running 
-this code!):
+One can also specify types of individual fields (but we can't redefine structs, try running this code!):
 
 .. code-block:: julia
 
@@ -132,9 +127,8 @@ methods are added to a function:
 Parametric types
 ~~~~~~~~~~~~~~~~
 
-A useful feature of Julia’s type system are *type parameters*: the
-ability to use parameters when defining types. For example (using a new name since structs 
-can not be redefined):
+A useful feature of Julia’s type system are *type parameters*: the ability to use parameters when defining types.
+For example (using a new name since structs can not be redefined):
 
 .. code-block:: julia
 
@@ -254,8 +248,7 @@ library of Julia has different implementations of ``+`` and ``^`` which
 will be chosen ("dispatched") at runtime according to the argument
 types.
 
-In most cases it's fine to omit types. The main reasons for adding type
-annotate are: 
+In most cases it's fine to omit types. The main reasons for adding type annotate are: 
 
 - Improve readability 
 - Catch errors 
@@ -779,12 +772,10 @@ Exercises
 See also
 --------
 
-- Aaron Christianson:
-  `Object Orientation and Polymorphism in Julia <https://github.com/ninjaaron/oo-and-polymorphism-in-julia>`__.
-- Christopher Rackauckas: 
-  `Type-Dispatch Design: Post Object-Oriented Programming for Julia 
+- Aaron Christianson: `Object Orientation and Polymorphism in Julia <https://github.com/ninjaaron/oo-and-polymorphism-in-julia>`__.
+- Christopher Rackauckas: `Type-Dispatch Design: Post Object-Oriented Programming for Julia 
   <https://www.stochasticlifestyle.com/type-dispatch-design-post-object-oriented-programming-julia/>`__.
 - `Documentation on metaprogramming <https://docs.julialang.org/en/v1/manual/metaprogramming/>`__.
 - `Metaprogramming tutorial from JuliaCon21 <https://github.com/dpsanders/Metaprogramming_JuliaCon_2021>`__.
-- `Full list of supported unicode symbols 
-  <https://docs.julialang.org/en/v1/manual/unicode-input/>`__.
+- `Full list of supported unicode symbols <https://docs.julialang.org/en/v1/manual/unicode-input/>`__.
+

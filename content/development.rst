@@ -17,22 +17,17 @@ Developing in Julia
 Tooling
 -------
 
-We will now switch from the Julia REPL to 
-`Visual Studio Code (VSCode) <https://code.visualstudio.com/>`_.
+We will now switch from the Julia REPL to `Visual Studio Code (VSCode) <https://code.visualstudio.com/>`_.
 While VSCode with the `Julia extension <https://code.visualstudio.com/docs/languages/julia>`_ 
-is the preferred development environment for many Julia programmers, there 
-are some alternatives:
+is the preferred development environment for many Julia programmers, there are some alternatives:
 
-- `Jupyter <https://jupyter.org/>`_:
-  Jupyter notebooks are familiar to many Python and R users. 
-- `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_:
-  Offers a similar notebook experience to Jupyter, but
-  understands global references between cells, and
-  reactively re-evaluates cells affected by a code change.
-- A text editor like nano, emacs, vim, etc., followed by running your
-  code with ``julia filename.jl``. There are also plugins for Julia for 
-  major text editors - do an internet search on e.g. "emacs julia" or "vim julia"
-  to find out more.
+- `Jupyter <https://jupyter.org/>`_: Jupyter notebooks are familiar to many Python and R users. 
+- `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_: Offers a similar notebook experience to Jupyter,
+  but understands global references between cells, and reactively re-evaluates cells affected by a code change.
+- A text editor like nano, emacs, vim, etc., followed by running your code with ``julia filename.jl``.
+  There are also plugins for Julia for major text editors - do an internet search on
+  *e.g.* "emacs julia" or "vim julia" to find out more.
+
 
 Using VSCode with the Julia extension
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -117,6 +112,7 @@ The difference is how variables defined in the module are brought into scope:
    It should return a list of the three symbols ``:Points``, ``:Point`` 
    and ``:sumsquare``.
 
+
 Revise
 ^^^^^^
 
@@ -140,6 +136,7 @@ Revise should be installed in one's root Julia environment:
 .. code-block:: julia
 
    julia -e 'using Pkg; Pkg.add("Revise")'
+
 
 Structure of a Julia package
 ----------------------------
@@ -218,8 +215,6 @@ Example package that ships with Julia.
       # type ?domath and ?hello to see the documentation
       domath(12)
       hello("Julia")
-
-
 
 
 Environments
@@ -356,7 +351,6 @@ want to develop a new package.
       end # module
 
 
-
 Testing
 -------
 
@@ -410,7 +404,6 @@ The ``@test``, ``@test_throws`` and ``@testset`` macros are highly useful and ca
 sufficient for many projects, but large projects sometimes need more advanced 
 functionality. This is provided in `ReTest <https://github.com/JuliaTesting/ReTest.jl>`__
 and other packages in the `JuliaTesting organization <https://github.com/JuliaTesting>`__.
-
 
 
 Exercises
@@ -492,12 +485,11 @@ Exercises
          Pkg.test("Points")
 
 
-
 See also
 --------
 
-- Tutorial on a `Julia coding workflow in VSCode <https://techytok.com/lesson-workflow/>`__
-- Documentation for `Julia in VSCode <https://www.julia-vscode.org/docs/stable/>`__
-- `JuliaTesting organization <https://github.com/JuliaTesting>`__.
-- `Pkg documentation <https://pkgdocs.julialang.org/v1/>`__
+- Tutorial on a `Julia coding workflow in VSCode <https://techytok.com/lesson-workflow/>`_.
+- Documentation for `Julia in VSCode <https://www.julia-vscode.org/docs/stable/>`_.
+- `JuliaTesting organization <https://github.com/JuliaTesting>`_.
+- `Pkg documentation <https://pkgdocs.julialang.org/v1/>`_.
      
