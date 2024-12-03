@@ -30,26 +30,22 @@ In the words of its developers:
    serious hackers happy. We want it interactive and we want it
    compiled. (Did we mention it should be as fast as C?)*
 
-From `Why We Created Julia
-<https://julialang.org/blog/2012/02/why-we-created-julia/>`_ by
-Jeff Bezanson Stefan Karpinski Viral B. Shah Alan Edelman
+From `Why We Created Julia <https://julialang.org/blog/2012/02/why-we-created-julia/>`_ by
+Jeff Bezanson Stefan Karpinski Viral B. Shah Alan Edelman.
+
 
 Speed
 -----
 
-Many researchers and programmers are drawn to Julia because of its
-speed. Indeed, Julia is among the few languages in the exclusive
-`petaflop club
-<https://www.hpcwire.com/off-the-wire/julia-joins-petaflop-club/>`_
-along with C, C++ and Fortran.
-
+Many researchers and programmers are drawn to Julia because of its speed.
+Indeed, Julia is among the few languages in the exclusive
+`petaflop club <https://www.hpcwire.com/off-the-wire/julia-joins-petaflop-club/>`_ along with C/C++ and Fortran.
 
 .. figure:: img/benchmarks.svg
    :align: center
 
-   Micro-benchmarks comparing Julia with many other languages. Taken
-   from the `Julia benchmarks section
-   <https://julialang.org/benchmarks/>`_
+   Micro-benchmarks comparing Julia with many other languages.
+   Taken from the `Julia benchmarks section <https://julialang.org/benchmarks/>`_.
 
 
 The two-language problem
@@ -69,45 +65,36 @@ this translation takes place differs between programming languages:
 - *Compiled* languages like C/C++ and Fortran are translated by a compiler 
   prior to running the program. 
 
-The benefits of
-interpreted languages are that they are easier to read and write
-because less information on aspects like types and array sizes needs
-to be provided.  **Programmer productivity** is thus higher in interpreted
-languages, but compiled languages can perform **faster by orders of
-magnitude** because the compiler can perform optimizations during the
-translation to assembly. This is also known as the two-language problem. 
+The benefits of interpreted languages are that they are easier to read and write
+because less information on aspects like types and array sizes needs to be provided.
+**Programmer productivity** is thus higher in interpreted languages, but compiled languages
+can perform **faster by orders of magnitude** because the compiler can perform optimizations
+during the translation to assembly. This is also known as the ``two-language problem``. 
 
-In many ways **Julia looks like an
-interpreted language**, and mostly behaves like one. But before each
-function is executed, Julia's LLVM compiler will 
-compile it "just in time" (JIT). More on that later.
-Thus you get the flexibility of an interpreted language and the
-execution speed of the compiled language at the cost of waiting a bit
-longer for the first execution of any function.
-
+In many ways **Julia looks like an interpreted language**, and mostly behaves like one.
+But before each function is executed, Julia's LLVM compiler will compile it ``just in time" (JIT)``.
+Thus you get the flexibility of an interpreted language and the execution speed of the compiled language
+at the cost of waiting a bit longer for the first execution of any function.
 
 
 Composability
 -------------
 
 Julia is highly `composable <https://en.wikipedia.org/wiki/Composability>`__,
-which means that by writing generic code, 
-components (packages) that have been developed independently can simply be used 
-together and the result is exactly what you would have dreamed about.
+which means that by writing generic code, components (packages) that have been developed independently
+can simply be used together and the result is exactly what you would have dreamed about.
 
 A well known example is the interplay between 
 `DifferentialEquations.jl <https://diffeq.sciml.ai/stable/>`__,  a package for 
 solving differential equations, and 
 `Measurements.jl <https://github.com/JuliaPhysics/Measurements.jl>`__, a package for 
 working with magnitudes where uncertainties are explicitly reckoned.
-Here's an example solving the simple pendulum equation: 
+
+Here's an example solving the simple pendulum equation (adapted from https://tutorials.sciml.ai/): 
 
 .. math::
 
    \ddot{\theta} + \frac{g}{L}\theta = 0
-
-
-(adapted from https://tutorials.sciml.ai/)
 
 .. code-block:: julia
 
@@ -134,8 +121,7 @@ Here's an example solving the simple pendulum equation:
    
    plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
 
-The result is a plot of the solution to the differential 
-equation with error bars!
+The result is a plot of the solution to the differential equation with error bars!
 
 .. figure:: img/composability.png
 
@@ -143,11 +129,10 @@ equation with error bars!
 Drawbacks and workarounds
 -------------------------
 
-**Time to first plot**: If you open the Julia REPL and type in a plotting command, it 
-will take a few seconds for the plot to appear because 
-Julia needs to *precompile* the fairly large Plots.jl package. This 
-makes Julia unsuitable for small scripts that get called frequently 
-to perform light work. 
+**Time to first plot**: If you open the Julia REPL and type in a plotting command,
+it will take a few seconds for the plot to appear because 
+Julia needs to *precompile* the fairly large Plots.jl package.
+This makes Julia unsuitable for small scripts that get called frequently to perform light work. 
 
 - Workaround 1: Use instead long-running REPL sessions
 - Workaround 2: One can use 
@@ -178,8 +163,6 @@ memory for actual computation.
   in future versions of Julia.
 
 
-
-
 What you will learn
 -------------------
 
@@ -197,10 +180,8 @@ data analysis, we recommend the following two ENCCS lessons:
 - `Julia for High-Performance Scientific Computing <https://enccs.github.io/julia-for-hpc/>`__
 - `Julia for High-Performance Data Analytics <https://enccs.github.io/julia-for-hpda/>`__
 
-This lesson should be seen as the starting point for learning the ins and outs of the 
-Julia language. Make sure to go through the recommended additional reading at the end of each 
-episode to learn more.
-
+This lesson should be seen as the starting point for learning the ins and outs of the Julia language.
+Make sure to go through the recommended additional reading at the end of each episode to learn more.
 
 
 See also

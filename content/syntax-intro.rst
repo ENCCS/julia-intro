@@ -26,6 +26,7 @@ This episodes provides a condensed overview of Julia's main syntax and features.
   <https://docs.julialang.org/en/v1/manual/noteworthy-differences/>`_
   which lists the respective differences in Julia.
 
+
 Running Julia
 -------------
 
@@ -48,13 +49,11 @@ We can write Julia code in various ways:
      all options type ``?``.
    - To exit any non-Julian mode, hit Backspace key.
 
-2. `Jupyter <https://jupyter.org/>`_:
-   Jupyter notebooks are familiar to many Python and R users.
+2. `Jupyter <https://jupyter.org/>`_: Jupyter notebooks are familiar to many Python and R users.
 
 3. `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_:
    Pluto offers a similar notebook experience to Jupyter, but in contrast
-   to Jupyter,
-   Pluto understands global references between cells, and
+   to Jupyter, Pluto understands global references between cells, and
    reactively re-evaluates cells affected by a code change.
 
 4. `Visual Studio Code <https://code.visualstudio.com/>`_ (VSCode):
@@ -64,8 +63,7 @@ We can write Julia code in various ways:
      activate Julia inside VSCode, see the `official documentation
      for instructions <https://code.visualstudio.com/docs/languages/julia>`_.
 
-5. A text editor like nano, emacs, vim, etc., followed by running your
-   code with ``julia filename.jl``.
+5. A text editor like nano, emacs, vim, etc., followed by running your code with ``julia filename.jl``.
 
 
 .. callout:: Firing up Julia
@@ -109,7 +107,7 @@ Basic syntax
 |                  | - ``Integer <: Real``               "Subtype of", returns True    |
 |                  | - ``struct``                        Immutable composite type      |
 |                  | - ``mutable struct``                Mutable composite type        |
-|                  | - ``:something``                   Symbol for a name or label     |
+|                  | - ``:something``                    Symbol for a name or label    |
 +------------------+-------------------------------------------------------------------+
 | Special values   | - ``Inf``                           Infinity (e.g. ``1 / 0``)     |
 |                  | - ``Nan``                           Not a number (e.g. ``0 / 0``) |
@@ -138,6 +136,7 @@ Let us explore some basic types in the Julia REPL:
     #  AbstractIrrational
     #  Integer
     #  Rational
+
 
 Vectors and arrays
 ------------------
@@ -226,8 +225,7 @@ We can play around with Vectors and Arrays to get used to their syntax:
 Loops and conditionals
 ----------------------
 
-``for`` loops iterate over iterables, including types like ``Range``,
-``Array``, ``Set`` and ``Dict``.
+``for`` loops iterate over iterables, including types like ``Range``, ``Array``, ``Set`` and ``Dict``.
 
 .. code-block:: julia
 
@@ -298,9 +296,8 @@ and then close it:
    # work with file...
    close(f)
 
-The recommended way to work with files is to use a
-do-block. At the end of the do-block the file will
-be closed automatically:
+The recommended way to work with files is to use a do-block.
+At the end of the do-block the file will be closed automatically:
 
 .. code-block:: julia
 
@@ -342,6 +339,7 @@ Some useful functions to work with files:
 +----------------------+---------------------------------------------------------+
 | ``homedir()``        | Return home directory                                   |
 +----------------------+---------------------------------------------------------+
+
 
 Functions
 ---------
@@ -398,8 +396,7 @@ Most operators (``+``, ``-``, ``*`` etc) are in fact functions, and can be used 
 	  (sqrt ∘ +)(3, 6)  # 3.0 (first summation, then square root)
 
 Just like Vectors and Arrays can be operated on element-wise (vectorized)
-by dot-operators (e.g. ``[1, 2, 3].^2``), functions can also be vectorized
-(broadcasting):
+by dot-operators (`e.g.`, ``[1, 2, 3].^2``), functions can also be vectorized (broadcasting):
 
 .. code-block:: julia
 
@@ -448,7 +445,6 @@ Return types can also be specified:
    end
 
 
-
 Additional **methods** can be added to functions simply by
 new definitions with different argument types:
 
@@ -458,15 +454,13 @@ new definitions with different argument types:
        return x*y
    end
 
-To find out which method is being dispatched for a particular
-function call:
+To find out which method is being dispatched for a particular function call:
 
 .. code-block:: julia
 
 	  @which f(3, 4)
 
-As functions in Julia are first-class objects, they can be passed
-as arguments to other functions.
+As functions in Julia are first-class objects, they can be passed as arguments to other functions.
 `Anonymous functions` are useful for such constructs:
 
 .. code-block:: julia
@@ -578,8 +572,7 @@ Scope
 The scope of a variable is the region of code within which a variable is visible.
 Certain constructs introduce *scope blocks*:
 
-- Modules introduce a global scope that is separate from the global
-  scopes of other modules.
+- Modules introduce a global scope that is separate from the global scopes of other modules.
 - There is no all-encompassing global scope.
 - Functions and macros define *hard* local scopes.
 - for, while and try blocks and structs define *soft* local scopes.
@@ -587,10 +580,8 @@ Certain constructs introduce *scope blocks*:
 When ``x = 123`` occurs in a local scope, the following rules apply:
 
 - Existing local: If x is already a local variable, then the existing local ``x`` is assigned.
-- Hard scope: If ``x`` is not already a local variable, a new local named ``x``
-  is created in the same scope.
-- Soft scope: If ``x`` is not already a local variable the behavior depends on whether
-  the *global* variable ``x`` is defined:
+- Hard scope: If ``x`` is not already a local variable, a new local named ``x`` is created in the same scope.
+- Soft scope: If ``x`` is not already a local variable, its behavior depends on whether *global* variable ``x`` is defined:
 
   - if global ``x`` is undefined, a new local named ``x`` is created.
   - if global ``x`` is defined, the assignment is considered ambiguous.
@@ -632,8 +623,8 @@ Examples:
    println(x)
    # returns 123
 
-Further details can be found at
-https://docs.julialang.org/en/v1/manual/variables-and-scoping/
+
+Further details can be found at `HERE <https://docs.julialang.org/en/v1/manual/variables-and-scoping/>`_.
 
 
 Style conventions
@@ -641,15 +632,15 @@ Style conventions
 
 - Names of variables are in lower case.
 - Word separation can be indicated by underscores (`_`), but use of
-  underscores is discouraged unless the name would be hard to read
-  otherwise.
+  underscores is discouraged unless the name would be hard to read otherwise.
 - Names of Types and Modules begin with a capital letter and word
   separation is shown with upper camel case instead of underscores.
 - Names of functions and macros are in lower case, without underscores.
-- Functions that write to their arguments have names that end in
-  ``!``. These are sometimes called "mutating" or "in-place" functions
+- Functions that write to their arguments have names that end in ``!``.
+  These are sometimes called "mutating" or "in-place" functions
   because they are intended to produce changes in their arguments
   after the function is called, not just return a value.
+
 
 Exercises
 ---------
@@ -657,7 +648,6 @@ Exercises
 .. challenge:: Practice yourself
 
   Was anything unclear or covered too fast in the walkthrough above? Revisit it, read the material, play around yourself and ask questions in the shared workshop document!
-
 
 .. challenge:: Row vs column-major ordering?
 
@@ -811,3 +801,4 @@ Exercises
 
       On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`__
       you find several other Julia versions.
+
