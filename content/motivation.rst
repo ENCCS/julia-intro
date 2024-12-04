@@ -12,6 +12,8 @@ Motivation
 
    - 15 min teaching
 
+
+
 Why was Julia created?
 ----------------------
 
@@ -30,8 +32,8 @@ In the words of its developers:
    serious hackers happy. We want it interactive and we want it
    compiled. (Did we mention it should be as fast as C?)*
 
-From `Why We Created Julia <https://julialang.org/blog/2012/02/why-we-created-julia/>`_ by
-Jeff Bezanson Stefan Karpinski Viral B. Shah Alan Edelman.
+From `Why We Created Julia <https://julialang.org/blog/2012/02/why-we-created-julia/>`_ by Jeff Bezanson Stefan Karpinski Viral B. Shah Alan Edelman.
+
 
 
 Speed
@@ -46,6 +48,7 @@ Indeed, Julia is among the few languages in the exclusive
 
    Micro-benchmarks comparing Julia with many other languages.
    Taken from the `Julia benchmarks section <https://julialang.org/benchmarks/>`_.
+
 
 
 The two-language problem
@@ -75,6 +78,7 @@ In many ways **Julia looks like an interpreted language**, and mostly behaves li
 But before each function is executed, Julia's LLVM compiler will compile it ``just in time" (JIT)``.
 Thus you get the flexibility of an interpreted language and the execution speed of the compiled language
 at the cost of waiting a bit longer for the first execution of any function.
+
 
 
 Composability
@@ -163,6 +167,7 @@ memory for actual computation.
   in future versions of Julia.
 
 
+
 What you will learn
 -------------------
 
@@ -182,6 +187,7 @@ data analysis, we recommend the following two ENCCS lessons:
 
 This lesson should be seen as the starting point for learning the ins and outs of the Julia language.
 Make sure to go through the recommended additional reading at the end of each episode to learn more.
+
 
 
 See also
