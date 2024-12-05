@@ -190,6 +190,11 @@ Vectors and arrays
 |                  | - ``zeros(4,4,4,4)``                Zero 4×4×4×4 Array{Float64,4} |
 |                  | - ``rand(12,4)``                    Random 12×4 Matrix{Float64}   |
 +------------------+-------------------------------------------------------------------+
+| Manipulating     | - ``push!(a, 10)``                  Append in-place               |
+| arrays           | - ``insert!(a, 1, 42)``             Insert in given position      |
+|                  | - ``append!(a, [3, 5, 7])``         Append another array          |
+|                  | - ``splice!(a, 3, -1)``             Rm in given pos and replace   |
++------------------+-------------------------------------------------------------------+
 | Inspecting       | - ``length(a)``                                                   |
 | array properties | - ``first(a)``                                                    |
 |                  | - ``last(a)``                                                     |
@@ -198,11 +203,7 @@ Vectors and arrays
 |                  | - ``argmin(a)``                                                   |
 |                  | - ``argmax(a)``                                                   |
 |                  | - ``size(a)``                                                     |
-+------------------+-------------------------------------------------------------------+
-| Manipulating     | - ``push!(a, 10)``                  Append in-place               |
-| arrays           | - ``insert!(a, 1, 42)``             Insert in given position      |
-|                  | - ``append!(a, [3, 5, 7])``         Append another array          |
-|                  | - ``splice!(a, 3, -1)``             Rm in given pos and replace   |
+
 +------------------+-------------------------------------------------------------------+
 
 We can play around with Vectors and Arrays to get used to their syntax:
@@ -235,6 +236,7 @@ We can play around with Vectors and Arrays to get used to their syntax:
    # test with matrix-vector multiply
    A*x == b
    # true
+
 
 
 Loops and conditionals
@@ -298,62 +300,6 @@ While loops:
        println(n)
    end
 
-
-Working with files
-------------------
-
-Obtain a file handle to start reading from file,
-and then close it:
-
-.. code-block:: julia
-
-   f = open("myfile.txt")
-   # work with file...
-   close(f)
-
-The recommended way to work with files is to use a do-block.
-At the end of the do-block the file will be closed automatically:
-
-.. code-block:: julia
-
-   open("myfile.txt") do f
-       # read from file
-       lines = readlines(f)
-       println(lines)
-   end
-
-Writing to a file:
-
-.. code-block:: julia
-
-   open("myfile.txt", "w") do f
-       write(f, "another line")
-   end
-
-
-Some useful functions to work with files:
-
-+----------------------+---------------------------------------------------------+
-| Function             |  What it does                                           |
-+======================+=========================================================+
-| ``pwd()``            | Show current directory                                  |
-+----------------------+---------------------------------------------------------+
-| ``cd(path)``         | Change directory                                        |
-+----------------------+---------------------------------------------------------+
-| ``readdir(path)``    | Return list of current directory                        |
-+----------------------+---------------------------------------------------------+
-| ``mkdir(path)``      | Create directory                                        |
-+----------------------+---------------------------------------------------------+
-| ``abspath(path)``    | Add current dir to filename                             |
-+----------------------+---------------------------------------------------------+
-| ``joinpath(p1, p2)`` | Join two paths                                          |
-+----------------------+---------------------------------------------------------+
-| ``isdir(path)``      | Check if path is a directory                            |
-+----------------------+---------------------------------------------------------+
-| ``splitdir(path)``   | Split path into tuple of dirname and filename           |
-+----------------------+---------------------------------------------------------+
-| ``homedir()``        | Return home directory                                   |
-+----------------------+---------------------------------------------------------+
 
 
 Functions
@@ -522,6 +468,65 @@ Compare, for example:
 	A = [1 2; 3 4]
 	sum(A)   # gives 10
 	sum!([1 1], A)  # mutates A into 1x2 Matrix with elements 4, 6
+
+
+
+Working with files
+------------------
+
+Obtain a file handle to start reading from file,
+and then close it:
+
+.. code-block:: julia
+
+   f = open("myfile.txt")
+   # work with file...
+   close(f)
+
+The recommended way to work with files is to use a do-block.
+At the end of the do-block the file will be closed automatically:
+
+.. code-block:: julia
+
+   open("myfile.txt") do f
+       # read from file
+       lines = readlines(f)
+       println(lines)
+   end
+
+Writing to a file:
+
+.. code-block:: julia
+
+   open("myfile.txt", "w") do f
+       write(f, "another line")
+   end
+
+
+Some useful functions to work with files:
+
++----------------------+---------------------------------------------------------+
+| Function             |  What it does                                           |
++======================+=========================================================+
+| ``pwd()``            | Show current directory                                  |
++----------------------+---------------------------------------------------------+
+| ``cd(path)``         | Change directory                                        |
++----------------------+---------------------------------------------------------+
+| ``readdir(path)``    | Return list of current directory                        |
++----------------------+---------------------------------------------------------+
+| ``mkdir(path)``      | Create directory                                        |
++----------------------+---------------------------------------------------------+
+| ``abspath(path)``    | Add current dir to filename                             |
++----------------------+---------------------------------------------------------+
+| ``joinpath(p1, p2)`` | Join two paths                                          |
++----------------------+---------------------------------------------------------+
+| ``isdir(path)``      | Check if path is a directory                            |
++----------------------+---------------------------------------------------------+
+| ``splitdir(path)``   | Split path into tuple of dirname and filename           |
++----------------------+---------------------------------------------------------+
+| ``homedir()``        | Return home directory                                   |
++----------------------+---------------------------------------------------------+
+
 
 
 Exception handling
