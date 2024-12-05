@@ -115,12 +115,13 @@ class SignatureDirective(_BaseCRDirective):
 class ParametersDirective(_BaseCRDirective):
     extra_classes = ["dropdown"]
 
-
 class TypealongDirective(_BaseCRDirective):
     extra_classes = ["toggle-shown", "dropdown"]
 
+class DemoDirective(_BaseCRDirective):
+    extra_classes = ["toggle-shown", "dropdown"]
 
-DIRECTIVES = [SignatureDirective, ParametersDirective, TypealongDirective]
+DIRECTIVES = [SignatureDirective, ParametersDirective, TypealongDirective, DemoDirective]
 
 
 def setup(app):
