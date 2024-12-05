@@ -1,6 +1,7 @@
 Special features of Julia
 =========================
 
+
 .. questions::
 
    - How does the type system in Julia work?
@@ -13,6 +14,7 @@ Special features of Julia
 
    - 30 min teaching
    - 30 min exercises
+
 
 
 Types
@@ -41,6 +43,7 @@ Types in Julia form a “type tree”, in which the leaves are concrete types.
    Type hierarchy of number in Julia.
    Adapted from `Wikimedia <https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png>`_,
    licensed under `CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0/deed.en>`_.
+
 
 
 Composite types
@@ -78,6 +81,7 @@ and its elements accessed by
 .. code-block:: julia
 
     p.x
+
 
 
 Constructors
@@ -124,6 +128,7 @@ methods are added to a function:
    # Point2D(1, 2)   
 
 
+
 Parametric types
 ~~~~~~~~~~~~~~~~
 
@@ -155,6 +160,7 @@ any specialized version ``Point{T}`` is a subtype of ``Point``:
 
     Point{Int64} <: Point   # returns true
     Point{Float64} <: Point   # returns true
+
 
 
 Design patterns
@@ -208,6 +214,7 @@ supertypes:
 
 Refer to the "See also" section below for more reading material on 
 code design in Julia.
+
 
 
 Functions and methods
@@ -344,6 +351,7 @@ We can even define a function with no methods for documentation purposes.
       types will fail. 
 
 
+
 Type stability
 ~~~~~~~~~~~~~~
 
@@ -388,6 +396,7 @@ Other convenience functions exist to make types consistent, including:
 - :meth:`eltype` to determine the type of the array elements
 - :meth:`similar` to create an uninitialized mutable array with 
   the given element type and size.
+
 
 
 Code generation
@@ -446,6 +455,7 @@ type signatures.
     @code_native sumsquare(1, 2)
     @code_native sumsquare(1.0, 2.0)
     @code_native sumsquare(p1, p2)
+
 
 
 Metaprogramming
@@ -571,6 +581,7 @@ It's also reassuring to know that Julia can solve the chicken-and-egg dilemma:
    # 2-element Vector{Symbol}:
    #  :🐔
    #  :🥚
+
 
 
 Exercises
@@ -768,6 +779,8 @@ Exercises
          @macroexpand @time x * x
 
          @macroexpand @enum Fruit apple=1 orange=2 kiwi=3
+
+
 
 See also
 --------

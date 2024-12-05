@@ -30,6 +30,7 @@ This episodes provides a condensed overview of Julia's main syntax and features.
   which lists the respective differences in Julia.
 
 
+
 Running Julia
 -------------
 
@@ -83,18 +84,13 @@ We can write Julia code in various ways:
 
 .. demo:: Using Julia on the LUMI cluster.
 
-   First add CSC's local module files to the module path.
+   Add CSC's local module files to the module path, then load the Julia module, and check the current version of Julia.
 
    .. code-block::
 
       module use /appl/local/csc/modulefiles
-
-   Then load the Julia module and check the current version of Julia.
-
-   .. code-block::
-
       module load julia
-	  julia --version
+      julia --version
 
 
 

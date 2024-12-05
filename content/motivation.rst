@@ -84,14 +84,14 @@ at the cost of waiting a bit longer for the first execution of any function.
 Composability
 -------------
 
-Julia is highly `composable <https://en.wikipedia.org/wiki/Composability>`__,
+Julia is highly `composable <https://en.wikipedia.org/wiki/Composability>`_,
 which means that by writing generic code, components (packages) that have been developed independently
 can simply be used together and the result is exactly what you would have dreamed about.
 
 A well known example is the interplay between 
-`DifferentialEquations.jl <https://diffeq.sciml.ai/stable/>`__,  a package for 
+`DifferentialEquations.jl <https://diffeq.sciml.ai/stable/>`_,  a package for 
 solving differential equations, and 
-`Measurements.jl <https://github.com/JuliaPhysics/Measurements.jl>`__, a package for 
+`Measurements.jl <https://github.com/JuliaPhysics/Measurements.jl>`_, a package for 
 working with magnitudes where uncertainties are explicitly reckoned.
 
 Here's an example solving the simple pendulum equation (adapted from https://tutorials.sciml.ai/): 
@@ -130,12 +130,13 @@ The result is a plot of the solution to the differential equation with error bar
 .. figure:: img/composability.png
 
 
+
 Drawbacks and workarounds
 -------------------------
 
 **Time to first plot**: If you open the Julia REPL and type in a plotting command,
 it will take a few seconds for the plot to appear because 
-Julia needs to *precompile* the fairly large Plots.jl package.
+Julia needs to *precompile* the fairly large ``Plots.jl`` package.
 This makes Julia unsuitable for small scripts that get called frequently to perform light work. 
 
 - Workaround 1: Use instead long-running REPL sessions

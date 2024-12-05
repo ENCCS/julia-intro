@@ -2,7 +2,7 @@ Introduction to programming in Julia
 ====================================
 
 Julia is a scientific programming language that is free and open
-source - see https://julialang.org/ for downloads, documentation,
+source - see the `official website <https://julialang.org/>`_ for downloads, documentation,
 learning resources etc. Bridging high-level interpreted and low-level
 compiled languages, it offers high performance (comparable to C and
 Fortran) without sacrificing simplicity and programming productivity
@@ -48,8 +48,6 @@ ENCCS lessons on Julia:
    development
    scientific-computing
 
-
-
 .. toctree::
    :maxdepth: 1
    :caption: Reference
@@ -60,6 +58,8 @@ ENCCS lessons on Julia:
 
 
 .. _learner-personas:
+
+
 
 Who is the lesson for?
 ----------------------
@@ -81,8 +81,6 @@ license information below.
 
 
 
-
-
 See also
 --------
 
@@ -99,6 +97,8 @@ The lesson file structure and browsing layout is inspired by and derived from
 <https://coderefinery.org/>`__ licensed under the `MIT license
 <http://opensource.org/licenses/mit-license.html>`__. We have copied and adapted
 most of their license text.
+
+
 
 Instructional Material
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -136,9 +136,10 @@ With the understanding that:
   publicity, privacy, or moral rights may limit how you use the material.
 
 
+
 Software
 ^^^^^^^^
 
 Except where otherwise noted, the example programs and other software provided
-with this repository are made available under the `OSI <http://opensource.org/>`__-approved
-`MIT license <https://opensource.org/licenses/mit-license.html>`__.
+with this repository are made available under the `OSI <http://opensource.org/>`_-approved
+`MIT license <https://opensource.org/licenses/mit-license.html>`_.

@@ -28,7 +28,6 @@ Why we teach this lesson
 ------------------------
 
 
-
 Intended learning outcomes
 --------------------------
 
@@ -58,3 +57,4 @@ Interesting questions you might get
 
 Typical pitfalls
 ----------------
+

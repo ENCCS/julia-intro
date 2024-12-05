@@ -107,10 +107,8 @@ html_context = {
 # add few new directives
 from sphinx_lesson.directives import _BaseCRDirective
 
-
 class SignatureDirective(_BaseCRDirective):
     extra_classes = ["toggle-shown", "dropdown"]
-
 
 class ParametersDirective(_BaseCRDirective):
     extra_classes = ["dropdown"]
