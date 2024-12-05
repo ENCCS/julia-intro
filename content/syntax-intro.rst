@@ -1,6 +1,7 @@
 Introduction to Julia syntax
 ============================
 
+
 .. questions::
 
    - How do I run Julia?
@@ -10,6 +11,8 @@ Introduction to Julia syntax
 
    - 20 min teaching
    - 20 min exercises
+
+
 
 This episodes provides a condensed overview of Julia's main syntax and features.
 
@@ -76,6 +79,22 @@ We can write Julia code in various ways:
    .. figure:: img/repl.png
       :align: center
       :scale: 40 %
+
+
+.. demo:: Using Julia on the LUMI cluster.
+
+   First add CSC's local module files to the module path.
+
+   .. code-block::
+
+      module use /appl/local/csc/modulefiles
+
+   Then load the Julia module and check the current version of Julia.
+
+   .. code-block::
+
+      module load julia
+	  julia --version
 
 
 
