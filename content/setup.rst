@@ -4,6 +4,8 @@ Setup
 Please follow the instructions on this page to install both **Julia** and **VS Code** with the Julia 
 plugin on your machine.
 
+
+
 Installing Julia
 ----------------
 
@@ -17,6 +19,7 @@ Option 2 is the recommended installation method on Windows, MacOS and Linux.
 The benefit of `juliaup` is that it allows users to install specific Julia versions, it alerts 
 users when new Julia versions are released and it provides a convenient Julia release channel 
 abstraction. Both installation methods are nonetheless documented here.
+
 
 
 1. Using the Julia installer
@@ -37,6 +40,7 @@ For Windows users who do not already have a terminal installed, we recommend to 
 `Windows Terminal from the Microsoft Store <https://www.microsoft.com/sv-se/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab>`_.
 
 
+
 2. Using Juliaup      
 ^^^^^^^^^^^^^^^^
 
@@ -49,6 +53,7 @@ In short:
   by executing ``winget install julia -s msstore``.
 - On MacOS or Linux, type ``curl -fsSL https://install.julialang.org | sh`` on a command line 
   and follow the instructions.  
+
 
 
 3. Checking your installation
@@ -65,10 +70,12 @@ Type ``versioninfo()`` to get detailed information about the installed Julia pac
 To exit the REPL again, hit ``CTRL-d`` or type ``exit()``.
 
 
+
 Installing Visual Studio Code
 -----------------------------
 
 First install VSCode according to the `official documentation <https://code.visualstudio.com/Download>`_. 
+
 
 
 Installing the VSCode Julia extension
@@ -103,6 +110,7 @@ In this field enter the path to the Julia executable that you have installed.
 If you are curious, scroll through the other possible configuration settings!
 
 
+
 (Optional) Installing JupyterLab and a Julia kernel
 ---------------------------------------------------
 
@@ -118,6 +126,8 @@ download an installer for your operating system and follow the instructions.
 After activating a ``conda`` environment in your terminal, you can install
 JupyterLab with the command ``conda install jupyterlab``.
 
+
+
 Add Julia to JupyterLab
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -126,6 +136,8 @@ install the ``IJulia`` Julia package. Open the Julia REPL and type::
 
   using Pkg
   Pkg.add("IJulia")
+
+
 
 Create a Julia notebook
 ^^^^^^^^^^^^^^^^^^^^^^^

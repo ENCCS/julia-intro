@@ -586,6 +586,7 @@ The ``@assert`` *macro* can be used to throw an AssertionError if a condition do
   # ERROR: AssertionError: 3 is an odd number!
 
 
+
 Scope
 -----
 
@@ -647,6 +648,7 @@ Examples:
 Further details can be found at `HERE <https://docs.julialang.org/en/v1/manual/variables-and-scoping/>`_.
 
 
+
 Style conventions
 -----------------
 
@@ -660,6 +662,7 @@ Style conventions
   These are sometimes called "mutating" or "in-place" functions
   because they are intended to produce changes in their arguments
   after the function is called, not just return a value.
+
 
 
 Exercises
@@ -819,6 +822,6 @@ Exercises
          end
 
 
-      On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`__
+      On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`_
       you find several other Julia versions.
 

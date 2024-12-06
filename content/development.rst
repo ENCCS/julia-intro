@@ -1,6 +1,8 @@
 Developing in Julia
 ===================
 
+
+
 .. questions::
 
    - What development tools exist for Julia?
@@ -12,6 +14,7 @@ Developing in Julia
 
    - 30 min teaching
    - 30 min exercises
+
 
 
 Tooling
@@ -27,6 +30,7 @@ is the preferred development environment for many Julia programmers, there are s
 - A text editor like nano, emacs, vim, etc., followed by running your code with ``julia filename.jl``.
   There are also plugins for Julia for major text editors - do an internet search on
   *e.g.* "emacs julia" or "vim julia" to find out more.
+
 
 
 Using VSCode with the Julia extension
@@ -53,6 +57,7 @@ we can fire up a VSCode session and explore the functionality.
    - A REPL should open up below our code file and show the result of the execution.
    - The `Julia in VSCode <https://www.julia-vscode.org/docs/stable/userguide/runningcode/>`__ 
      documentation is a useful reference.
+
 
 
 Modules
@@ -113,6 +118,7 @@ The difference is how variables defined in the module are brought into scope:
    and ``:sumsquare``.
 
 
+
 Revise
 ^^^^^^
 
@@ -138,6 +144,7 @@ Revise should be installed in one's root Julia environment:
    julia -e 'using Pkg; Pkg.add("Revise")'
 
 
+
 Structure of a Julia package
 ----------------------------
 
@@ -160,6 +167,7 @@ according to their functionality.
    - The ``test/`` subfolder if it exists
    - Files in the ``src/`` subfolder
    - The structure of the main module file and the other files under ``src/``
+
 
 
 The package manager
@@ -215,6 +223,7 @@ Example package that ships with Julia.
       # type ?domath and ?hello to see the documentation
       domath(12)
       hello("Julia")
+
 
 
 Environments
@@ -283,6 +292,7 @@ can be easily created on different computers.
    environment.
 
 
+
 Creating environments for other projects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -305,6 +315,7 @@ For example:
 
    # install packages from Manifest.toml or Project.toml
    Pkg.instantiate()
+
 
 
 Creating a new project
@@ -349,6 +360,7 @@ want to develop a new package.
       x = domath(10)
 
       end # module
+
 
 
 Testing
@@ -404,6 +416,7 @@ The ``@test``, ``@test_throws`` and ``@testset`` macros are highly useful and ca
 sufficient for many projects, but large projects sometimes need more advanced 
 functionality. This is provided in `ReTest <https://github.com/JuliaTesting/ReTest.jl>`__
 and other packages in the `JuliaTesting organization <https://github.com/JuliaTesting>`__.
+
 
 
 Exercises
@@ -483,6 +496,7 @@ Exercises
       .. code-block:: julia
 
          Pkg.test("Points")
+
 
 
 See also

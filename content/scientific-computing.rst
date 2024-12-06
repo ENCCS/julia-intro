@@ -13,6 +13,7 @@ Scientific computing ecosystem
    - 0 min exercises
 
 
+
 Ecosystem of scientific computing packages
 ------------------------------------------
 
@@ -20,6 +21,7 @@ Julia has a rich and rapidly expanding ecosystem of packages for scientific comp
 in many scientific domains. In many cases developers of individual packages join forces 
 to create mutually compatible and supporting packages organized under a common GitHub 
 organization. The following list can be of some help in navigating the ecosystem.
+
 
 
 Mathematics
@@ -36,6 +38,7 @@ Mathematics
 - `JuMP-dev <https://github.com/jump-dev>`__          - Modeling language for mathematical optimization
 
 
+
 Scientific domains
 ^^^^^^^^^^^^^^^^^^
 
@@ -48,6 +51,7 @@ Scientific domains
 - `QuantumBFS <https://github.com/QuantumBFS/Yao.jl>`_  – Extensible, Efficient Quantum Algorithm Design for Humans
 - `JuliaPhysics <https://github.com/JuliaPhysics>`_  – Physics
 - `JuliaDynamics <https://github.com/JuliaDynamics>`_  - Dynamical systems, nonlinear dynamics and chaos.
+
 
 
 Data sciences
