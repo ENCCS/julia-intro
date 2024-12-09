@@ -162,9 +162,9 @@ In order to run Julia batch jobs on LUMI, we use the following directory structu
 
 	.
 	├── script.jl     # Julia script
-	└── batch.sh     # Slurm batch script
+	└── batch.sh      # Slurm batch script
 
-An example of the ``batch.sh`` script
+An example of the ``batch.sh`` script is shown below.
 
 .. code-block:: bash
 
@@ -194,6 +194,8 @@ An example of the ``script.jl`` code is provided below.
 
    println("----EOF----")
 
+Run the command ``sbatch batch.sh`` to submit your jobs at the right directory.
+
 
 
 Running Julia interactive jobs
@@ -201,26 +203,30 @@ Running Julia interactive jobs
 
 
 Interactive jobs allow a user to interact with applications on compute nodes. With an interactive job, you request time and resources to work on a compute node directly, which is different to a batch job where you submit your job to a queue for later execution.
+You can either use ``salloc`` + ``srun`` or just use ``srun`` to create an interactive session. The two options are similar to ``sbatch``.
 
-Using ``salloc``
 
-Using ``salloc``, you allocate resources and spawn a shell used to execute parallel tasks
+**Using ``salloc``**
 
-.. code-block:: console
-
-   $ salloc -A project_465001310 -N 1 -t 1:00:00 -p standard-g
-
-Once the allocation is made, this command will start a shell on the login node. You can start parallel execution on the allocated nodes with srun.
+Using ``salloc``, you allocate resources and spawn a shell used to execute the computing task.
 
 .. code-block:: console
 
+   $ salloc -A project_465001310 -N 1 -t 0:10:00 -p standard-g
+
+Once the allocation is made, this command will start a shell on the login node. You can start your computation on the allocated node(s) with ``srun``.
+
+.. code-block:: console
+
+   $ module use /appl/local/csc/modulefiles
+   $ module load julia
    $ srun --ntasks-per-core=1 julia script.jl
 
 
 
-Using ``srun``
+**Using ``srun``**
 
-For simple interactive session, you can use srun with no prior allocation. In this scenario, srun will first create a resource allocation in which to run the job. For example, to allocate 1 node for 10 minutes and spawn a shell
+For simple interactive session, you can use srun with no prior allocation. In this scenario, ``srun`` will first create a resource allocation in which to run the job. For example, to allocate 1 node for 10 minutes and spawn a shell to run your computational task.
 
 .. code-block:: console
 
