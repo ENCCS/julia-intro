@@ -147,3 +147,51 @@ Now you should be able to open up a JupyterLab session by typing
 on Julia in the JupyterLab Launcher or by selecting ``File > New > Notebook``
 and selecting a Julia kernel in the drop-down menu that appears.
 
+
+
+Running Julia jobs on LUMI
+--------------------------
+
+
+Running Julia batch jobs
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to run Julia batch jobs on LUMI, we use the following directory structure and assume it is in your working directory.
+
+.. code-block:: console
+
+	.
+	├── script.jl     # Julia script
+	└── batch.sh     # Slurm batch script
+
+An example of the ``batch.sh`` script
+
+.. code-block:: bash
+
+   #!/bin/bash -l
+   #SBATCH --account=project_465001310
+   #SBATCH --partition=small
+   #SBATCH --time=00:10:00
+   #SBATCH --nodes=1
+   #SBATCH --ntasks-per-node=1
+   #SBATCH --cpus-per-task=1
+   #SBATCH --mem-per-cpu=1000
+
+   module use /appl/local/csc/modulefiles
+   module load julia
+
+   julia script.jl
+
+An example of the ``script.jl`` code is provided below.
+
+.. code-block:: julia
+
+   println("Hello, Julia")
+   
+   println(2+3)
+   
+   println(big(10)^19)
+
+   println("----EOF----")
+
+
