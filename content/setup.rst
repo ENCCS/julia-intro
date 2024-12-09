@@ -206,7 +206,7 @@ Interactive jobs allow a user to interact with applications on compute nodes. Wi
 You can either use ``salloc`` + ``srun`` or just use ``srun`` to create an interactive session. The two options are similar to ``sbatch``.
 
 
-**Using salloc**
+**Using salloc + srun**
 
 Using ``salloc``, you allocate resources and spawn a shell used to execute the computing task.
 
