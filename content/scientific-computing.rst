@@ -3,6 +3,7 @@
 Scientific computing ecosystem
 ==============================
 
+
 .. questions::
 
    - What libraries are available for scientific computing in Julia?

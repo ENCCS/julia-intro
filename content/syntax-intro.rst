@@ -9,7 +9,7 @@ Introduction to Julia syntax
 
 .. instructor-note::
 
-   - 20 min teaching
+   - 30 min teaching
    - 20 min exercises
 
 
