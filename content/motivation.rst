@@ -98,7 +98,7 @@ Here's an example solving the simple pendulum equation (adapted from https://tut
 
 .. math::
 
-   \ddot{\theta} + \frac{g}{L}\theta = 0
+   \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0
 
 .. code-block:: julia
 
