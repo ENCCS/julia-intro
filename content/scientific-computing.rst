@@ -7,7 +7,7 @@ Scientific computing ecosystem
 .. questions::
 
    - What libraries are available for scientific computing in Julia?
-     
+
 .. instructor-note::
 
    - 10 min teaching
@@ -18,9 +18,9 @@ Scientific computing ecosystem
 Ecosystem of scientific computing packages
 ------------------------------------------
 
-Julia has a rich and rapidly expanding ecosystem of packages for scientific computing 
-in many scientific domains. In many cases developers of individual packages join forces 
-to create mutually compatible and supporting packages organized under a common GitHub 
+Julia has a rich and rapidly expanding ecosystem of packages for scientific computing
+in many scientific domains. In many cases developers of individual packages join forces
+to create mutually compatible and supporting packages organized under a common GitHub
 organization. The following list can be of some help in navigating the ecosystem.
 
 
@@ -33,7 +33,7 @@ Mathematics
 - `JuliaGraphs <https://github.com/JuliaGraphs>`_     – Graph Theory and Implementation
 - `JuliaIntervals <https://github.com/JuliaIntervals>`_  - Rigorous numerics with interval arithmetic & applications
 - `JuliaMath <https://github.com/JuliaMath>`_       – Mathematics made easy in Julia
-- `JuliaOpt <https://github.com/JuliaOpt>`_        – Optimization 
+- `JuliaOpt <https://github.com/JuliaOpt>`_        – Optimization
 - `JuliaPolyhedra <https://github.com/JuliaPolyhedra>`_  – Polyhedral computation
 - `JuliaSparse <https://github.com/JuliaSparse>`_     – Sparse matrix solvers
 - `JuMP-dev <https://github.com/jump-dev>`__          - Modeling language for mathematical optimization
@@ -43,23 +43,24 @@ Mathematics
 Scientific domains
 ^^^^^^^^^^^^^^^^^^
 
-- `BioJulia <https://github.com/BioJulia>`_ – Biology 
+- `BioJulia <https://github.com/BioJulia>`_ – Biology
 - `EcoJulia <https://github.com/EcoJulia>`_  – Ecology
-- `JuliaAstro <https://github.com/JuliaAstro>`_  – Astronomy 
+- `JuliaAstro <https://github.com/JuliaAstro>`_  – Astronomy
 - `JuliaDSP <https://github.com/JuliaDSP>`_  – Digital signal processing
 - `JuliaQuant <https://github.com/JuliaQuant>`_  – Finance
-- `JuliaQuantum <https://github.com/JuliaQuantum>`_  – Julia libraries for quantum science and technology 
+- `JuliaQuantum <https://github.com/JuliaQuantum>`_  – Julia libraries for quantum science and technology
 - `QuantumBFS <https://github.com/QuantumBFS/Yao.jl>`_  – Extensible, Efficient Quantum Algorithm Design for Humans
 - `JuliaPhysics <https://github.com/JuliaPhysics>`_  – Physics
 - `JuliaDynamics <https://github.com/JuliaDynamics>`_  - Dynamical systems, nonlinear dynamics and chaos.
 
 
 
-Data sciences
+Data science
 ^^^^^^^^^^^^^
 
-- `SciML <https://github.com/SciML>`_   – Scientific machine learning 
+- `SciML <https://github.com/SciML>`_   – Scientific machine learning
 - `FluxML <https://github.com/FluxML/>`_ - Machine learning stack
+- `LuxDL <https://github.com/LuxDL>`_ - Functional deep learning
 - `JuliaML <https://github.com/JuliaML>`_  – Machine Learning
 - `JuliaStats <https://github.com/JuliaStats>`_  – Statistics
 - `JuliaImages <https://github.com/JuliaImages>`_  – Image Processing
