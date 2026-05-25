@@ -1,7 +1,7 @@
 Setup
 =====
 
-Please follow the instructions on this page to install both **Julia** and **VS Code** with the Julia 
+Please follow the instructions on this page to install both **Julia** and **VS Code** with the Julia
 plugin on your machine.
 
 
@@ -11,21 +11,22 @@ Installing Julia
 
 There are two ways to install Julia:
 
-1. Downloading an `installer <https://julialang.org/downloads/#current_stable_release>`__ 
+1. Downloading an `installer <https://julialang.org/downloads/#current_stable_release>`__
    for your operating system for the latest stable Julia version.
 2. Using `Juliaup <https://github.com/JuliaLang/juliaup>`__, the Julia version manager.
 
-Option 2 is the recommended installation method on Windows, MacOS and Linux.
-The benefit of `juliaup` is that it allows users to install specific Julia versions, it alerts 
-users when new Julia versions are released and it provides a convenient Julia release channel 
-abstraction. Both installation methods are nonetheless documented here.
+Option 2 is the recommended installation method on Windows, MacOS and Linux. The
+benefit of `juliaup` is that it allows users to install specific Julia versions,
+it alerts users when new Julia versions are released and it provides a
+convenient Julia release channel abstraction. Both installation methods are
+nonetheless documented here.
 
 
 
 1. Using the Julia installer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First download the latest stable release of Julia for your operating system 
+First download the latest stable release of Julia for your operating system
 `from the julialang.org website <https://julialang.org/downloads/#current_stable_release>`_.
 
 .. figure:: img/installers.png
@@ -33,55 +34,66 @@ First download the latest stable release of Julia for your operating system
 
 Follow the instructions to complete the installation.
 
-Platform-specific instructions can be found at `HERE <https://julialang.org/downloads/platform/>`_.
-It is convenient to be able to run Julia from the command line, so follow the instructions for 
-``adding Julia to PATH``.  
-For Windows users who do not already have a terminal installed, we recommend to install the 
-`Windows Terminal from the Microsoft Store <https://www.microsoft.com/sv-se/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab>`_.
+Platform-specific instructions can be found `here
+<https://julialang.org/downloads/platform/>`__. It is convenient to be able to
+run Julia from the command line, so follow the instructions to add Julia to
+`$PATH`. For Windows users who do not already have a terminal installed, we
+recommend to install the `Windows Terminal from the Microsoft Store
+<https://www.microsoft.com/sv-se/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab>`_.
 
 
 
-2. Using Juliaup      
+2. Using Juliaup
 ^^^^^^^^^^^^^^^^
 
 Full instructions can be found at https://github.com/JuliaLang/juliaup.
 
 In short:
 
-- On Windows you can install Julia and Juliaup either through the 
-  `Windows store <https://www.microsoft.com/store/apps/9NJNWW8PVKMN>`_ or on a command line 
-  by executing ``winget install julia -s msstore``.
-- On MacOS or Linux, type ``curl -fsSL https://install.julialang.org | sh`` on a command line 
-  and follow the instructions.  
+- On Windows you can install Julia and Juliaup either through the `Windows store
+  <https://www.microsoft.com/store/apps/9NJNWW8PVKMN>`_ or on a command line by
+  executing ``winget install julia -s msstore``.
+
+- On MacOS or Linux, type ``curl -fsSL https://install.julialang.org | sh``
+  on a command line and follow the instructions.
 
 
 
 3. Checking your installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Regardless of how you installed Julia, please ensure that you can open the Julia REPL by typing ``julia``
-on the command line in a terminal, or by clicking the Julia icon on your Desktop or Applications folder.
-You should see something like in the image below (nevermind the version number).
+Regardless of how you installed Julia, please ensure that you can open the Julia
+REPL by typing ``julia`` on the command line in a terminal, or by clicking the
+Julia icon on your Desktop or Applications folder. You should see something like
+in the image below (disregard the version number).
 
 .. figure:: img/repl.png
    :align: center
 
-Type ``versioninfo()`` to get detailed information about the installed Julia package.
+Type ``versioninfo()`` to get detailed information about the installed Julia runtime.
 To exit the REPL again, hit ``CTRL-d`` or type ``exit()``.
 
 
+Development environment
+------------------------
+
+In principle, you only need your preferred text editor and the REPL to start
+writing Julia. However, your experience might be better using a fully fledged
+IDE like Visual studio Code or `Zed <https://zed.dev/>`_; both have extensions
+for Julia. With some more preliminary effort you can also use Neovim with some
+LSP plugins. In the following, we provide specific instructions for VS Code.
 
 Installing Visual Studio Code
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First install VSCode according to the `official documentation <https://code.visualstudio.com/Download>`_. 
+First install VSCode according to the `official documentation <https://code.visualstudio.com/Download>`_.
 
 
 
 Installing the VSCode Julia extension
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After starting VSCode, click the ``Extensions`` button on the left-side menu, type ``Julia`` and 
+After starting VSCode, click the ``Extensions`` button on the left-side menu, type ``Julia`` and
 click ``Install``` to install the Julia extension.
 
 .. figure:: img/vscode_extensionbutton.png
@@ -114,14 +126,12 @@ If you are curious, scroll through the other possible configuration settings!
 (Optional) Installing JupyterLab and a Julia kernel
 ---------------------------------------------------
 
-JupyterLab can most easily be installed through the full Anaconda distribution 
-of Python packages or the minimal Miniconda distribution.
+JupyterLab can most easily be installed through the Miniconda Python
+distribution. If you already have a working Jupyter installation feel free to
+skip to the next subsection.
 
-To install Anaconda, visit `HERE <https://www.anaconda.com/products/individual>`_,
-download an installer for your operating system and follow the instructions.
-JupyterLab and an IPython kernel are included in the distribution.
 
-To install Miniconda, visit `HERE <https://docs.conda.io/en/latest/miniconda.html>`_,
+To install Miniconda, visit https://docs.conda.io/en/latest/miniconda.html,
 download an installer for your operating system and follow the instructions.
 After activating a ``conda`` environment in your terminal, you can install
 JupyterLab with the command ``conda install jupyterlab``.
@@ -156,7 +166,8 @@ Running Julia jobs on LUMI
 Running Julia batch jobs
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to run Julia batch jobs on LUMI, we use the following directory structure and assume it is in your working directory.
+In order to run Julia batch jobs on LUMI, we use the following directory
+structure and assume it is in your working directory.
 
 .. code-block:: console
 
@@ -187,9 +198,9 @@ An example of the ``script.jl`` code is provided below.
 .. code-block:: julia
 
    println("Hello, Julia")
-   
+
    println(2+3)
-   
+
    println(big(10)^19)
 
    println("----EOF----")
@@ -234,4 +245,3 @@ For simple interactive session, you can use srun with no prior allocation. In th
    $ module load julia
 
    $ srun --account=project_465001310 --partition=standard-g --nodes=1 --cpus-per-task=1 --ntasks-per-node=1 --time=0:10:00 --pty julia script.jl
-

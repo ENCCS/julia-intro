@@ -9,7 +9,7 @@ Developing in Julia
    - How can I write modules and packages in Julia?
    - How can reproducible environments be created?
    - How are tests written in Julia?
-          
+
 .. instructor-note::
 
    - 30 min teaching
@@ -21,10 +21,10 @@ Tooling
 -------
 
 We will now switch from the Julia REPL to `Visual Studio Code (VSCode) <https://code.visualstudio.com/>`_.
-While VSCode with the `Julia extension <https://code.visualstudio.com/docs/languages/julia>`_ 
+While VSCode with the `Julia extension <https://code.visualstudio.com/docs/languages/julia>`_
 is the preferred development environment for many Julia programmers, there are some alternatives:
 
-- `Jupyter <https://jupyter.org/>`_: Jupyter notebooks are familiar to many Python and R users. 
+- `Jupyter <https://jupyter.org/>`_: Jupyter notebooks are familiar to many Python and R users.
 - `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_: Offers a similar notebook experience to Jupyter,
   but understands global references between cells, and reactively re-evaluates cells affected by a code change.
 - A text editor like nano, emacs, vim, etc., followed by running your code with ``julia filename.jl``.
@@ -36,26 +36,26 @@ is the preferred development environment for many Julia programmers, there are s
 Using VSCode with the Julia extension
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After following the :doc:`setup` instructions to install VSCode and the Julia extension, 
+After following the :doc:`setup` instructions to install VSCode and the Julia extension,
 we can fire up a VSCode session and explore the functionality.
 
 .. type-along:: Getting acquainted with VSCode
 
    - Open up VSCode either through a file browser or via the terminal command ``code``.
-   - We should see a *Get started* page where we can create a new file, open a 
-     folder or clone a git repository. The same options can be found in the Explorer 
+   - We should see a *Get started* page where we can create a new file, open a
+     folder or clone a git repository. The same options can be found in the Explorer
      menu in the left sidebar.
-   - Let's create a new text file. VSCode will ask for a language, which you can select 
+   - Let's create a new text file. VSCode will ask for a language, which you can select
      from a menu, but we can also save it as a ``.jl`` file and VSCode will understand
-     it's a Julia file. 
-   - Type ``println("hello world!")`` in the file and save it to a new folder (e.g. 
+     it's a Julia file.
+   - Type ``println("hello world!")`` in the file and save it to a new folder (e.g.
      a new folder ``workshop/`` under a ``julia/`` folder in your home directory).
-   - To execute the file, we can press the *play* button in the top right corner, 
-     or open up the command palette search with ``Ctrl+Shift+p`` (``CMD`` on Mac) 
+   - To execute the file, we can press the *play* button in the top right corner,
+     or open up the command palette search with ``Ctrl+Shift+p`` (``CMD`` on Mac)
      and type ``Julia: Execute active File in REPL``, or by hitting ``Shift+Enter``
      on the code line like in Jupyter.
    - A REPL should open up below our code file and show the result of the execution.
-   - The `Julia in VSCode <https://www.julia-vscode.org/docs/stable/userguide/runningcode/>`__ 
+   - The `Julia in VSCode <https://www.julia-vscode.org/docs/stable/userguide/runningcode/>`__
      documentation is a useful reference.
 
 
@@ -63,16 +63,16 @@ we can fire up a VSCode session and explore the functionality.
 Modules
 -------
 
-Code written in Julia is normally encapsulated in modules. Modules 
-have their own global scope (namespace) separate from the global scope of 
-other modules (including ``Main``, the top-level module). 
+Code written in Julia is normally encapsulated in modules. Modules
+have their own global scope (namespace) separate from the global scope of
+other modules (including ``Main``, the top-level module).
 Modules are imported by either the ``using`` or ``import`` keywords.
 The difference is how variables defined in the module are brought into scope:
 
-- With ``using ModuleName``, all `exported` names (variables and functions) in the 
-  module are brought into scope. Non-exported names are still available via 
+- With ``using ModuleName``, all `exported` names (variables and functions) in the
+  module are brought into scope. Non-exported names are still available via
   ``ModuleName.func()`` or ``ModuleName.var1``.
-- With ``import ModuleName``, all the module's names need to be qualified, e.g. 
+- With ``import ModuleName``, all the module's names need to be qualified, e.g.
   ``ModuleName.func()`` or ``ModuleName.var1``.
 
 .. type-along:: Creating a module
@@ -83,7 +83,7 @@ The difference is how variables defined in the module are brought into scope:
    .. code-block:: julia
 
       module Points
- 
+
       export Point, sumsquare
 
       struct Point{T<:Real}
@@ -97,11 +97,11 @@ The difference is how variables defined in the module are brought into scope:
 
       end
 
-   We can now import and use the module. First we include it either by 
+   We can now import and use the module. First we include it either by
    ``include("Points.jl")`` or by hitting ``Shift+Enter`` to evaluate the whole file.
-   Since our new module is defined within 
-   the current ``Main`` module, we need to import it with a dot in front, ``using .Points`` 
-   (an alternative is to add our current path with the Points module to Julia's 
+   Since our new module is defined within
+   the current ``Main`` module, we need to import it with a dot in front, ``using .Points``
+   (an alternative is to add our current path with the Points module to Julia's
    LOAD_PATH, ``push!(LOAD_PATH, pwd())``, after which no dot is needed):
 
    .. code-block:: julia
@@ -111,10 +111,10 @@ The difference is how variables defined in the module are brought into scope:
       p2 = Point(1.0, 2.0)
       p3 = sumsquare(p1, p2)
 
-      # list all names exported from our module 
+      # list all names exported from our module
       names(Points)
 
-   It should return a list of the three symbols ``:Points``, ``:Point`` 
+   It should return a list of the three symbols ``:Points``, ``:Point``
    and ``:sumsquare``.
 
 
@@ -122,24 +122,24 @@ The difference is how variables defined in the module are brought into scope:
 Revise
 ^^^^^^
 
-Before `Revise.jl <https://timholy.github.io/Revise.jl/stable/>`__  
-was created, it was necessary to restart the Julia 
-REPL when developing a package for new changes to take effect in the REPL. 
+Before `Revise.jl <https://timholy.github.io/Revise.jl/stable/>`__
+was created, it was necessary to restart the Julia
+REPL when developing a package for new changes to take effect in the REPL.
 This is because calling ``using Example`` JIT-compiles the package.
-With ``Revise`` loaded this is no longer needed - it cleverly finds what code 
+With ``Revise`` loaded this is no longer needed - it cleverly finds what code
 has been modified and reloads only that.
 
-Revise is automatically loaded in VSCode, but if you are developing in 
-another editor you will need to install ``Revise`` and when developing a 
+Revise is automatically loaded in VSCode, but if you are developing in
+another editor you will need to install ``Revise`` and when developing a
 package always do ``using Revise`` before ``using MyPackage``.
 
-A caveat when using VSCode is that when developing a script (i.e. not a full package), 
+A caveat when using VSCode is that when developing a script (i.e. not a full package),
 files need to be included in Revise-tracked mode with ``includet("MyScript")``.
 When developing packages everything works automatically.
 
-Revise should be installed in one's root Julia environment:
+Revise should be installed in the root Julia environment:
 
-.. code-block:: julia
+.. code-block:: console
 
    julia -e 'using Pkg; Pkg.add("Revise")'
 
@@ -148,17 +148,17 @@ Revise should be installed in one's root Julia environment:
 Structure of a Julia package
 ----------------------------
 
-Julia packages contain one top-level module (submodules are allowed), 
-defined in a source file under ``src/`` with the same name as the 
+Julia packages contain one top-level module (submodules are allowed),
+defined in a source file under ``src/`` with the same name as the
 package itself.
 
-All functions, variables and custom types of a package can be put in one 
-module file or (more commonly) into multiple files named 
+All functions, variables and custom types of a package can be put in one
+module file or (more commonly) into multiple files named
 according to their functionality.
 
 .. type-along:: Inspecting a Julia package
-   
-   Have a look at an example Julia package to get an 
+
+   Have a look at an example Julia package to get an
    overview of its structure: https://github.com/JuliaLang/Example.jl
 
    Pay particular attention to the following aspects:
@@ -173,21 +173,21 @@ according to their functionality.
 The package manager
 -------------------
 
-Julia comes with a powerful inbuilt package manager to install 
-and remove packages, manage dependencies and create isolated 
+Julia comes with a powerful builtin package manager to install
+and remove packages, manage dependencies and create isolated
 software environments.
-   
-- To enter the package manager from a Julia session we 
-  can hit the ``]`` character, after which the prompt 
-  changes to ``pkg>``. 
-- To see all available options, type `help`. For example, we see that to 
+
+- To enter the package manager from a Julia session we
+  can hit the ``]`` character, after which the prompt
+  changes to ``pkg>``.
+- To see all available options, type `help`. For example, we see that to
   install a new package we should type ``pkg> add some-package``.
 - To go back to the REPL, hit backspace or ``^C``.
 
 .. callout:: A syntax convention
 
-   Instead of using ``]`` to enter the package manager, this lesson 
-   will use the following syntax to manage packages through the ``Pkg`` API. 
+   Instead of using ``]`` to enter the package manager, this lesson
+   will use the following syntax to manage packages through the ``Pkg`` API.
    This way, code blocks can be copied directly into the REPL and executed:
 
    .. code-block:: julia
@@ -196,7 +196,7 @@ software environments.
       Pkg.add("some-package")
       Pkg.status()
 
-Let us get familiar with the package manager by working with the 
+Let us get familiar with the package manager by working with the
 Example package that ships with Julia.
 
 .. type-along:: Installing and using a package
@@ -230,65 +230,65 @@ Environments
 ^^^^^^^^^^^^
 
 It is good practice to develop software in isolated environments.
-This enables us to use different versions of packages for different 
-projects and avoids dependency clashes. It is also the best way to 
-ensure `reproducibility` because the exact same software environment 
+This enables us to use different versions of packages for different
+projects and avoids dependency clashes. It is also the best way to
+ensure `reproducibility` because the exact same software environment
 can be easily created on different computers.
 
 .. type-along:: Creating an environment
 
-   After navigating to a suitable directory, 
+   After navigating to a suitable directory,
    we create a new environment by:
-   
+
    .. code-block:: julia
-   
+
       pwd()
       mkdir("example-project")
       cd("example-project")
       Pkg.activate(".")
-   
-   The output tells us that a new environment has been created in our 
-   current directory - specifically using the ``Project.toml`` file 
+
+   The output tells us that a new environment has been created in our
+   current directory - specifically using the ``Project.toml`` file
    (don't look for it yet as it's only created after we add the first package).
-      
+
    We now add the `Example` package:
-   
+
    .. code-block:: julia
-   
+
       Pkg.add("Example")
       Pkg.status()
-   
-   The status command shows the version of the `Example` package installed in 
-   our new ``Project.toml`` file.  
-   What does this file contain? 
-   Try printing it through the Julia shell by 
-   typing ``;`` followed by ``cat Project.toml`` 
+
+   The status command shows the version of the `Example` package installed in
+   our new ``Project.toml`` file.
+   What does this file contain?
+   Try printing it through the Julia shell by
+   typing ``;`` followed by ``cat Project.toml``
    (or ``println(String(read("Project.toml")))`` in Julia mode).
-   
+
    We can also see that there's another file in the ``example-project`` directory
    called ``Manifest.toml``.
 
 .. callout:: ``Project.toml`` and ``Manifest.toml``
-   
-   - ``Project.toml`` describes a project on a high level, including 
+
+   - ``Project.toml`` describes a project on a high level, including
      package dependencies and compatibilities, metadata such as `authors`,
-     `name`, `version` etc. It can be modified by hand. 
-   - ``Manifest.toml`` 
-     is an absolute record of the state of packages in an environment and 
+     `name`, `version` etc. It can be modified by hand.
+   - ``Manifest.toml``
+     is an absolute record of the state of packages in an environment and
      can be used to create identical Julia environments on different computers.
      It should not be modified by hand.
 
 
 .. callout:: Project environments inherit from default environment
 
-   A possibly confusing aspect when working with environments is that 
+   A possibly confusing aspect when working with environments is that
    you have access to packages in the default environment (e.g. ``@v1.7``)
-   even if you have activated a project environment. One thus has to be careful 
-   to add all needed packages to a project environment so that the same environment 
-   can be generated on other machines.   
+   even if you have activated a project environment. One thus has to be careful
+   to add all needed packages to a project environment so that the same environment
+   can be generated on other machines.
 
-   But this also has benefits since packages like Revise, Test, BenchmarkTools etc. 
-   can be installed in the default environment rather than cluttering a project 
+   But this also has benefits since packages like Revise, Test, BenchmarkTools etc.
+   can be installed in the default environment rather than cluttering a project
    environment.
 
 
@@ -296,12 +296,12 @@ can be easily created on different computers.
 Creating environments for other projects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To create a new environment based on another project you only need a 
-`Project.toml` or `Manifest.toml` file. 
+To create a new environment based on another project you only need a
+`Project.toml` or `Manifest.toml` file.
 
-- Using `Project.toml` will install the required dependencies but not 
+- Using `Project.toml` will install the required dependencies but not
   necessarily with the same package versions.
-- Using `Manifest.toml` will install the packages in the **same state** that 
+- Using `Manifest.toml` will install the packages in the **same state** that
   is given by the manifest file.
 
 For example:
@@ -321,7 +321,7 @@ For example:
 Creating a new project
 ----------------------
 
-We also use the package manager to start a new project, i.e. when we 
+We also use the package manager to start a new project, i.e. when we
 want to develop a new package.
 
 .. type-along:: Create a project
@@ -333,7 +333,7 @@ want to develop a new package.
       Pkg.generate("MyPackage")
       cd("MyPackage")
 
-   ``Pkg.generate`` creates both a Project.toml file which has package metadata and 
+   ``Pkg.generate`` creates both a Project.toml file which has package metadata and
    is where our dependencies will go, and a basic src/MyPackage.jl template.
    Inspect both!
 
@@ -393,7 +393,7 @@ or from the command line:
 
    julia --project=. test/runtests.jl
 
-Usually, one needs to perform more than one test per function or module, 
+Usually, one needs to perform more than one test per function or module,
 and usually this is done by collecting related tests in a ``@testset``
 block:
 
@@ -405,17 +405,20 @@ block:
       @test domath(2+2im) ≈ 7 + 2im
    end
 
-The ``@test_throws`` macro can be used to make sure that an expected error 
+The ``@test_throws`` macro can be used to make sure that an expected error
 is raised:
 
 .. code-block:: julia
 
    @test_throws MethodError domath("abc")
 
-The ``@test``, ``@test_throws`` and ``@testset`` macros are highly useful and can be 
-sufficient for many projects, but large projects sometimes need more advanced 
+The ``@test``, ``@test_throws`` and ``@testset`` macros are highly useful and can be
+sufficient for many projects, but large projects sometimes need more advanced
 functionality. This is provided in `ReTest <https://github.com/JuliaTesting/ReTest.jl>`__
 and other packages in the `JuliaTesting organization <https://github.com/JuliaTesting>`__.
+It is also possible to include a separate ``Project.toml`` file in the ``test/`` folder.
+This is useful when testing requires some extra packages (which sometimes might be heavy)
+that are not necessary to just use the package.
 
 
 
@@ -442,16 +445,16 @@ Exercises
          module Points
 
          export Point, sumsquare
-         
+
          struct Point{T<:Real}
              x::T
              y::T
          end
-         
+
          function sumsquare(p1::Point, p2::Point)
              return Point(p1.x^2 + p2.x^2, p1.y^2 + p2.y^2)
          end
-         
+
          end
 
       To start using it:
@@ -460,11 +463,11 @@ Exercises
 
          Pkg.activate(".")
          using Points
-         
+
 
 .. exercise:: Write a test
 
-   Write a few tests for the ``sumsquare`` function in the `Points` package you 
+   Write a few tests for the ``sumsquare`` function in the `Points` package you
    created in the previous exercise. Run the tests and see if they pass!
 
    .. solution::
@@ -475,7 +478,7 @@ Exercises
 
          using Test
          using Points
-         
+
          @testset begin
              # test floats
              p1 = Point(1.0, 2.0)
@@ -506,4 +509,3 @@ See also
 - Documentation for `Julia in VSCode <https://www.julia-vscode.org/docs/stable/>`_.
 - `JuliaTesting organization <https://github.com/JuliaTesting>`_.
 - `Pkg documentation <https://pkgdocs.julialang.org/v1/>`_.
-     

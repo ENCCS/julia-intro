@@ -20,23 +20,33 @@ Special features of Julia
 Types
 -----
 
-Julia is a dynamically typed language and does not require users to explicitly declare types because types are *inferred* and used at runtime.
-The sophisticated type system helps Julia to generate efficient code.
+Julia is a dynamically typed language and does not require users to explicitly
+declare types because types are *inferred* and used at runtime. The
+sophisticated type system helps Julia to generate efficient code.
 
-All types in Julia are defined in Julia language itself. This means that custom types are just as efficient as built-in types.
+All types in Julia are defined in Julia language itself. This means that custom
+types are just as efficient as built-in types.
 
-Julia's type system is also what enables `multiple dispatch <https://en.wikipedia.org/wiki/Multiple_dispatch>`__ that is, choosing the most specific method of a function based on the argument types.
-Multiple dispatch sets the language apart from most other languages and makes it composable and fast when combined with just-in-time (JIT) compilation using the LLVM compiler toolchain.
+Julia's type system is also what enables `multiple dispatch
+<https://en.wikipedia.org/wiki/Multiple_dispatch>`__, that is, choosing the most
+specific method of a function based on the argument types. Multiple dispatch
+sets the language apart from most other languages and makes it composable and
+fast when combined with just-in-time (JIT) compilation using the LLVM compiler
+toolchain.
 
-Since types play a fundamental role in Julia's design it's important to have a mental model of Julia's type system.
-There are two basic kinds of types in Julia: 
+Since types play a fundamental role in Julia's design it's important to have a
+mental model of Julia's type system. There are two basic kinds of types in
+Julia:
 
-- **Abstract types** which define the kind of a thing, that is, represent sets of related types. 
-- **Concrete types** which describe data structures, that is, concrete implementations that can be used for variables.
+- **Abstract types** which define the kind of a thing, that is, represent sets
+  of related types.
+- **Concrete types** which describe data structures, that is,
+  concrete implementations that can be used for variables.
 
-Furthermore, a **primitive type** consists of plain bits such as an integer, character or floating point number.
-A **parametric type** represents a set of types.
-Types in Julia form a “type tree”, in which the leaves are concrete types.
+Furthermore, a **primitive type** consists of plain bits such as an integer,
+character or floating point number. A **parametric type** represents a set of
+types. Types in Julia form a “type tree”, in which the leaves are concrete
+types.
 
 .. figure:: img/Type-hierarchy-for-julia-numbers.png
 
@@ -87,12 +97,13 @@ and its elements accessed by
 Constructors
 ~~~~~~~~~~~~
 
-Composite type objects also serve as **constructor functions**. These create new instances of themselves 
-when applied to an argument tuple as a function. Composite types have a default constructor 
-which gets called when creating a new object, but it's possible to explicitly define both 
-**inner** and **outer** constructor methods.
+Composite type objects also serve as **constructor functions**. These create new
+instances of themselves when applied to an argument tuple as a function.
+Composite types have a default constructor which gets called when creating a new
+object, but it's possible to explicitly define both **inner** and **outer**
+constructor methods.
 
-If we define an inner constructor method, no default constructor is provided any longer. Inner 
+If we define an inner constructor method, no default constructor is provided any longer. Inner
 constructors have access to a special function called :meth:`new` which creates a new object:
 
 .. code-block:: julia
@@ -101,7 +112,7 @@ constructors have access to a special function called :meth:`new` which creates 
        x
        y
        Point2D(c::Complex) = new(c.re, c.im)
-   end   
+   end
 
    Point2D(1, 2)  # only works if first version of Point2D is also defined!
    # Point2D(1, 2)
@@ -109,7 +120,7 @@ constructors have access to a special function called :meth:`new` which creates 
    Point2D(1 + 2im)
    # Point(1, 2)
 
-For this case, it would be better to define an additional outer constructor - just like when 
+For this case, it would be better to define an additional outer constructor - just like when
 methods are added to a function:
 
 .. code-block:: julia
@@ -117,23 +128,24 @@ methods are added to a function:
    struct Point2D
        x
        y
-   end   
+   end
 
    Point2D(c::Complex) = Point2D(c.re, c.im)
 
-   Point2D(1, 2) 
+   Point2D(1, 2)
    # Point2D(1, 2)
 
    Point2D(1 + 2im)
-   # Point2D(1, 2)   
+   # Point2D(1, 2)
 
 
 
 Parametric types
 ~~~~~~~~~~~~~~~~
 
-A useful feature of Julia’s type system are *type parameters*: the ability to use parameters when defining types.
-For example (using a new name since structs can not be redefined):
+A useful feature of Julia’s type system are *type parameters*: the ability to
+use parameters when defining types. For example (using a new name since structs
+can not be redefined):
 
 .. code-block:: julia
 
@@ -153,7 +165,7 @@ We can now create ``Point`` variables with explicitly different types:
     p2 = Point(1.0, 2.0)
     # Point{Float64}(1.0, 2.0)
 
-Parametric types introduce a new family of new types, since 
+Parametric types introduce a new family of new types, since
 any specialized version ``Point{T}`` is a subtype of ``Point``:
 
 .. code-block:: julia
@@ -166,36 +178,36 @@ any specialized version ``Point{T}`` is a subtype of ``Point``:
 Design patterns
 ~~~~~~~~~~~~~~~
 
-Julia is a multi-paradigm language that supports multiple types of 
-design patterns, including object-oriented patterns. However, the Julian 
-approach is to build code around the type system and this has a different 
-architecture than object-oriented languages.
+Julia is a multi-paradigm language that supports multiple types of
+design patterns, including object-oriented patterns. However, the Julian
+approach is to build code around the type system, leading to a different
+architecture compared to object-oriented languages.
 
-Many Julia applications are built around *type hierarchies* involving 
-both abstract and concrete types. Abstract types are used to model 
+Many Julia applications are built around *type hierarchies* involving
+both abstract and concrete types. Abstract types are used to model
 real-world data concepts and their behaviour.
 
 For example, we can describe a type hierarchy to model animals:
 
-.. code-block:: julia 
+.. code-block:: julia
 
     abstract type AbstractAnimal end
     abstract type AbstractDog <: AbstractAnimal end
     abstract type AbstractCat <: AbstractAnimal end
 
-    struct Dog <: AbstractDog
+    struct BullDog <: AbstractDog
         name::String
         friendly::Bool
     end
 
-    struct Cat <: AbstractCat 
+    struct PersianCat <: AbstractCat
         name::String
         huntsmice::Bool
     end
 
 
 We can then define functions to define the behaviour of these types.
-Key to this approach is that subtypes inherit behaviour of their 
+Key to this approach is that subtypes inherit behaviour of their
 supertypes:
 
 .. code-block:: julia
@@ -208,22 +220,22 @@ supertypes:
 
 .. code-block:: julia
 
-   billy = Cat("Billy", true)
+   billy = PersianCat("Billy", true)
    get_name(billy)
    get_mouse_hunting_ability(billy)
 
-Refer to the "See also" section below for more reading material on 
+Refer to the "See also" section below for more reading material on
 code design in Julia.
 
 
 
 Functions and methods
 ---------------------
-Functions form the backbone of Julia code and we can define them using the :code:`function` keyword.
-Each function can have multiple methods.
-A method is a function defined for specific arguments types.
-We can define methods using the block form or short form syntax.
-Example of a function in the block form:
+Functions form the backbone of Julia code and we can define them using the
+:code:`function` keyword.
+Each function can have multiple methods. A method is a function defined for
+specific arguments types. We can define methods using the block form or short
+form syntax. Example of a function in the block form:
 
 .. code-block:: julia
 
@@ -255,30 +267,30 @@ library of Julia has different implementations of ``+`` and ``^`` which
 will be chosen ("dispatched") at runtime according to the argument
 types.
 
-In most cases it's fine to omit types. The main reasons for adding type annotate are: 
+In most cases it's fine to omit types. The main reasons for adding type annotate are:
 
-- Improve readability 
-- Catch errors 
-- Take advantage of **multiple dispatch** by implementing different 
+- Improve readability
+- Catch errors
+- Take advantage of **multiple dispatch** by implementing different
   methods to the same function.
 
 .. exercise:: Extending sumsquare
 
-   What happens if you try to call the ``sumsquare`` function with two 
+   What happens if you try to call the ``sumsquare`` function with two
    input arguments of type ``Point``? Try it and try to make sense of the output.
 
-   Now add a new **method** to our ``sumsquare`` **function** for the 
-   ``Point`` type. 
+   Now add a new **method** to our ``sumsquare`` **function** for the
+   ``Point`` type.
 
-   - We decide that the summed square of two points 
+   - We decide that the summed square of two points
      is a new Point: ``Point(p1.x^2 + p2.x^2, p1.y^2 + p2.y^2)``
-   - You will need to modify both the function signature and body.   
+   - You will need to modify both the function signature and body.
 
    .. solution::
 
-      Calling the original (un-extended) ``sumsquare`` function with two 
-      ``Point`` variables returns the error 
-      ``MethodError: no method matching ^(::Point{Int64}, ::Int64)``. 
+      Calling the original (un-extended) ``sumsquare`` function with two
+      ``Point`` variables returns the error
+      ``MethodError: no method matching ^(::Point{Int64}, ::Int64)``.
       This means that Julia doesn't know how to take powers of this type!
 
       One way to implement the new ``sumsquare`` method for ``Point`` types is:
@@ -348,16 +360,16 @@ We can even define a function with no methods for documentation purposes.
       method to run based on the types of all input arguments.
    -  **Best practice**: constrain argument types to the widest possible
       level, and introduce constraints only if you know other argument
-      types will fail. 
+      types will fail.
 
 
 
 Type stability
 ~~~~~~~~~~~~~~
 
-To compile specialized versions of a function for each 
-argument type the compiler needs to be able to infer all the argument 
-and return types of that function. This is called type stability, but 
+To compile specialized versions of a function for each
+argument type the compiler needs to be able to infer all the argument
+and return types of that function. This is called type stability, but
 unfortunately it's possible to write type-unstable functions:
 
 .. code-block:: julia
@@ -366,18 +378,18 @@ unfortunately it's possible to write type-unstable functions:
    function relu_unstable(x)
        if x < 0
            return 0
-       else 
+       else
            return x
        end
    end
 
-We can pass both integer and floating point arguments to this function, 
-but if we pass in a negative float it will return an integer 0, while 
-positive floats return a float. This can have a dramatically negative effect 
+We can pass both integer and floating point arguments to this function,
+but if we pass in a negative float it will return an integer 0, while
+positive floats return a float. This can have a dramatically negative effect
 on performance because the compiler will not be able to specialize!
 
-The solution is to use an inbuilt ``zero`` function to return a zero of the same 
-type as the input argument, so that inputting integers always gives 
+The solution is to use an inbuilt ``zero`` function to return a zero of the same
+type as the input argument, so that inputting integers always gives
 integer output and likewise for floats:
 
 .. code-block:: julia
@@ -386,33 +398,41 @@ integer output and likewise for floats:
    function relu_stable(x)
        if x < 0
            return zero(x)
-       else 
+       else
            return x
        end
-   end           
+   end
 
-Other convenience functions exist to make types consistent, including: 
+Other convenience functions exist to make types consistent, including:
 
 - :meth:`eltype` to determine the type of the array elements
-- :meth:`similar` to create an uninitialized mutable array with 
+- :meth:`similar` to create an uninitialized mutable array with
   the given element type and size.
+
+A quick way to check for type instabilities is to use the ``code_warntype``
+macro (read below to know what a macro is). E.g.:
+
+.. code-block:: julia
+
+    @code_warntype relu_stable(1)
 
 
 
 Code generation
 ---------------
 
-Julia was designed from the beginning for high performance and this is accomplished by 
-compiling Julia programs to efficient native code for multiple platforms
-via the `LLVM <https://llvm.org/>`__ compiler toolchain and just-in-time (JIT) compilation.
-The Julia runtime code generator produces an LLVM
-**Intermediate Representation** (IR) which the LLMV compiler then
-converts to machine code using sophisticated optimization technology.
+Julia was designed from the beginning for high performance and this is
+accomplished by compiling Julia programs to efficient native code for multiple
+platforms via the `LLVM <https://llvm.org/>`__ compiler toolchain and
+just-in-time (JIT) compilation.
+The Julia runtime code generator produces an LLVM **Intermediate
+Representation** (IR) which the LLMV compiler then converts to machine code
+using sophisticated optimization technology.
 
 -  Interpreted languages rely on a runtime which directly executes the source code.
 -  Compiled languages rely on ahead-of-time compilation where source
    code is converted to an executable before execution.
--  Just-in-time compilation is when code is compiled to machine code at runtime. 
+-  Just-in-time compilation is when code is compiled to machine code at runtime.
 
 .. figure:: img/julia-code-generation.png
    :align: center
@@ -421,12 +441,12 @@ converts to machine code using sophisticated optimization technology.
    Adapted from `"High-level GPU programming in Julia" <https://arxiv.org/pdf/1604.03410.pdf>`_ by Tim Besard, Pieter Verstraete and Bjorn De Sutter .
 
 
-To see the various forms of lowered code that is generated by the JIT compiler 
+To see the various forms of lowered code that is generated by the JIT compiler
 we can use several *macros*.
-Inspecting the lowered form for functions requires selection of the specific 
-method to display, because generic functions may have many methods with different 
-type signatures. 
- 
+Inspecting the lowered form for functions requires selection of the specific
+method to display, because generic functions may have many methods with different
+type signatures.
+
 .. code-block:: julia
 
     # Surface level AST
@@ -461,11 +481,11 @@ type signatures.
 Metaprogramming
 ---------------
 
-We saw in the compilation diagram above that after parsing the source code, 
-the Julia compiler generates an *abstract syntax tree* (AST) - a tree-like data 
+We saw in the compilation diagram above that after parsing the source code,
+the Julia compiler generates an *abstract syntax tree* (AST) - a tree-like data
 structure representing the source code. This is a legacy from the Lisp language.
-Since code is represented by objects that can be created and manipulated from 
-within the language, it is possible for a program to transform and generate its 
+Since code is represented by objects that can be created and manipulated from
+within the language, it is possible for a program to transform and generate its
 own code.
 
 Let's have a look at the AST of a simple expression:
@@ -495,8 +515,8 @@ We can create an expression and then evaluate it:
    x = y = 2
    eval(ex)   # returns 4
 
-A *macro* is like a function, except it accepts expressions as arguments, 
-manipulates the expressions, and returns a new expression - thus modifying 
+A *macro* is like a function, except it accepts expressions as arguments,
+manipulates the expressions, and returns a new expression - thus modifying
 the AST.
 
 We can for example define a macro to create a `Wilkinson polynomial <https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial>`_ defined as follows:
@@ -517,15 +537,15 @@ Note the following pattern, we write a helper function that returns an expressio
      name = Symbol(:wilkinson_, n)
      return :($(name)(x) = $pol)
    end
- 
+
    macro make_wilkinson(n)
      return _make_wilkinson(n)
    end
-   
+
    # creates the function wilkinson_5
    @make_wilkinson 5
-   
-   wilkinson_5(10)   
+
+   wilkinson_5(10)
 
 To see what a macro expands to, we can use another macro:
 
@@ -547,18 +567,18 @@ The output shows that a for loop has been generated:
 Unicode support
 ---------------
 
-Julia has full support for Unicode characters. Some are reserved for 
-constants or operators, like π, ∈ and √, while the 
+Julia has full support for Unicode characters. Some are reserved for
+constants or operators, like π, ∈ and √, while the
 majority can be used for names of variables, functions etc.
-Unicode characters are entered via tab completion of LaTeX-like abbreviations 
-in the Julia REPL or IDEs with Julia extensions, including VSCode. If you are 
-unsure how to enter a particular character, you can copy-paste it into 
+Unicode characters are entered via tab completion of LaTeX-like abbreviations
+in the Julia REPL or IDEs with Julia extensions, including VSCode. If you are
+unsure how to enter a particular character, you can copy-paste it into
 Julia's help mode to see the LaTeX-like syntax.
 
 .. code-block:: julia
 
    function Σsqrt(Ω...)
-       σ = 0  
+       σ = 0
        for ω ∈ Ω
            σ += √ω
        end
@@ -566,7 +586,7 @@ Julia's help mode to see the LaTeX-like syntax.
    end
 
    ω₁, ω₂, ω₃ = 1, 2, 3
-   σ = Σsqrt(ω₁, ω₂, ω₃) 
+   σ = Σsqrt(ω₁, ω₂, ω₃)
 
 It's also reassuring to know that Julia can solve the chicken-and-egg dilemma:
 
@@ -589,22 +609,22 @@ Exercises
 
 .. exercise:: Write a composite type and a method that acts on it
 
-   Write a ``mutable struct`` called `Ship` with two fields: ``name`` (which is a String) and 
+   Write a ``mutable struct`` called `Ship` with two fields: ``name`` (which is a String) and
    ``location``, which is a Point (define the Point type if needed).
 
-   Then write a function :meth:`move!` which takes three arguments: a `Ship` object, and 
+   Then write a function :meth:`move!` which takes three arguments: a `Ship` object, and
    two displacements, `dx` and `dy`.
 
-   Finally create a `Ship` object with a name and initial location, and call the :meth:`move!` 
+   Finally create a `Ship` object with a name and initial location, and call the :meth:`move!`
    method on it. Print the `Ship` object to see if it has moved.
 
-   Optional 1: Write an outer constructor for `Ship` which, instead of a Point object, takes 
+   Optional 1: Write an outer constructor for `Ship` which, instead of a Point object, takes
    `x` and `y` coordinates in separate arguments.
 
-   Optional 2: Write another method for the :meth:`move!` where the x and y displacements are 
+   Optional 2: Write another method for the :meth:`move!` where the x and y displacements are
    defined by a Point type.
 
-   .. solution:: 
+   .. solution::
 
       .. code-block:: julia
 
@@ -612,24 +632,24 @@ Exercises
              x::T
              y::T
          end
-   
+
          mutable struct Ship
              name::String
              location::Point
-         end            
-   
+         end
+
          function move!(s::Ship, dx, dy)
              oldloc = s.location
              s.location = Point(oldloc.x+dx, oldloc.y+dy)
-         end      
-   
+         end
+
          beagle = Ship("HMS Beagle", Point(1.0,2.0))
          # Ship("HMS Beagle", Point{Float64}(1.0, 2.0))
-   
+
          move!(beagle, 2, 5)
          print(beagle)
          # Ship("HMS Beagle", Point{Float64}(3.0, 7.0))
-   
+
          # outer constructor
          Ship(name, x, y) = Ship(name, Point(x,y))
          vasa = Ship("Vasa", 4.0, 2.0)
@@ -640,7 +660,7 @@ Exercises
              oldloc = s.location
              s.location = Point(oldloc.x+p.x, oldloc.y+p.y)
          end
-   
+
          move!(beagle, Point(2,2))
          print(beagle)
          # Ship("HMS Beagle", Point{Float64}(5.0, 9.0))
@@ -648,26 +668,26 @@ Exercises
 
 .. exercise:: Introspect type-stable and type-unstable functions
 
-   While the code-introspection macros produce complicated output which 
-   is hard for humans to read, some of them can be useful to write more 
-   efficient code. 
-   
+   While the code-introspection macros produce complicated output which
+   is hard for humans to read, some of them can be useful to write more
+   efficient code.
+
    - ``@code_typed`` shows the types of our code inferred by the compiler.
    - ``@code_warntype`` shows type warnings and can be used to detect type instabilities.
-   - ``@code_llvm`` and ``@code_native`` can be used to see the size of the resulting 
+   - ``@code_llvm`` and ``@code_native`` can be used to see the size of the resulting
      low-level code (the fewer instructions the faster).
 
    Use these macros to inspect the ``relu_unstable`` and ``relu_stable`` functions!
 
-   - Observe how ``@code_warntype`` warns about the type instability when passing 
-     a floating point number: Julia is forced to use a ``Union{Float64, Int64}`` type 
+   - Observe how ``@code_warntype`` warns about the type instability when passing
+     a floating point number: Julia is forced to use a ``Union{Float64, Int64}`` type
      in the function body.
-   - What is the difference in the low-level code between the two functions when 
+   - What is the difference in the low-level code between the two functions when
      passing integers or floats?
 
    .. solution::
 
-      The type-unstable function gives us a warning 
+      The type-unstable function gives us a warning
       (``Body::Union{Float64, Int64}`` is in red in the REPL):
 
       .. code-block:: julia
@@ -707,13 +727,13 @@ Exercises
          └──      return %3
          3 ─      return x
 
-      There's a big difference in the amount of low-level code generated 
+      There's a big difference in the amount of low-level code generated
       for the type-stable and unstable functions:
 
        .. tabs::
 
           .. tab:: @code_llvm relu_stable(1.0)
-            
+
              .. code-block:: text
 
                 ;  @ REPL[83]:2 within `relu_stable`
@@ -738,12 +758,12 @@ Exercises
                    %2 = fcmp uge double %1, 0.000000e+00
                 ; └
                   br i1 %2, label %L8, label %L7
-                
+
                 L7:                                               ; preds = %L8, %top
                   %merge = phi { {}*, i8 } [ { {}* inttoptr (i64 4337979424 to {}*), i8 -126 }, %top ], [ { {}* null, i8 1 }, %L8 ]
                 ;  @ REPL[40]:4 within `relu_unstable`
                   ret { {}*, i8 } %merge
-                
+
                 L8:                                               ; preds = %top
                 ;  @ REPL[40]:6 within `relu_unstable`
                   %.0..sroa_cast = bitcast [8 x i8]* %0 to double*
@@ -761,7 +781,7 @@ Exercises
    - ``@time``
    - ``@enum``
 
-   **Hint**: You will typically need to give arguments to the macros you are inspecting. 
+   **Hint**: You will typically need to give arguments to the macros you are inspecting.
    Have a look at the help page of a macro if you're unsure how it's used.
 
    .. solution::
@@ -786,9 +806,8 @@ See also
 --------
 
 - Aaron Christianson: `Object Orientation and Polymorphism in Julia <https://github.com/ninjaaron/oo-and-polymorphism-in-julia>`__.
-- Christopher Rackauckas: `Type-Dispatch Design: Post Object-Oriented Programming for Julia 
+- Christopher Rackauckas: `Type-Dispatch Design: Post Object-Oriented Programming for Julia
   <https://www.stochasticlifestyle.com/type-dispatch-design-post-object-oriented-programming-julia/>`__.
 - `Documentation on metaprogramming <https://docs.julialang.org/en/v1/manual/metaprogramming/>`__.
 - `Metaprogramming tutorial from JuliaCon21 <https://github.com/dpsanders/Metaprogramming_JuliaCon_2021>`__.
 - `Full list of supported unicode symbols <https://docs.julialang.org/en/v1/manual/unicode-input/>`__.
-
