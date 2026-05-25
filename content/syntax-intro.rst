@@ -48,7 +48,7 @@ We can write Julia code in various ways:
    - Type ``;`` to go to **Shell mode** where prompt starts with
      ``shell>``. You can type any shell commands as you would from terminal.
    - Type ``]`` to go to **Package mode** where prompt starts with
-     ``(@v1.5) pkg>`` (if you have Julia version 1.5). Here you can add
+     ``(@v1.12) pkg>`` (if you have Julia version 1.12). Here you can add
      packages with ``add``, update packages with ``update`` etc. To see
      all options type ``?``.
    - To exit any non-Julian mode, hit Backspace key.
@@ -56,9 +56,9 @@ We can write Julia code in various ways:
 2. `Jupyter <https://jupyter.org/>`_: Jupyter notebooks are familiar to many Python and R users.
 
 3. `Pluto.jl <https://github.com/fonsp/Pluto.jl>`_:
-   Pluto offers a similar notebook experience to Jupyter, but in contrast
-   to Jupyter, Pluto understands global references between cells, and
-   reactively re-evaluates cells affected by a code change.
+   Pluto offers a similar notebook experience to Jupyter, but in contrast to
+   Jupyter, Pluto notebooks are **reactive**, i.e. understand global references
+   between cells, and re-evaluate cells affected by a code change.
 
 4. `Visual Studio Code <https://code.visualstudio.com/>`_ (VSCode):
 
@@ -203,7 +203,6 @@ Vectors and arrays
 |                  | - ``argmin(a)``                                                   |
 |                  | - ``argmax(a)``                                                   |
 |                  | - ``size(a)``                                                     |
-
 +------------------+-------------------------------------------------------------------+
 
 We can play around with Vectors and Arrays to get used to their syntax:
@@ -356,8 +355,8 @@ Most operators (``+``, ``-``, ``*`` etc) are in fact functions, and can be used 
 	  # composition:
 	  (sqrt ∘ +)(3, 6)  # 3.0 (first summation, then square root)
 
-Just like Vectors and Arrays can be operated on element-wise (vectorized)
-by dot-operators (`e.g.`, ``[1, 2, 3].^2``), functions can also be vectorized (broadcasting):
+Just like Vectors and Arrays can be used element-wise (vectorised)
+with dot-operators (`e.g.`, ``[1, 2, 3].^2``), functions can also be vectorised (broadcasting):
 
 .. code-block:: julia
 
@@ -421,6 +420,12 @@ To find out which method is being dispatched for a particular function call:
 
 	  @which f(3, 4)
 
+It's important to realise that a method in Julia represent something different
+than what is meant in object oriented languages: here, a method is a particular
+instance of a function with particular arguments. It requires a shift in
+thinking compared to OOP, with the question moving from "Does this object
+implement this method?" to "Does this function have method with these
+arguments?".
 As functions in Julia are first-class objects, they can be passed as arguments to other functions.
 `Anonymous functions` are useful for such constructs:
 
@@ -824,4 +829,3 @@ Exercises
 
       On the `Rosetta Code page for FizzBuzz <https://rosettacode.org/wiki/FizzBuzz#Julia>`_
       you find several other Julia versions.
-
