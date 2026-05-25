@@ -361,7 +361,10 @@ want to develop a new package.
 
       end # module
 
-
+The `PkgTemplates <https://github.com/JuliaCI/PkgTemplates.jl>`_ package is widely used to initialise a skeleton
+for new packages. It comes with batteries included for creation of a GitHub repo, documentation, testing and use 
+of GitHub actions for CI/CD and creation of pages for documentation. All these options can be set programmatically
+or with an interactive tutorial at project creation-time.
 
 Testing
 -------
