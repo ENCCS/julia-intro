@@ -1,0 +1,548 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/"><link rel="next" title="Motivation" href="../motivation/"><link rel="prev" title="Introduction to programming in Julia" href="../">
+        <link rel="prefetch" href="../_static/ENCCS_logo_light.png" as="image">
+        <link rel="prefetch" href="../_static/ENCCS_logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"><!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>Setup - Introduction to programming in Julia</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=6c0cde2e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Introduction to programming in Julia</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/ENCCS_logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/ENCCS_logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Introduction to programming in Julia</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Prerequisites</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syntax-intro/">Introduction to Julia syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/">Special features of Julia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/">Developing in Julia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scientific-computing/">Scientific computing ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/setup.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h1>
+<p>Please follow the instructions on this page to install both <strong>Julia</strong> and <strong>VS Code</strong> with the Julia
+plugin on your machine.</p>
+<section id="installing-julia">
+<h2>Installing Julia<a class="headerlink" href="#installing-julia" title="Link to this heading">¶</a></h2>
+<p>There are two ways to install Julia:</p>
+<ol class="arabic simple">
+<li><p>Downloading an <a class="reference external" href="https://julialang.org/downloads/#current_stable_release">installer</a>
+for your operating system for the latest stable Julia version.</p></li>
+<li><p>Using <a class="reference external" href="https://github.com/JuliaLang/juliaup">Juliaup</a>, the Julia version manager.</p></li>
+</ol>
+<p>Option 2 is the recommended installation method on Windows, MacOS and Linux. The
+benefit of <cite>juliaup</cite> is that it allows users to install specific Julia versions,
+it alerts users when new Julia versions are released and it provides a
+convenient Julia release channel abstraction. Both installation methods are
+nonetheless documented here.</p>
+<section id="using-the-julia-installer">
+<h3>1. Using the Julia installer<a class="headerlink" href="#using-the-julia-installer" title="Link to this heading">¶</a></h3>
+<p>First download the latest stable release of Julia for your operating system
+<a class="reference external" href="https://julialang.org/downloads/#current_stable_release">from the julialang.org website</a>.</p>
+<figure class="align-center">
+<img alt="../_images/installers.png" src="../_images/installers.png" />
+</figure>
+<p>Follow the instructions to complete the installation.</p>
+<p>Platform-specific instructions can be found <a class="reference external" href="https://julialang.org/downloads/platform/">here</a>. It is convenient to be able to
+run Julia from the command line, so follow the instructions to add Julia to
+<cite>$PATH</cite>. For Windows users who do not already have a terminal installed, we
+recommend to install the <a class="reference external" href="https://www.microsoft.com/sv-se/p/windows-terminal/9n0dx20hk701?rtc=1&amp;activetab=pivot:overviewtab">Windows Terminal from the Microsoft Store</a>.</p>
+</section>
+<section id="using-juliaup">
+<h3>2. Using Juliaup<a class="headerlink" href="#using-juliaup" title="Link to this heading">¶</a></h3>
+<p>Full instructions can be found at <a class="reference external" href="https://github.com/JuliaLang/juliaup">https://github.com/JuliaLang/juliaup</a>.</p>
+<p>In short:</p>
+<ul class="simple">
+<li><p>On Windows you can install Julia and Juliaup either through the <a class="reference external" href="https://www.microsoft.com/store/apps/9NJNWW8PVKMN">Windows store</a> or on a command line by
+executing <code class="docutils literal notranslate"><span class="pre">winget</span> <span class="pre">install</span> <span class="pre">julia</span> <span class="pre">-s</span> <span class="pre">msstore</span></code>.</p></li>
+<li><p>On MacOS or Linux, type <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-fsSL</span> <span class="pre">https://install.julialang.org</span> <span class="pre">|</span> <span class="pre">sh</span></code>
+on a command line and follow the instructions.</p></li>
+</ul>
+</section>
+<section id="checking-your-installation">
+<h3>3. Checking your installation<a class="headerlink" href="#checking-your-installation" title="Link to this heading">¶</a></h3>
+<p>Regardless of how you installed Julia, please ensure that you can open the Julia
+REPL by typing <code class="docutils literal notranslate"><span class="pre">julia</span></code> on the command line in a terminal, or by clicking the
+Julia icon on your Desktop or Applications folder. You should see something like
+in the image below (disregard the version number).</p>
+<figure class="align-center">
+<img alt="../_images/repl.png" src="../_images/repl.png" />
+</figure>
+<p>Type <code class="docutils literal notranslate"><span class="pre">versioninfo()</span></code> to get detailed information about the installed Julia runtime.
+To exit the REPL again, hit <code class="docutils literal notranslate"><span class="pre">CTRL-d</span></code> or type <code class="docutils literal notranslate"><span class="pre">exit()</span></code>.</p>
+</section>
+</section>
+<section id="development-environment">
+<h2>Development environment<a class="headerlink" href="#development-environment" title="Link to this heading">¶</a></h2>
+<p>In principle, you only need your preferred text editor and the REPL to start
+writing Julia. However, your experience might be better using a fully fledged
+IDE like Visual studio Code or <a class="reference external" href="https://zed.dev/">Zed</a>; both have extensions
+for Julia. With some more preliminary effort you can also use Neovim with some
+LSP plugins. In the following, we provide specific instructions for VS Code.</p>
+<p>First install VSCode according to the <a class="reference external" href="https://code.visualstudio.com/Download">official documentation</a>.</p>
+<section id="installing-the-vscode-julia-extension">
+<h3>Installing the VSCode Julia extension<a class="headerlink" href="#installing-the-vscode-julia-extension" title="Link to this heading">¶</a></h3>
+<p>After starting VSCode, click the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> button on the left-side menu, type <code class="docutils literal notranslate"><span class="pre">Julia</span></code> and
+click <code class="docutils literal notranslate"><span class="pre">Install`</span></code> to install the Julia extension.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/vscode_extensionbutton.png"><img alt="../_images/vscode_extensionbutton.png" src="../_images/vscode_extensionbutton.png" style="width: 316.0px; height: 240.0px;" />
+</a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/vscode_juliaextension.png"><img alt="../_images/vscode_juliaextension.png" src="../_images/vscode_juliaextension.png" style="width: 253.0px; height: 138.0px;" />
+</a>
+</figure>
+<p>You now need to configure the Julia extension and set the path to the Julia executable.
+Click the <code class="docutils literal notranslate"><span class="pre">cogwheel</span></code> button next to the Julia extension:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/vscode_extensionconfig.png"><img alt="../_images/vscode_extensionconfig.png" src="../_images/vscode_extensionconfig.png" style="width: 245.0px; height: 138.0px;" />
+</a>
+</figure>
+<p>Then find the <code class="docutils literal notranslate"><span class="pre">Julia:</span> <span class="pre">Executable</span> <span class="pre">Path</span></code> field:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/vscode_execpath.png"><img alt="../_images/vscode_execpath.png" src="../_images/vscode_execpath.png" style="width: 534.0px; height: 102.0px;" />
+</a>
+</figure>
+<p>In this field enter the path to the Julia executable that you have installed.</p>
+<p>If you are curious, scroll through the other possible configuration settings!</p>
+</section>
+</section>
+<section id="optional-installing-jupyterlab-and-a-julia-kernel">
+<h2>(Optional) Installing JupyterLab and a Julia kernel<a class="headerlink" href="#optional-installing-jupyterlab-and-a-julia-kernel" title="Link to this heading">¶</a></h2>
+<p>JupyterLab can most easily be installed through the Miniconda Python
+distribution. If you already have a working Jupyter installation feel free to
+skip to the next subsection.</p>
+<p>To install Miniconda, visit <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>,
+download an installer for your operating system and follow the instructions.
+After activating a <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment in your terminal, you can install
+JupyterLab with the command <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyterlab</span></code>.</p>
+<section id="add-julia-to-jupyterlab">
+<h3>Add Julia to JupyterLab<a class="headerlink" href="#add-julia-to-jupyterlab" title="Link to this heading">¶</a></h3>
+<p>To be able to use a Julia kernel in a Jupyter notebook you need to
+install the <code class="docutils literal notranslate"><span class="pre">IJulia</span></code> Julia package. Open the Julia REPL and type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">using</span> <span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;IJulia&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-julia-notebook">
+<h3>Create a Julia notebook<a class="headerlink" href="#create-a-julia-notebook" title="Link to this heading">¶</a></h3>
+<p>Now you should be able to open up a JupyterLab session by typing
+<code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> in a terminal, and create a Julia notebook by clicking
+on Julia in the JupyterLab Launcher or by selecting <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">New</span> <span class="pre">&gt;</span> <span class="pre">Notebook</span></code>
+and selecting a Julia kernel in the drop-down menu that appears.</p>
+</section>
+</section>
+<section id="running-julia-jobs-on-lumi">
+<h2>Running Julia jobs on LUMI<a class="headerlink" href="#running-julia-jobs-on-lumi" title="Link to this heading">¶</a></h2>
+<section id="running-julia-batch-jobs">
+<h3>Running Julia batch jobs<a class="headerlink" href="#running-julia-batch-jobs" title="Link to this heading">¶</a></h3>
+<p>In order to run Julia batch jobs on LUMI, we use the following directory
+structure and assume it is in your working directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">.</span>
+<span class="go">├── script.jl     # Julia script</span>
+<span class="go">└── batch.sh      # Slurm batch script</span>
+</pre></div>
+</div>
+<p>An example of the <code class="docutils literal notranslate"><span class="pre">batch.sh</span></code> script is shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
+<span class="c1">#SBATCH --account=project_465001310</span>
+<span class="c1">#SBATCH --partition=small</span>
+<span class="c1">#SBATCH --time=00:10:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks-per-node=1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --mem-per-cpu=1000</span>
+
+module<span class="w"> </span>use<span class="w"> </span>/appl/local/csc/modulefiles
+module<span class="w"> </span>load<span class="w"> </span>julia
+
+julia<span class="w"> </span>script.jl
+</pre></div>
+</div>
+<p>An example of the <code class="docutils literal notranslate"><span class="pre">script.jl</span></code> code is provided below.</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello, Julia&quot;</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="n">big</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">^</span><span class="mi">19</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;----EOF----&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run the command <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">batch.sh</span></code> to submit your jobs at the right directory.</p>
+</section>
+<section id="running-julia-interactive-jobs">
+<h3>Running Julia interactive jobs<a class="headerlink" href="#running-julia-interactive-jobs" title="Link to this heading">¶</a></h3>
+<p>Interactive jobs allow a user to interact with applications on compute nodes. With an interactive job, you request time and resources to work on a compute node directly, which is different to a batch job where you submit your job to a queue for later execution.
+You can either use <code class="docutils literal notranslate"><span class="pre">salloc</span></code> + <code class="docutils literal notranslate"><span class="pre">srun</span></code> or just use <code class="docutils literal notranslate"><span class="pre">srun</span></code> to create an interactive session. The two options are similar to <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p>
+<p><strong>Using salloc + srun</strong></p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">salloc</span></code>, you allocate resources and spawn a shell used to execute the computing task.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>salloc<span class="w"> </span>-A<span class="w"> </span>project_465001310<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>-t<span class="w"> </span><span class="m">0</span>:10:00<span class="w"> </span>-p<span class="w"> </span>standard-g
+</pre></div>
+</div>
+<p>Once the allocation is made, this command will start a shell on the login node. You can start your computation on the allocated node(s) with <code class="docutils literal notranslate"><span class="pre">srun</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>module<span class="w"> </span>use<span class="w"> </span>/appl/local/csc/modulefiles
+<span class="gp">$ </span>module<span class="w"> </span>load<span class="w"> </span>julia
+<span class="gp">$ </span>srun<span class="w"> </span>--ntasks-per-core<span class="o">=</span><span class="m">1</span><span class="w"> </span>julia<span class="w"> </span>script.jl
+</pre></div>
+</div>
+<p><strong>Using srun</strong></p>
+<p>For simple interactive session, you can use srun with no prior allocation. In this scenario, <code class="docutils literal notranslate"><span class="pre">srun</span></code> will first create a resource allocation in which to run the job. For example, to allocate 1 node for 10 minutes and spawn a shell to run your computational task.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>module<span class="w"> </span>use<span class="w"> </span>/appl/local/csc/modulefiles
+<span class="gp">$ </span>module<span class="w"> </span>load<span class="w"> </span>julia
+
+<span class="gp">$ </span>srun<span class="w"> </span>--account<span class="o">=</span>project_465001310<span class="w"> </span>--partition<span class="o">=</span>standard-g<span class="w"> </span>--nodes<span class="o">=</span><span class="m">1</span><span class="w"> </span>--cpus-per-task<span class="o">=</span><span class="m">1</span><span class="w"> </span>--ntasks-per-node<span class="o">=</span><span class="m">1</span><span class="w"> </span>--time<span class="o">=</span><span class="m">0</span>:10:00<span class="w"> </span>--pty<span class="w"> </span>julia<span class="w"> </span>script.jl
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../motivation/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Motivation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, ENCCS, The contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/ENCCS/julia-intro" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Setup</a><ul>
+<li><a class="reference internal" href="#installing-julia">Installing Julia</a><ul>
+<li><a class="reference internal" href="#using-the-julia-installer">1. Using the Julia installer</a></li>
+<li><a class="reference internal" href="#using-juliaup">2. Using Juliaup</a></li>
+<li><a class="reference internal" href="#checking-your-installation">3. Checking your installation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development-environment">Development environment</a><ul>
+<li><a class="reference internal" href="#installing-the-vscode-julia-extension">Installing the VSCode Julia extension</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#optional-installing-jupyterlab-and-a-julia-kernel">(Optional) Installing JupyterLab and a Julia kernel</a><ul>
+<li><a class="reference internal" href="#add-julia-to-jupyterlab">Add Julia to JupyterLab</a></li>
+<li><a class="reference internal" href="#create-a-julia-notebook">Create a Julia notebook</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-julia-jobs-on-lumi">Running Julia jobs on LUMI</a><ul>
+<li><a class="reference internal" href="#running-julia-batch-jobs">Running Julia batch jobs</a></li>
+<li><a class="reference internal" href="#running-julia-interactive-jobs">Running Julia interactive jobs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-domain="enccs.github.io/julia-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    </body>
+</html>
