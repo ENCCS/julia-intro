@@ -156,6 +156,37 @@ Let us explore some basic types in the Julia REPL:
 Vectors and arrays
 ------------------
 
+We can play around with Vectors and Arrays to get used to their syntax:
+
+.. code-block:: julia
+
+   v1 = [1.0, 2.0, 3.0]
+   # 3-element Vector{Int64}:
+   m1 = [1.0 2.0 3.0]
+   # 1×3 Matrix{Int64}:
+
+   # broadcasting
+   v2 = v1.^2
+   v3 = v2 .- v1
+
+   # slicing
+   v1[2:3]
+   v1[begin:2:end]
+
+   # combine vectors into matrix
+   A = [v1 v2 [7.0, 6.0, 5.0]]
+   size(A)
+   length(A)
+   A[1:2, 1] = [3,3] # types are cast automatically
+
+   # solve Ax=b
+   b = [4.0, 3.0, 2.0]
+   x = A \ b
+
+   # test with matrix-vector multiply
+   A*x == b
+   # true
+
 +------------------+-------------------------------------------------------------------+
 | Feature          | Example syntax and its result/meaning                             |
 +==================+===================================================================+
@@ -204,37 +235,6 @@ Vectors and arrays
 |                  | - ``argmax(a)``                                                   |
 |                  | - ``size(a)``                                                     |
 +------------------+-------------------------------------------------------------------+
-
-We can play around with Vectors and Arrays to get used to their syntax:
-
-.. code-block:: julia
-
-   v1 = [1.0, 2.0, 3.0]
-   # 3-element Vector{Int64}:
-   m1 = [1.0 2.0 3.0]
-   # 1×3 Matrix{Int64}:
-
-   # broadcasting
-   v2 = v1.^2
-   v3 = v2 .- v1
-
-   # slicing
-   v1[2:3]
-   v1[begin:2:end]
-
-   # combine vectors into matrix
-   A = [v1 v2 [7.0, 6.0, 5.0]]
-   size(A)
-   length(A)
-   A[1:2, 1] = [3,3] # types are cast automatically
-
-   # solve Ax=b
-   b = [4.0, 3.0, 2.0]
-   x = A \ b
-
-   # test with matrix-vector multiply
-   A*x == b
-   # true
 
 
 
@@ -337,8 +337,9 @@ Functions can be combined by composition:
 
    f(x) = x^2
    g(x) = sqrt(x)
+   h(x) = f(g(x))
 
-   f(g(3))   # returns 3.0
+   h(3)   # returns 3.0
 
 An alternative syntax is to use ∘ (typed by ``\circ<tab>``)
 
@@ -406,7 +407,15 @@ Return types can also be specified:
 
 
 Additional **methods** can be added to functions simply by
-new definitions with different argument types:
+new definitions with different argument types. 
+It's important to realise that a method in Julia represent something different
+than what is meant in object oriented languages: here, a method is a particular
+instance of a function with particular argument types. It requires a shift in
+thinking compared to OOP, with the question moving from "Does this object
+implement this method?" to "Does this function have method with these
+arguments?". At runtime, Julia will select the right method of a function
+matching the arguments with a mechanism called **multiple dispatch**. This will
+be further clarified later.
 
 .. code-block:: julia
 
@@ -420,14 +429,10 @@ To find out which method is being dispatched for a particular function call:
 
 	  @which f(3, 4)
 
-It's important to realise that a method in Julia represent something different
-than what is meant in object oriented languages: here, a method is a particular
-instance of a function with particular arguments. It requires a shift in
-thinking compared to OOP, with the question moving from "Does this object
-implement this method?" to "Does this function have method with these
-arguments?".
-As functions in Julia are first-class objects, they can be passed as arguments to other functions.
-`Anonymous functions` are useful for such constructs:
+
+As functions in Julia are first-class objects, they can be passed
+as arguments to other functions. `Anonymous functions` are useful for such
+constructs:
 
 .. code-block:: julia
 
@@ -484,20 +489,27 @@ and then close it:
 
 .. code-block:: julia
 
-   f = open("myfile.txt")
+   file = open("myfile.txt")
    # work with file...
-   close(f)
+   close(file)
 
-The recommended way to work with files is to use a do-block.
-At the end of the do-block the file will be closed automatically:
+The recommended way to work with files is to use a do-block:
 
 .. code-block:: julia
 
-   open("myfile.txt") do f
+   open("myfile.txt") do file
        # read from file
-       lines = readlines(f)
+       lines = readlines(file)
        println(lines)
    end
+
+In Julia, a `do-block` is a clean way to define an anonymous function. In the
+snippet above, the result of `open` is captured in `file` and passed as an
+argument to the lines below, which act like an anonymous function.
+In this case, we are using the do-block similarly to a context manager in
+Python, making sure that at the end of the do-block the file will be closed
+automatically. Read more `here
+<https://docs.julialang.org/en/v1/manual/functions/#Do-Block-Syntax-for-Function-Arguments>`_.
 
 Writing to a file:
 
@@ -581,6 +593,18 @@ Exceptions can be created explicitly with `throw`:
            throw(DomainError(x, "argument must be non-negative"))
        end
    end
+   julia> negexp(-5)
+   ERROR: DomainError with -5:
+   Argument must be non-negative
+   Stacktrace:
+    [1] negexp(x::Int64)
+     @ Main ./REPL[1]:5
+    [2] top-level scope
+     @ REPL[2]:1
+
+In this example, the stacktrace shows the exception that we threw
+(``DomainError``), followed by the function that threw it (``negexp`` with an
+``Int64`` argument) in the second line of the top level scope.
 
 
 The ``@assert`` *macro* can be used to throw an AssertionError if a condition does not hold:
@@ -660,8 +684,8 @@ Style conventions
 - Names of variables are in lower case.
 - Word separation can be indicated by underscores (`_`), but use of
   underscores is discouraged unless the name would be hard to read otherwise.
-- Names of Types and Modules begin with a capital letter and word
-  separation is shown with upper camel case instead of underscores.
+- Names of Types and Modules begin with a capital letter and word separation is
+  shown with upper camel case (aka PascalCase) instead of underscores.
 - Names of functions and macros are in lower case, without underscores.
 - Functions that write to their arguments have names that end in ``!``.
   These are sometimes called "mutating" or "in-place" functions
