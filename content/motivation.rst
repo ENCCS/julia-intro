@@ -113,7 +113,8 @@ Here's an example solving the simple pendulum equation (adapted from https://tut
 
 .. code-block:: julia
 
-   using DifferentialEquations, Measurements, Plots
+   using DifferentialEquations: ODEProblem, solve 
+   using Measurements, Plots
 
    g = 9.79 ± 0.02; # Gravitational constants
    L = 1.00 ± 0.01; # Length of the pendulum

@@ -120,8 +120,12 @@ constructors have access to a special function called :meth:`new` which creates 
    Point2D(1 + 2im)
    # Point(1, 2)
 
-For this case, it would be better to define an additional outer constructor - just like when
-methods are added to a function:
+If we do this, we can only instantiate Point2D with a complex number, which is
+not optimal. We are effectively "shadowing" the old Point2D struct, and we
+could possibly be prevented from "redefining" the Point2D struct.We would like
+to create a point *also* with a complex, but keeping the default constructor as
+well. For this case, it would be better to define an additional outer
+constructor - just like when methods are added to a function:
 
 .. code-block:: julia
 
@@ -414,7 +418,44 @@ macro (read below to know what a macro is). E.g.:
 
 .. code-block:: julia
 
-    @code_warntype relu_stable(1)
+    @code_warntype relu_unstable(1)
+    MethodInstance for relu_unstable(::Int64)
+      from relu_unstable(x) @ Main REPL[3]:1
+    Arguments
+      #self#::Core.Const(Main.relu_unstable)
+      x::Int64
+    Body::Int64
+    1 ─ %1 = Main.:<::Core.Const(<)
+    │   %2 = (%1)(x, 0)::Bool
+    └──      goto #3 if not %2
+    2 ─      return 0
+    3 ─ %5 = x::Int64
+    └──      return %5
+
+    @code_warntype relu_unstable(1.1)
+    MethodInstance for relu_unstable(::Float64)
+      from relu_unstable(x) @ Main REPL[3]:1
+    Arguments
+      #self#::Core.Const(Main.relu_unstable)
+      x::Float64
+    Body::Union{Float64, Int64}
+    1 ─ %1 = Main.:<::Core.Const(<)
+    │   %2 = (%1)(x, 0)::Bool
+    └──      goto #3 if not %2
+    2 ─      return 0
+    3 ─ %5 = x::Float64
+    └──      return %5
+
+
+Interestingly, the first call does not explicitly show any type instabilities (``x::Int64,
+Body::Int64``), whereas the second one has ``x::Float64, Body::Union{Float64,
+Int64}``. This shows (also by colour in the REPL) that in the second instance
+Julia does not know whether it'll return an ``Int64`` or a ``Float64``, which
+means it cannot compile specialised methods and thus lose on performance.
+Packages like ``JET.jl <https://github.com/aviatesk/JET.jl>``_ and ``Cthulhu.jl
+<https://github.com/JuliaDebug/Cthulhu.jl>``_ can help with finding and rooting
+out type instabilities, which account for the vast majority of performance
+issues in Julia.
 
 
 
