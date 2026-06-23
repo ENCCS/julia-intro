@@ -153,39 +153,9 @@ Let us explore some basic types in the Julia REPL:
     #  Rational
 
 
+
 Vectors and arrays
 ------------------
-
-We can play around with Vectors and Arrays to get used to their syntax:
-
-.. code-block:: julia
-
-   v1 = [1.0, 2.0, 3.0]
-   # 3-element Vector{Int64}:
-   m1 = [1.0 2.0 3.0]
-   # 1×3 Matrix{Int64}:
-
-   # broadcasting
-   v2 = v1.^2
-   v3 = v2 .- v1
-
-   # slicing
-   v1[2:3]
-   v1[begin:2:end]
-
-   # combine vectors into matrix
-   A = [v1 v2 [7.0, 6.0, 5.0]]
-   size(A)
-   length(A)
-   A[1:2, 1] = [3,3] # types are cast automatically
-
-   # solve Ax=b
-   b = [4.0, 3.0, 2.0]
-   x = A \ b
-
-   # test with matrix-vector multiply
-   A*x == b
-   # true
 
 +------------------+-------------------------------------------------------------------+
 | Feature          | Example syntax and its result/meaning                             |
@@ -235,6 +205,144 @@ We can play around with Vectors and Arrays to get used to their syntax:
 |                  | - ``argmax(a)``                                                   |
 |                  | - ``size(a)``                                                     |
 +------------------+-------------------------------------------------------------------+
+
+We can play around with Vectors and Arrays to get used to their syntax:
+
+.. code-block:: julia
+
+   v1 = [1.0, 2.0, 3.0]
+   # 3-element Vector{Int64}:
+   m1 = [1.0 2.0 3.0]
+   # 1×3 Matrix{Int64}:
+
+   # Lazy range notation
+   1:10 
+
+   # make into vector 
+   Vector(1:10) 
+
+   # another way to make ranges 
+   range(1, 10)
+
+Indexing elements or parts of vectors and matrices can be done with slicing as in Python or Matlab.
+
+.. code-block:: julia 
+
+   
+   # form vector and matrix
+   u = [2,3,5,7]
+   A = [1 2 3;4 5 6;7 8 9]
+
+   # extract elements from vector
+   u[1] # first element: 2
+   u[2] # second element: 3
+   u[2:4] # range second to fourth: 3,5,7
+
+   # slicing
+   A[2,3] # second row third column: 6
+   A[:,1] # first column: 1,4,7
+   A[2,:] # second row: 4,5,6
+
+   # zeros
+   zeros(5) # [0,0,0,0,0]
+   zeros(5,5) # 5x5-matrix of zeros
+
+   # ones
+   ones(5) # [1,1,1,1,1]
+   ones(5,5) # 5x5-matrix of ones
+
+   # broadcasting
+   v2 = v1.^2
+   v3 = v2 .- v1
+
+.. code-block:: julia-repl
+
+   julia> u
+   4-element Vector{Int64}:
+    2
+    3
+    5
+    7
+
+   julia> A
+   3×3 Matrix{Int64}:
+    1  2  3
+    4  5  6
+    7  8  9
+
+   julia> zeros(5,5)
+   5×5 Matrix{Float64}:
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+
+   julia> ones(5,5)
+   5×5 Matrix{Float64}:
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+
+
+  Vectors and matrix operations have a similar syntax to Matlab or Python:
+
+
+.. code-block:: julia
+
+   # forming vectors
+   a = [1,2,3,4]
+   b = [2,3,4,5]
+
+   # scaling
+   0.5*a
+
+   # vector addition
+   a + b
+   a - b
+
+   # powers
+   a^2 # MethodError
+   a.^2 # 1,4,9,16
+
+   # same as vector addition
+   a .+ b
+
+   # element wise product
+   a.*b
+
+   # applying functions
+   sin(a) # MethodError
+   sin.(a) # element wise computations
+
+   # alternative way
+   @. a+a^2-sin(a)*sin(b)
+
+   # forming matrix and vector
+   A = [1 2 3;4 5 6;7 8 9]
+   v = [1,2,3]
+
+   # vector matrix multiplication
+   A*v
+
+   # matrix multiplication
+   B = A*A
+
+   # Matrix multiplication
+   A*B
+
+   # matrix powers
+   A^3
+
+   # transpose
+   transpose(A)
+   A'
+
+   # Solve linear systems 
+   B = rand(3,3)
+   B * (B \ v) ≈ v 
 
 
 
