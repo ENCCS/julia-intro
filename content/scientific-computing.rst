@@ -52,6 +52,7 @@ Scientific domains
 - `QuantumBFS <https://github.com/QuantumBFS/Yao.jl>`_  – Extensible, Efficient Quantum Algorithm Design for Humans
 - `JuliaPhysics <https://github.com/JuliaPhysics>`_  – Physics
 - `JuliaDynamics <https://github.com/JuliaDynamics>`_  - Dynamical systems, nonlinear dynamics and chaos.
+- `Clima <https://github.com/CliMA>`_ - Climate modelling 
 
 
 
@@ -67,6 +68,12 @@ Data science
 - `JuliaText <https://github.com/JuliaText>`_  – Natural Language Processing  (NLP), Computational Linguistics and (textual) Information Retrieval
 - `JuliaDatabases <https://github.com/JuliaDatabases>`_ – Various database drivers for Julia
 - `JuliaData <https://github.com/JuliaData>`_ – Data manipulation, storage, and I/O in Julia
+
+Parallelisation and accelerators
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- `JuliaParallel <https://github.com/JuliaParallel>`_ - Distributed programming, out-of-core execution, message passing 
+- `JuliaGPU <https://github.com/JuliaGPU>`_ - Everything GPUs
 
 
 .. discussion:: Scientific computing libraries
