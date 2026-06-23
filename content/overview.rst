@@ -120,8 +120,12 @@ constructors have access to a special function called :meth:`new` which creates 
    Point2D(1 + 2im)
    # Point(1, 2)
 
-For this case, it would be better to define an additional outer constructor - just like when
-methods are added to a function:
+If we do this, we can only instantiate Point2D with a complex number, which is
+not optimal. We are effectively "shadowing" the old Point2D struct, and we
+could possibly be prevented from "redefining" the Point2D struct.We would like
+to create a point *also* with a complex, but keeping the default constructor as
+well. For this case, it would be better to define an additional outer
+constructor - just like when methods are added to a function:
 
 .. code-block:: julia
 
@@ -414,7 +418,44 @@ macro (read below to know what a macro is). E.g.:
 
 .. code-block:: julia
 
-    @code_warntype relu_stable(1)
+    @code_warntype relu_unstable(1)
+    MethodInstance for relu_unstable(::Int64)
+      from relu_unstable(x) @ Main REPL[3]:1
+    Arguments
+      #self#::Core.Const(Main.relu_unstable)
+      x::Int64
+    Body::Int64
+    1 ─ %1 = Main.:<::Core.Const(<)
+    │   %2 = (%1)(x, 0)::Bool
+    └──      goto #3 if not %2
+    2 ─      return 0
+    3 ─ %5 = x::Int64
+    └──      return %5
+
+    @code_warntype relu_unstable(1.1)
+    MethodInstance for relu_unstable(::Float64)
+      from relu_unstable(x) @ Main REPL[3]:1
+    Arguments
+      #self#::Core.Const(Main.relu_unstable)
+      x::Float64
+    Body::Union{Float64, Int64}
+    1 ─ %1 = Main.:<::Core.Const(<)
+    │   %2 = (%1)(x, 0)::Bool
+    └──      goto #3 if not %2
+    2 ─      return 0
+    3 ─ %5 = x::Float64
+    └──      return %5
+
+
+Interestingly, the first call does not explicitly show any type instabilities (``x::Int64,
+Body::Int64``), whereas the second one has ``x::Float64, Body::Union{Float64,
+Int64}``. This shows (also by colour in the REPL) that in the second instance
+Julia does not know whether it'll return an ``Int64`` or a ``Float64``, which
+means it cannot compile specialised methods and thus lose on performance.
+Packages like `JET.jl <https://github.com/aviatesk/JET.jl>`_ and `Cthulhu.jl
+<https://github.com/JuliaDebug/Cthulhu.jl>`_ can help with finding and rooting
+out type instabilities, which account for the vast majority of performance
+issues in Julia.
 
 
 
@@ -476,6 +517,278 @@ type signatures.
     @code_native sumsquare(1.0, 2.0)
     @code_native sumsquare(p1, p2)
 
+.. solution:: 
+
+   .. code-block:: julia 
+
+      julia> # Lowered form of AST
+       @code_lowered sumsquare(1, 2)
+      CodeInfo(
+      1 ─ %1  = Main.:+
+      │   %2  = Main.:^
+      │   %3  =   builtin Core.apply_type(Base.Val, 2)
+      │   %4  =   dynamic (%3)()
+      │   %5  =   dynamic Base.literal_pow(%2, x, %4)
+      │   %6  = Main.:^
+      │   %7  =   builtin Core.apply_type(Base.Val, 2)
+      │   %8  =   dynamic (%7)()
+      │   %9  =   dynamic Base.literal_pow(%6, y, %8)
+      │   %10 =   dynamic (%1)(%5, %9)
+      └──       return %10
+      )
+
+      julia> @code_lowered sumsquare(p1, p2)
+      CodeInfo(
+      1 ─ %1  = Main.Point
+      │   %2  = Main.:+
+      │   %3  = Main.:^
+      │   %4  =   dynamic Base.getproperty(p1, :x)
+      │   %5  =   builtin Core.apply_type(Base.Val, 2)
+      │   %6  =   dynamic (%5)()
+      │   %7  =   dynamic Base.literal_pow(%3, %4, %6)
+      │   %8  = Main.:^
+      │   %9  =   dynamic Base.getproperty(p2, :x)
+      │   %10 =   builtin Core.apply_type(Base.Val, 2)
+      │   %11 =   dynamic (%10)()
+      │   %12 =   dynamic Base.literal_pow(%8, %9, %11)
+      │   %13 =   dynamic (%2)(%7, %12)
+      │   %14 = Main.:+
+      │   %15 = Main.:^
+      │   %16 =   dynamic Base.getproperty(p1, :y)
+      │   %17 =   builtin Core.apply_type(Base.Val, 2)
+      │   %18 =   dynamic (%17)()
+      │   %19 =   dynamic Base.literal_pow(%15, %16, %18)
+    │   %20 = Main.:^
+    │   %21 =   dynamic Base.getproperty(p2, :y)
+    │   %22 =   builtin Core.apply_type(Base.Val, 2)
+    │   %23 =   dynamic (%22)()
+    │   %24 =   dynamic Base.literal_pow(%20, %21, %23)
+    │   %25 =   dynamic (%14)(%19, %24)
+    │   %26 =   dynamic (%1)(%13, %25)
+    └──       return %26
+    )
+
+    julia> # Type-inferred lowered form of AST
+          @code_typed sumsquare(1, 2)
+    CodeInfo(
+    1 ─ %1 = intrinsic Base.mul_int(x, x)::Int64
+    │   %2 = intrinsic Base.mul_int(y, y)::Int64
+    │   %3 = intrinsic Base.add_int(%1, %2)::Int64
+    └──      return %3
+    ) => Int64
+
+    julia> @code_typed sumsquare(1.0, 2.0)
+    CodeInfo(
+    1 ─ %1 = intrinsic Base.mul_float(x, x)::Float64
+    │   %2 = intrinsic Base.mul_float(y, y)::Float64
+    │   %3 = intrinsic Base.add_float(%1, %2)::Float64
+    └──      return %3
+    ) => Float64
+
+    julia> @code_typed sumsquare(p1, p2)
+    CodeInfo(
+    1 ─ %1  =   builtin Base.getfield(p1, :x)::Float64
+    │   %2  = intrinsic Base.mul_float(%1, %1)::Float64
+    │   %3  =   builtin Base.getfield(p2, :x)::Float64
+    │   %4  = intrinsic Base.mul_float(%3, %3)::Float64
+    │   %5  = intrinsic Base.add_float(%2, %4)::Float64
+    │   %6  =   builtin Base.getfield(p1, :y)::Float64
+    │   %7  = intrinsic Base.mul_float(%6, %6)::Float64
+    │   %8  =   builtin Base.getfield(p2, :y)::Float64
+    │   %9  = intrinsic Base.mul_float(%8, %8)::Float64
+    │   %10 = intrinsic Base.add_float(%7, %9)::Float64
+    │   %11 = %new(Point{Float64}, %5, %10)::Point{Float64}
+    └──       return %11
+    ) => Point{Float64}
+
+    julia> # Lowered and type-inferred ASTs
+          @code_warntype sumsquare(1.0, 2.0)
+    MethodInstance for sumsquare(::Float64, ::Float64)
+      from sumsquare(x, y) @ Main REPL[3]:1
+    Arguments
+      #self#::Core.Const(Main.sumsquare)
+      x::Float64
+      y::Float64
+    Body::Float64
+    1 ─ %1  = Main.:+::Core.Const(+)
+    │   %2  = Main.:^::Core.Const(^)
+    │   %3  = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %4  = (%3)()::Core.Const(Val{2}())
+    │   %5  = Base.literal_pow(%2, x, %4)::Float64
+    │   %6  = Main.:^::Core.Const(^)
+    │   %7  = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %8  = (%7)()::Core.Const(Val{2}())
+    │   %9  = Base.literal_pow(%6, y, %8)::Float64
+    │   %10 = (%1)(%5, %9)::Float64
+    └──       return %10
+
+
+    julia> @code_warntype sumsquare(p1, p2)
+    MethodInstance for sumsquare(::Point{Float64}, ::Point{Float64})
+      from sumsquare(p1::Point, p2::Point) @ Main REPL[7]:1
+    Arguments
+      #self#::Core.Const(Main.sumsquare)
+      p1::Point{Float64}
+      p2::Point{Float64}
+    Body::Point{Float64}
+    1 ─ %1  = Main.Point::Core.Const(Point)
+    │   %2  = Main.:+::Core.Const(+)
+    │   %3  = Main.:^::Core.Const(^)
+    │   %4  = Base.getproperty(p1, :x)::Float64
+    │   %5  = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %6  = (%5)()::Core.Const(Val{2}())
+    │   %7  = Base.literal_pow(%3, %4, %6)::Float64
+    │   %8  = Main.:^::Core.Const(^)
+    │   %9  = Base.getproperty(p2, :x)::Float64
+    │   %10 = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %11 = (%10)()::Core.Const(Val{2}())
+    │   %12 = Base.literal_pow(%8, %9, %11)::Float64
+    │   %13 = (%2)(%7, %12)::Float64
+    │   %14 = Main.:+::Core.Const(+)
+    │   %15 = Main.:^::Core.Const(^)
+    │   %16 = Base.getproperty(p1, :y)::Float64
+    │   %17 = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %18 = (%17)()::Core.Const(Val{2}())
+    │   %19 = Base.literal_pow(%15, %16, %18)::Float64
+    │   %20 = Main.:^::Core.Const(^)
+    │   %21 = Base.getproperty(p2, :y)::Float64
+    │   %22 = Core.apply_type(Base.Val, 2)::Core.Const(Val{2})
+    │   %23 = (%22)()::Core.Const(Val{2}())
+    │   %24 = Base.literal_pow(%20, %21, %23)::Float64
+    │   %25 = (%14)(%19, %24)::Float64
+    │   %26 = (%1)(%13, %25)::Point{Float64}
+    └──       return %26
+
+
+    julia> # LLVM intermediate representation:
+          @code_llvm sumsquare(1, 2)
+    ; Function Signature: sumsquare(Int64, Int64)
+    ;  @ REPL[3]:1 within `sumsquare`
+    define i64 @julia_sumsquare_4216(i64 signext %"x::Int64", i64 signext %"y::Int64") #0 {
+    top:
+    ;  @ REPL[3]:2 within `sumsquare`
+    ; ┌ @ intfuncs.jl:437 within `literal_pow`
+    ; │┌ @ int.jl:88 within `*`
+        %0 = mul i64 %"x::Int64", %"x::Int64"
+        %1 = mul i64 %"y::Int64", %"y::Int64"
+    ; └└
+    ; ┌ @ int.jl:87 within `+`
+      %2 = add i64 %1, %0
+    ; └
+      ret i64 %2
+    }
+
+    julia> @code_llvm sumsquare(1.0, 2.0)
+    ; Function Signature: sumsquare(Float64, Float64)
+    ;  @ REPL[3]:1 within `sumsquare`
+    define double @julia_sumsquare_4222(double %"x::Float64", double %"y::Float64") #0 {
+    top:
+    ;  @ REPL[3]:2 within `sumsquare`
+    ; ┌ @ intfuncs.jl:437 within `literal_pow`
+    ; │┌ @ float.jl:497 within `*`
+        %0 = fmul double %"x::Float64", %"x::Float64"
+        %1 = fmul double %"y::Float64", %"y::Float64"
+    ; └└
+    ; ┌ @ float.jl:495 within `+`
+      %2 = fadd double %0, %1
+    ; └
+      ret double %2
+    }
+
+    julia> @code_llvm sumsquare(p1, p2)
+    ; Function Signature: sumsquare(Main.Point{Float64}, Main.Point{Float64})
+    ;  @ REPL[7]:1 within `sumsquare`
+    define void @julia_sumsquare_4225(ptr noalias nocapture noundef nonnull sret([2 x double]) align 8 dereferenceable(16) %sret_return, ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %"p1::Point", ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %"p2::Point") #0 {
+    top:
+    ;  @ REPL[7]:2 within `sumsquare`
+    ; ┌ @ intfuncs.jl:437 within `literal_pow`
+    ; │┌ @ float.jl:497 within `*`
+        %0 = load <2 x double>, ptr %"p1::Point", align 8
+        %1 = fmul <2 x double> %0, %0
+        %2 = load <2 x double>, ptr %"p2::Point", align 8
+        %3 = fmul <2 x double> %2, %2
+    ; └└
+    ; ┌ @ float.jl:495 within `+`
+      %4 = fadd <2 x double> %1, %3
+    ; └
+      store <2 x double> %4, ptr %sret_return, align 8
+      ret void
+    }
+
+    julia> # native assembly instructions:
+          @code_native sumsquare(1, 2)
+      .text
+      .file	"sumsquare"
+      .section	.ltext,"axl",@progbits
+      .globl	julia_sumsquare_4283            # -- Begin function julia_sumsquare_4283
+      .p2align	4, 0x90
+      .type	julia_sumsquare_4283,@function
+    julia_sumsquare_4283:                   # @julia_sumsquare_4283
+    ; Function Signature: sumsquare(Int64, Int64)
+    ; ┌ @ REPL[3]:1 within `sumsquare`
+    # %bb.0:                                # %top
+      #DEBUG_VALUE: sumsquare:x <- $rdi
+      #DEBUG_VALUE: sumsquare:y <- $rsi
+      push	rbp
+      mov	rbp, rsp
+    ; │ @ REPL[3]:2 within `sumsquare`
+    ; │┌ @ intfuncs.jl:437 within `literal_pow`
+    ; ││┌ @ int.jl:88 within `*`
+      imul	rdi, rdi
+      imul	rsi, rsi
+    ; │└└
+    ; │┌ @ int.jl:87 within `+`
+      lea	rax, [rsi + rdi]
+    ; │└
+      pop	rbp
+      ret
+    .Lfunc_end0:
+      .size	julia_sumsquare_4283, .Lfunc_end0-julia_sumsquare_4283
+    ; └
+                                            # -- End function
+      .section	".note.GNU-stack","",@progbits
+
+    julia> @code_native sumsquare(1.0, 2.0)
+      .text
+      .file	"sumsquare"
+      .section	.ltext,"axl",@progbits
+      .globl	julia_sumsquare_4338            # -- Begin function julia_sumsquare_4338
+      .p2align	4, 0x90
+      .type	julia_sumsquare_4338,@function
+    julia_sumsquare_4338:                   # @julia_sumsquare_4338
+    ; Function Signature: sumsquare(Float64, Float64)
+    ; ┌ @ REPL[3]:1 within `sumsquare`
+    # %bb.0:                                # %top
+      #DEBUG_VALUE: sumsquare:x <- $xmm0
+      #DEBUG_VALUE: sumsquare:y <- $xmm1
+      push	rbp
+      mov	rbp, rsp
+    ; │ @ REPL[3]:2 within `sumsquare`
+    ; │┌ @ intfuncs.jl:437 within `literal_pow`
+    ; ││┌ @ float.jl:497 within `*`
+      vmulsd	xmm0, xmm0, xmm0
+      vmulsd	xmm1, xmm1, xmm1
+    ; │└└
+    ; │┌ @ float.jl:495 within `+`
+      vaddsd	xmm0, xmm0, xmm1
+    ; │└
+      pop	rbp
+      ret
+    .Lfunc_end0:
+      .size	julia_sumsquare_4338, .Lfunc_end0-julia_sumsquare_4338
+    ; └
+                                            # -- End function
+      .type	".L+Core.Float64#4340",@object  # @"+Core.Float64#4340"
+      .section	.lrodata,"al",@progbits
+      .p2align	3, 0x0
+    ".L+Core.Float64#4340":
+      .quad	".L+Core.Float64#4340.jit"
+      .size	".L+Core.Float64#4340", 8
+
+    .set ".L+Core.Float64#4340.jit", 140211789452144
+      .size	".L+Core.Float64#4340.jit", 8
+      .section	".note.GNU-stack","",@progbits
+
 
 
 Metaprogramming
@@ -519,50 +832,45 @@ A *macro* is like a function, except it accepts expressions as arguments,
 manipulates the expressions, and returns a new expression - thus modifying
 the AST.
 
-We can for example define a macro to create a `Wilkinson polynomial <https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial>`_ defined as follows:
+Let us consider an example of macro that is actually used in the base library
+of Julia (in a slightly simplified manner): ``@assert``. This macro can be
+used, for example, in tests to check on the result of an expression.
+It can be defined as follows:
 
-.. math::
+.. code-block:: julia 
 
-   w_n(x) = \prod_{i=1}^{n}(x-i)
+    julia> macro assert(ex)
+                    return :( $ex ? nothing : throw(AssertionError($(string(ex)))) )
+                end
+    @assert (macro with 1 method)
 
-Note the following pattern, we write a helper function that returns an expression and call that function from the macro. This is very useful for debugging while writing macros!
+    julia> @assert 1 == 1.0
 
-.. code-block:: Julia
+    julia> @assert 1 == 0
+    ERROR: AssertionError: 1 == 0
+    Stacktrace:
+    [1] top-level scope
+      @ REPL[25]:1
 
-   function _make_wilkinson(n)
-     pol = :(x - 1)
-     for i in 2:n
-       pol = :($pol * (x - $i))
-     end
-     name = Symbol(:wilkinson_, n)
-     return :($(name)(x) = $pol)
-   end
+In the first case, ``$ex`` evaluates to ``true``, thus nothing is returned; in
+the second one, it evaluates to ``false``, so an exception is thrown containing
+the expression that originated it. Why are we not writing this as a normal
+function? That would be because only the *value* of the expression would be
+known (i.e. either ``true`` or ``false``) and not the *expression* itself, so
+we would not be able to display it in the error message. To see what a macro is
+expanded into, the ``@macroexpand`` macro can be used:
 
-   macro make_wilkinson(n)
-     return _make_wilkinson(n)
-   end
+.. code-block:: julia 
 
-   # creates the function wilkinson_5
-   @make_wilkinson 5
+   julia> @macroexpand @assert 1 == 0
+    :(if 1 == 0
+          Main.nothing
+      else
+          Main.throw(Main.AssertionError("1 == 0"))
+      end)
 
-   wilkinson_5(10)
-
-To see what a macro expands to, we can use another macro:
-
-.. code-block:: julia
-
-   @macroexpand @make_wilkinson 5
-
-The output shows that a for loop has been generated:
-
-.. code-block:: text
-
-    :(Main.wilkinson_5(var"#21#x") = begin
-        #= REPL[17]:6 =#
-        ((((var"#21#x" - 1) * (var"#21#x" - 2)) * (var"#21#x" - 3)) * (var"#21#x" - 4)) * (var"#21#x" - 5)
-    end)
-
-
+Once again, it is important to notice that the return value is an expression,
+thus we are modifying the AST at runtime.
 
 Unicode support
 ---------------

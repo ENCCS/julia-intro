@@ -153,6 +153,7 @@ Let us explore some basic types in the Julia REPL:
     #  Rational
 
 
+
 Vectors and arrays
 ------------------
 
@@ -214,27 +215,134 @@ We can play around with Vectors and Arrays to get used to their syntax:
    m1 = [1.0 2.0 3.0]
    # 1×3 Matrix{Int64}:
 
+   # Lazy range notation
+   1:10 
+
+   # make into vector 
+   Vector(1:10) 
+
+   # another way to make ranges 
+   range(1, 10)
+
+Indexing elements or parts of vectors and matrices can be done with slicing as in Python or Matlab.
+
+.. code-block:: julia 
+
+   
+   # form vector and matrix
+   u = [2,3,5,7]
+   A = [1 2 3;4 5 6;7 8 9]
+
+   # extract elements from vector
+   u[1] # first element: 2
+   u[2] # second element: 3
+   u[2:4] # range second to fourth: 3,5,7
+
+   # slicing
+   A[2,3] # second row third column: 6
+   A[:,1] # first column: 1,4,7
+   A[2,:] # second row: 4,5,6
+
+   # zeros
+   zeros(5) # [0,0,0,0,0]
+   zeros(5,5) # 5x5-matrix of zeros
+
+   # ones
+   ones(5) # [1,1,1,1,1]
+   ones(5,5) # 5x5-matrix of ones
+
    # broadcasting
    v2 = v1.^2
    v3 = v2 .- v1
 
-   # slicing
-   v1[2:3]
-   v1[begin:2:end]
+.. code-block:: julia-repl
 
-   # combine vectors into matrix
-   A = [v1 v2 [7.0, 6.0, 5.0]]
-   size(A)
-   length(A)
-   A[1:2, 1] = [3,3] # types are cast automatically
+   julia> u
+   4-element Vector{Int64}:
+    2
+    3
+    5
+    7
 
-   # solve Ax=b
-   b = [4.0, 3.0, 2.0]
-   x = A \ b
+   julia> A
+   3×3 Matrix{Int64}:
+    1  2  3
+    4  5  6
+    7  8  9
 
-   # test with matrix-vector multiply
-   A*x == b
-   # true
+   julia> zeros(5,5)
+   5×5 Matrix{Float64}:
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+    0.0  0.0  0.0  0.0  0.0
+
+   julia> ones(5,5)
+   5×5 Matrix{Float64}:
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+    1.0  1.0  1.0  1.0  1.0
+
+
+  Vectors and matrix operations have a similar syntax to Matlab or Python:
+
+
+.. code-block:: julia
+
+   # forming vectors
+   a = [1,2,3,4]
+   b = [2,3,4,5]
+
+   # scaling
+   0.5*a
+
+   # vector addition
+   a + b
+   a - b
+
+   # powers
+   a^2 # MethodError
+   a.^2 # 1,4,9,16
+
+   # same as vector addition
+   a .+ b
+
+   # element wise product
+   a.*b
+
+   # applying functions
+   sin(a) # MethodError
+   sin.(a) # element wise computations
+
+   # alternative way
+   @. a+a^2-sin(a)*sin(b)
+
+   # forming matrix and vector
+   A = [1 2 3;4 5 6;7 8 9]
+   v = [1,2,3]
+
+   # vector matrix multiplication
+   A*v
+
+   # matrix multiplication
+   B = A*A
+
+   # Matrix multiplication
+   A*B
+
+   # matrix powers
+   A^3
+
+   # transpose
+   transpose(A)
+   A'
+
+   # Solve linear systems 
+   B = rand(3,3)
+   B * (B \ v) ≈ v 
 
 
 
@@ -337,8 +445,9 @@ Functions can be combined by composition:
 
    f(x) = x^2
    g(x) = sqrt(x)
+   h(x) = f(g(x))
 
-   f(g(3))   # returns 3.0
+   h(3)   # returns 3.0
 
 An alternative syntax is to use ∘ (typed by ``\circ<tab>``)
 
@@ -406,7 +515,15 @@ Return types can also be specified:
 
 
 Additional **methods** can be added to functions simply by
-new definitions with different argument types:
+new definitions with different argument types. 
+It's important to realise that a method in Julia represent something different
+than what is meant in object oriented languages: here, a method is a particular
+instance of a function with particular argument types. It requires a shift in
+thinking compared to OOP, with the question moving from "Does this object
+implement this method?" to "Does this function have method with these
+arguments?". At runtime, Julia will select the right method of a function
+matching the arguments with a mechanism called **multiple dispatch**. This will
+be further clarified later.
 
 .. code-block:: julia
 
@@ -420,14 +537,10 @@ To find out which method is being dispatched for a particular function call:
 
 	  @which f(3, 4)
 
-It's important to realise that a method in Julia represent something different
-than what is meant in object oriented languages: here, a method is a particular
-instance of a function with particular arguments. It requires a shift in
-thinking compared to OOP, with the question moving from "Does this object
-implement this method?" to "Does this function have method with these
-arguments?".
-As functions in Julia are first-class objects, they can be passed as arguments to other functions.
-`Anonymous functions` are useful for such constructs:
+
+As functions in Julia are first-class objects, they can be passed
+as arguments to other functions. `Anonymous functions` are useful for such
+constructs:
 
 .. code-block:: julia
 
@@ -484,20 +597,27 @@ and then close it:
 
 .. code-block:: julia
 
-   f = open("myfile.txt")
+   file = open("myfile.txt")
    # work with file...
-   close(f)
+   close(file)
 
-The recommended way to work with files is to use a do-block.
-At the end of the do-block the file will be closed automatically:
+The recommended way to work with files is to use a do-block:
 
 .. code-block:: julia
 
-   open("myfile.txt") do f
+   open("myfile.txt") do file
        # read from file
-       lines = readlines(f)
+       lines = readlines(file)
        println(lines)
    end
+
+In Julia, a `do-block` is a clean way to define an anonymous function. In the
+snippet above, the result of `open` is captured in `file` and passed as an
+argument to the lines below, which act like an anonymous function.
+In this case, we are using the do-block similarly to a context manager in
+Python, making sure that at the end of the do-block the file will be closed
+automatically. Read more `here
+<https://docs.julialang.org/en/v1/manual/functions/#Do-Block-Syntax-for-Function-Arguments>`_.
 
 Writing to a file:
 
@@ -581,6 +701,18 @@ Exceptions can be created explicitly with `throw`:
            throw(DomainError(x, "argument must be non-negative"))
        end
    end
+   julia> negexp(-5)
+   ERROR: DomainError with -5:
+   Argument must be non-negative
+   Stacktrace:
+    [1] negexp(x::Int64)
+     @ Main ./REPL[1]:5
+    [2] top-level scope
+     @ REPL[2]:1
+
+In this example, the stacktrace shows the exception that we threw
+(``DomainError``), followed by the function that threw it (``negexp`` with an
+``Int64`` argument) in the second line of the top level scope.
 
 
 The ``@assert`` *macro* can be used to throw an AssertionError if a condition does not hold:
@@ -660,8 +792,8 @@ Style conventions
 - Names of variables are in lower case.
 - Word separation can be indicated by underscores (`_`), but use of
   underscores is discouraged unless the name would be hard to read otherwise.
-- Names of Types and Modules begin with a capital letter and word
-  separation is shown with upper camel case instead of underscores.
+- Names of Types and Modules begin with a capital letter and word separation is
+  shown with upper camel case (aka PascalCase) instead of underscores.
 - Names of functions and macros are in lower case, without underscores.
 - Functions that write to their arguments have names that end in ``!``.
   These are sometimes called "mutating" or "in-place" functions

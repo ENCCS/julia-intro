@@ -144,6 +144,41 @@ Revise should be installed in the root Julia environment:
    julia -e 'using Pkg; Pkg.add("Revise")'
 
 
+Taking our ``Points`` module as an example, we would do the following when
+including it for the first time in the REPL: 
+
+.. code-block:: julia 
+
+   using Revise 
+   using .Points 
+
+If we modify the ``Points`` module by e.g. adding a sum method:
+
+.. code-block:: julia 
+
+   import Base: +
+
+   function +(p1::Point, p2::Point)
+      return Point(p1.x + p2.x, p1.y + p2.y)
+   end 
+
+we can then transparently use it in the REPL without reloading; ``Revise`` will
+automatically find out which parts have been added/modified in the module and
+reload them on the fly.
+
+.. code-block:: julia 
+
+   julia> p1 = Point(1, 2)
+   Point{Int64}(1, 2)
+
+   julia> p2 = Point(2, 3)
+   Point{Int64}(2, 3)
+
+   julia> p1 + p2
+   Point{Int64}(3, 5)
+   
+
+
 
 Structure of a Julia package
 ----------------------------
@@ -361,10 +396,167 @@ want to develop a new package.
 
       end # module
 
-The `PkgTemplates <https://github.com/JuliaCI/PkgTemplates.jl>`_ package is widely used to initialise a skeleton
-for new packages. It comes with batteries included for creation of a GitHub repo, documentation, testing and use 
-of GitHub actions for CI/CD and creation of pages for documentation. All these options can be set programmatically
-or with an interactive tutorial at project creation-time.
+While this works, a good way to kickstart a new package in Julia is to use
+`PkgTemplates.jl <https://juliaci.github.io/PkgTemplates.jl/stable/>`_, which
+provides an easy, standardised way to create a skeleton for a package. This
+tool creates out of the box a folder skeleton for source code, tests (see
+below) and documentation, complete with GitHub/GitLab actions for CI and
+documentation deployment. It can be used either programmatically or following
+an interactive wizard: 
+
+.. code-block:: julia 
+
+   julia> using PkgTemplates
+
+   julia> PkgTemplates.generate("MyPkg")
+
+.. solution::
+
+   .. code-block:: julia 
+
+      Template keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [X] user ("")
+        [X] authors ("Francesco Fiusco <francesco.fiusco@ri.se> and contributors")
+        [X] dir ("~/.julia/dev")
+        [X] host ("github.com")
+        [X] julia (v"1.10.10")
+        [X] plugins (PkgTemplates.Plugin[])
+      Enter value for 'user' (required): fra
+      Enter value for 'authors' (comma-delimited, default: Francesco Fiusco <francesco.fiusco@ri.se> and contributors):
+      Enter value for 'dir' (default: ~/.julia/dev):
+      Select Git repository hosting service:
+        github.com
+        gitlab.com
+        bitbucket.org
+      > Other
+      Enter value for 'host' (default: github.com):
+      Select minimum Julia version:
+        1.0
+        1.1
+        1.2
+        1.3
+        1.4
+        1.5
+        1.6
+        1.7
+        1.8
+        1.9
+        1.10
+      > 1.11
+        1.12
+        Other
+      Select plugins:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+        [X] ProjectFile
+        [X] SrcDir
+        [X] Git
+        [X] License
+        [X] Readme
+        [X] Tests
+        [X] TagBot
+        [X] GitHubActions
+        [X] Dependabot
+        [ ] AppVeyor
+        [ ] BlueStyleBadge
+        [ ] CirrusCI
+        [ ] Citation
+        [ ] CodeOwners
+        [ ] Codecov
+        [ ] ColPracBadge
+        [ ] CompatHelper
+        [ ] Coveralls
+        [ ] Develop
+      > [X] Documenter
+        [ ] DroneCI
+        [ ] Formatter
+        [ ] GitLabCI
+        [ ] PkgBenchmark
+        [ ] PkgEvalBadge
+        [ ] RegisterAction
+        [ ] Runic
+        [ ] TravisCI
+      ProjectFile keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+        [ ] version (v"1.0.0-DEV")
+      > [X] None
+      SrcDir keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] destination ("")
+        [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/src/module.jlt")
+      Git keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] branch ("main")
+        [ ] email (nothing)
+        [ ] gpgsign (false)
+        [ ] ignore (String[])
+        [ ] jl (true)
+        [ ] manifest (false)
+        [ ] name (nothing)
+        [ ] ssh (false)
+      License keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] destination ("LICENSE")
+        [ ] name ("MIT")
+        [ ] path (nothing)
+      Readme keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] badge_off (Any[])
+        [ ] badge_order (DataType[Documenter{GitHubActions}, Documenter{GitLabCI}, Documenter{TravisCI}, GitHubActions, GitLabCI, TravisCI, AppVeyor, DroneCI, CirrusCI, Codecov, Coveralls, BlueStyleBadge, ColPracBadge, PkgEvalBadge])
+        [ ] destination ("README.md")
+        [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/README.md")
+        [ ] inline_badges (false)
+      Tests keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] aqua (false)
+        [ ] aqua_kwargs (NamedTuple())
+        [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/test/runtests.jlt")
+        [ ] jet (false)
+        [ ] project (false)
+      TagBot keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] branches (nothing)
+        [ ] changelog (nothing)
+        [ ] changelog_ignore (nothing)
+        [ ] destination ("TagBot.yml")
+        [ ] dispatch (nothing)
+        [ ] dispatch_delay (nothing)
+        [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/github/workflows/TagBot.yml")
+        [ ] gpg (nothing)
+        [ ] gpg_password (nothing)
+        [ ] registry (nothing)
+        [ ] ssh (Secret("DOCUMENTER_KEY"))
+        [ ] ssh_password (nothing)
+        [ ] token (Secret("GITHUB_TOKEN"))
+        [ ] trigger ("JuliaTagBot")
+      GitHubActions keywords to customize:
+      [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+      > [ ] coverage (true)
+        [ ] destination ("CI.yml")
+        [ ] extra_versions (["1.10", "1.12", "pre"])
+        [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/github/workflows/CI.yml")
+      [ ] linux (true)
+      [ ] osx (false)
+      [ ] windows (false)
+      [ ] x64 (true)
+      [ ] x86 (false)
+    Dependabot keywords to customize:
+    [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+    > [ ] file ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/github/dependabot.yml")
+      [ ] None
+    Documenter deploy style:
+    > NoDeploy
+      TravisCI
+      GitLabCI
+      GitHubActions
+    Documenter keywords to customize:
+    [press: Enter=toggle, a=all, n=none, d=done, q=abort]
+    > [ ] assets (String[])
+      [ ] devbranch (nothing)
+      [ ] edit_link (:devbranch)
+      [ ] index_md ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/docs/src/index.md")
+      [ ] logo (Logo(nothing, nothing))
+      [ ] make_jl ("/home/fra/.julia/packages/PkgTemplates/j8h9t/templates/docs/make.jlt")
 
 Testing
 -------
