@@ -1,0 +1,1066 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/"><link rel="next" title="Developing in Julia" href="../development/"><link rel="prev" title="Introduction to Julia syntax" href="../syntax-intro/">
+        <link rel="prefetch" href="../_static/ENCCS_logo_light.png" as="image">
+        <link rel="prefetch" href="../_static/ENCCS_logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"><!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>Special features of Julia - Introduction to programming in Julia</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=6c0cde2e" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Introduction to programming in Julia</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/ENCCS_logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/ENCCS_logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Introduction to programming in Julia</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Prerequisites</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syntax-intro/">Introduction to Julia syntax</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Special features of Julia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/">Developing in Julia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scientific-computing/">Scientific computing ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/overview.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="special-features-of-julia">
+<h1>Special features of Julia<a class="headerlink" href="#special-features-of-julia" title="Link to this heading">¶</a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How does the type system in Julia work?</p></li>
+<li><p>Is Julia dynamically or statically typed?</p></li>
+<li><p>What is multiple dispatch?</p></li>
+<li><p>What is code introspection?</p></li>
+<li><p>What is metaprogramming?</p></li>
+</ul>
+</div>
+<div class="admonition-instructor-note instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Instructor note</p>
+<ul class="simple">
+<li><p>30 min teaching</p></li>
+<li><p>30 min exercises</p></li>
+</ul>
+</div>
+<section id="types">
+<h2>Types<a class="headerlink" href="#types" title="Link to this heading">¶</a></h2>
+<p>Julia is a dynamically typed language and does not require users to explicitly
+declare types because types are <em>inferred</em> and used at runtime. The
+sophisticated type system helps Julia to generate efficient code.</p>
+<p>All types in Julia are defined in Julia language itself. This means that custom
+types are just as efficient as built-in types.</p>
+<p>Julia’s type system is also what enables <a class="reference external" href="https://en.wikipedia.org/wiki/Multiple_dispatch">multiple dispatch</a>, that is, choosing the most
+specific method of a function based on the argument types. Multiple dispatch
+sets the language apart from most other languages and makes it composable and
+fast when combined with just-in-time (JIT) compilation using the LLVM compiler
+toolchain.</p>
+<p>Since types play a fundamental role in Julia’s design it’s important to have a
+mental model of Julia’s type system. There are two basic kinds of types in
+Julia:</p>
+<ul class="simple">
+<li><p><strong>Abstract types</strong> which define the kind of a thing, that is, represent sets
+of related types.</p></li>
+<li><p><strong>Concrete types</strong> which describe data structures, that is,
+concrete implementations that can be used for variables.</p></li>
+</ul>
+<p>Furthermore, a <strong>primitive type</strong> consists of plain bits such as an integer,
+character or floating point number. A <strong>parametric type</strong> represents a set of
+types. Types in Julia form a “type tree”, in which the leaves are concrete
+types.</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/Type-hierarchy-for-julia-numbers.png" src="../_images/Type-hierarchy-for-julia-numbers.png" />
+<figcaption>
+<p><span class="caption-text">Type hierarchy of number in Julia.
+Adapted from <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Type-hierarchy-for-julia-numbers.png">Wikimedia</a>,
+licensed under <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="composite-types">
+<h3>Composite types<a class="headerlink" href="#composite-types" title="Link to this heading">¶</a></h3>
+<p>New types, <em>i.e.</em>, new kinds of data structures, can be defined with the <code class="docutils literal notranslate"><span class="pre">struct</span></code> keyword,
+or <code class="docutils literal notranslate"><span class="pre">mutable</span> <span class="pre">struct</span></code> if you want to be able to change the values of fields in the new data structure.
+To take a classical example:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point2D</span>
+<span class="w">    </span><span class="n">x</span>
+<span class="w">    </span><span class="n">y</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>One can also specify types of individual fields (but we can’t redefine structs, try running this code!):</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point2D</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>A new <code class="docutils literal notranslate"><span class="pre">Point2D</span></code> object can be defined by</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point2D</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and its elements accessed by</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</section>
+<section id="constructors">
+<h3>Constructors<a class="headerlink" href="#constructors" title="Link to this heading">¶</a></h3>
+<p>Composite type objects also serve as <strong>constructor functions</strong>. These create new
+instances of themselves when applied to an argument tuple as a function.
+Composite types have a default constructor which gets called when creating a new
+object, but it’s possible to explicitly define both <strong>inner</strong> and <strong>outer</strong>
+constructor methods.</p>
+<p>If we define an inner constructor method, no default constructor is provided any longer. Inner
+constructors have access to a special function called <code class="xref py py-meth docutils literal notranslate"><span class="pre">new()</span></code> which creates a new object:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point2D</span>
+<span class="w">    </span><span class="n">x</span>
+<span class="w">    </span><span class="n">y</span>
+<span class="w">    </span><span class="n">Point2D</span><span class="p">(</span><span class="n">c</span><span class="o">::</span><span class="kt">Complex</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">re</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="nb">im</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">Point2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c"># only works if first version of Point2D is also defined!</span>
+<span class="c"># Point2D(1, 2)</span>
+
+<span class="n">Point2D</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="nb">im</span><span class="p">)</span>
+<span class="c"># Point(1, 2)</span>
+</pre></div>
+</div>
+<p>For this case, it would be better to define an additional outer constructor - just like when
+methods are added to a function:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point2D</span>
+<span class="w">    </span><span class="n">x</span>
+<span class="w">    </span><span class="n">y</span>
+<span class="k">end</span>
+
+<span class="n">Point2D</span><span class="p">(</span><span class="n">c</span><span class="o">::</span><span class="kt">Complex</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point2D</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">re</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="nb">im</span><span class="p">)</span>
+
+<span class="n">Point2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="c"># Point2D(1, 2)</span>
+
+<span class="n">Point2D</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="nb">im</span><span class="p">)</span>
+<span class="c"># Point2D(1, 2)</span>
+</pre></div>
+</div>
+</section>
+<section id="parametric-types">
+<h3>Parametric types<a class="headerlink" href="#parametric-types" title="Link to this heading">¶</a></h3>
+<p>A useful feature of Julia’s type system are <em>type parameters</em>: the ability to
+use parameters when defining types. For example (using a new name since structs
+can not be redefined):</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point</span><span class="p">{</span><span class="kt">T</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">}</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">T</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">T</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Note that we restrict the type T to be a subtype of <code class="docutils literal notranslate"><span class="pre">Real</span></code>.
+We can now create <code class="docutils literal notranslate"><span class="pre">Point</span></code> variables with explicitly different types:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="c"># Point{Int64}(1, 2)</span>
+
+<span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="c"># Point{Float64}(1.0, 2.0)</span>
+</pre></div>
+</div>
+<p>Parametric types introduce a new family of new types, since
+any specialized version <code class="docutils literal notranslate"><span class="pre">Point{T}</span></code> is a subtype of <code class="docutils literal notranslate"><span class="pre">Point</span></code>:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="kt">Point</span><span class="p">{</span><span class="kt">Int64</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Point</span><span class="w">   </span><span class="c"># returns true</span>
+<span class="kt">Point</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Point</span><span class="w">   </span><span class="c"># returns true</span>
+</pre></div>
+</div>
+</section>
+<section id="design-patterns">
+<h3>Design patterns<a class="headerlink" href="#design-patterns" title="Link to this heading">¶</a></h3>
+<p>Julia is a multi-paradigm language that supports multiple types of
+design patterns, including object-oriented patterns. However, the Julian
+approach is to build code around the type system, leading to a different
+architecture compared to object-oriented languages.</p>
+<p>Many Julia applications are built around <em>type hierarchies</em> involving
+both abstract and concrete types. Abstract types are used to model
+real-world data concepts and their behaviour.</p>
+<p>For example, we can describe a type hierarchy to model animals:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span><span class="w"> </span><span class="k">type</span> <span class="kt">AbstractAnimal</span><span class="w"> </span><span class="k">end</span>
+<span class="k">abstract</span><span class="w"> </span><span class="k">type</span> <span class="kt">AbstractDog</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractAnimal</span><span class="w"> </span><span class="k">end</span>
+<span class="k">abstract</span><span class="w"> </span><span class="k">type</span> <span class="kt">AbstractCat</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractAnimal</span><span class="w"> </span><span class="k">end</span>
+
+<span class="k">struct</span> <span class="kt">BullDog</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractDog</span>
+<span class="w">    </span><span class="n">name</span><span class="o">::</span><span class="kt">String</span>
+<span class="w">    </span><span class="n">friendly</span><span class="o">::</span><span class="kt">Bool</span>
+<span class="k">end</span>
+
+<span class="k">struct</span> <span class="kt">PersianCat</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractCat</span>
+<span class="w">    </span><span class="n">name</span><span class="o">::</span><span class="kt">String</span>
+<span class="w">    </span><span class="n">huntsmice</span><span class="o">::</span><span class="kt">Bool</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>We can then define functions to define the behaviour of these types.
+Key to this approach is that subtypes inherit behaviour of their
+supertypes:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">get_name</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="kt">AbstractAnimal</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="o">.</span><span class="n">name</span>
+<span class="n">get_mouse_hunting_ability</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="kt">AbstractCat</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">A</span><span class="o">.</span><span class="n">huntsmice</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="s"> hunts mice&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="s"> leaves mice alone&quot;</span>
+</pre></div>
+</div>
+<p>If we now define a cat object we can use the methods defined for its abstract
+supertypes:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">billy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PersianCat</span><span class="p">(</span><span class="s">&quot;Billy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span>
+<span class="n">get_name</span><span class="p">(</span><span class="n">billy</span><span class="p">)</span>
+<span class="n">get_mouse_hunting_ability</span><span class="p">(</span><span class="n">billy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Refer to the “See also” section below for more reading material on
+code design in Julia.</p>
+</section>
+</section>
+<section id="functions-and-methods">
+<h2>Functions and methods<a class="headerlink" href="#functions-and-methods" title="Link to this heading">¶</a></h2>
+<p>Functions form the backbone of Julia code and we can define them using the
+<code class="code docutils literal notranslate"><span class="pre">function</span></code> keyword.
+Each function can have multiple methods. A method is a function defined for
+specific arguments types. We can define methods using the block form or short
+form syntax. Example of a function in the block form:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="o">^</span><span class="mi">2</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>For short functions such as this one, we can also use the short form:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sumsquare</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>We can pass in arguments with all kinds of types:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Int64</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="c"># Float64</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="mf">2.72</span><span class="p">,</span><span class="w"> </span><span class="mf">3.83</span><span class="p">)</span>
+<span class="c"># Complex{Int64}</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="nb">im</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="nb">im</span><span class="p">)</span>
+<span class="c"># Complex{Float64}</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="mf">1.2</span><span class="o">+</span><span class="mf">2.3</span><span class="nb">im</span><span class="p">,</span><span class="w"> </span><span class="mf">2.1</span><span class="o">-</span><span class="mf">1.5</span><span class="nb">im</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that our <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> function has no type annotations. The base
+library of Julia has different implementations of <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">^</span></code> which
+will be chosen (“dispatched”) at runtime according to the argument
+types.</p>
+<p>In most cases it’s fine to omit types. The main reasons for adding type annotate are:</p>
+<ul class="simple">
+<li><p>Improve readability</p></li>
+<li><p>Catch errors</p></li>
+<li><p>Take advantage of <strong>multiple dispatch</strong> by implementing different
+methods to the same function.</p></li>
+</ul>
+<div class="admonition-extending-sumsquare exercise important admonition" id="exercise-0">
+<p class="admonition-title">Extending sumsquare</p>
+<p>What happens if you try to call the <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> function with two
+input arguments of type <code class="docutils literal notranslate"><span class="pre">Point</span></code>? Try it and try to make sense of the output.</p>
+<p>Now add a new <strong>method</strong> to our <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> <strong>function</strong> for the
+<code class="docutils literal notranslate"><span class="pre">Point</span></code> type.</p>
+<ul class="simple">
+<li><p>We decide that the summed square of two points
+is a new Point: <code class="docutils literal notranslate"><span class="pre">Point(p1.x^2</span> <span class="pre">+</span> <span class="pre">p2.x^2,</span> <span class="pre">p1.y^2</span> <span class="pre">+</span> <span class="pre">p2.y^2)</span></code></p></li>
+<li><p>You will need to modify both the function signature and body.</p></li>
+</ul>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>Calling the original (un-extended) <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> function with two
+<code class="docutils literal notranslate"><span class="pre">Point</span></code> variables returns the error
+<code class="docutils literal notranslate"><span class="pre">MethodError:</span> <span class="pre">no</span> <span class="pre">method</span> <span class="pre">matching</span> <span class="pre">^(::Point{Int64},</span> <span class="pre">::Int64)</span></code>.
+This means that Julia doesn’t know how to take powers of this type!</p>
+<p>One way to implement the new <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> method for <code class="docutils literal notranslate"><span class="pre">Point</span></code> types is:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point</span><span class="p">{</span><span class="kt">T</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">}</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">T</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">T</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="o">::</span><span class="kt">Point</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="o">::</span><span class="kt">Point</span><span class="p">)</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">),</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">)</span>
+
+<span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span><span class="w">  </span><span class="c"># returns Point{Float64}(5.0, 13.0)</span>
+</pre></div>
+</div>
+<p>Note the output, <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code> is now a “generic function with 2
+methods”.</p>
+</div>
+</div>
+<p>If we solved the exercise, we should now be able to call <code class="docutils literal notranslate"><span class="pre">sumsquare</span></code>
+with <code class="docutils literal notranslate"><span class="pre">Point</span></code> types. The element types can still be anything!</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+<span class="c"># returns Point{Int64}(10, 20)</span>
+</pre></div>
+</div>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">cp1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="nb">im</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="nb">im</span><span class="p">)</span>
+<span class="n">cp2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="nb">im</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">+</span><span class="mi">4</span><span class="nb">im</span><span class="p">)</span>
+<span class="n">sumsquare</span><span class="p">(</span><span class="n">cp1</span><span class="p">,</span><span class="w"> </span><span class="n">cp2</span><span class="p">)</span>
+<span class="c"># returns Point{Complex{Int64}}(0 + 20im, 0 + 40im)</span>
+</pre></div>
+</div>
+<p>We can list all methods defined for a function:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">methods</span><span class="p">(</span><span class="n">sumsquare</span><span class="p">)</span>
+
+<span class="c"># 2 methods for generic function &quot;sumsquare&quot;:</span>
+<span class="c"># [1] sumsquare(p1::Point, p2::Point) in Main at REPL[35]:1</span>
+<span class="c"># [2] sumsquare(x, y) in Main at REPL[14]:1</span>
+</pre></div>
+</div>
+<p>We can even define a function with no methods for documentation purposes.</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">sumsquare</span><span class="w"> </span><span class="k">end</span>
+</pre></div>
+</div>
+<div class="admonition-methods-and-functions callout admonition" id="callout-0">
+<p class="admonition-title">Methods and functions</p>
+<ul class="simple">
+<li><p>A <strong>function</strong> describing the “what” can have multiple <strong>methods</strong>
+describing the “how”.</p></li>
+<li><p>This differs from object-oriented languages in which objects (not
+functions) have methods.</p></li>
+<li><p><strong>Multiple dispatch</strong> is when Julia selects the most specialized
+method to run based on the types of all input arguments.</p></li>
+<li><p><strong>Best practice</strong>: constrain argument types to the widest possible
+level, and introduce constraints only if you know other argument
+types will fail.</p></li>
+</ul>
+</div>
+<section id="type-stability">
+<h3>Type stability<a class="headerlink" href="#type-stability" title="Link to this heading">¶</a></h3>
+<p>To compile specialized versions of a function for each
+argument type the compiler needs to be able to infer all the argument
+and return types of that function. This is called type stability, but
+unfortunately it’s possible to write type-unstable functions:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># type-unstable function</span>
+<span class="k">function</span><span class="w"> </span><span class="n">relu_unstable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>We can pass both integer and floating point arguments to this function,
+but if we pass in a negative float it will return an integer 0, while
+positive floats return a float. This can have a dramatically negative effect
+on performance because the compiler will not be able to specialize!</p>
+<p>The solution is to use an inbuilt <code class="docutils literal notranslate"><span class="pre">zero</span></code> function to return a zero of the same
+type as the input argument, so that inputting integers always gives
+integer output and likewise for floats:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># type-stable function</span>
+<span class="k">function</span><span class="w"> </span><span class="n">relu_stable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">zero</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Other convenience functions exist to make types consistent, including:</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">eltype()</span></code> to determine the type of the array elements</p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">similar()</span></code> to create an uninitialized mutable array with
+the given element type and size.</p></li>
+</ul>
+<p>A quick way to check for type instabilities is to use the <code class="docutils literal notranslate"><span class="pre">code_warntype</span></code>
+macro (read below to know what a macro is). E.g.:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@code_warntype</span><span class="w"> </span><span class="n">relu_stable</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="code-generation">
+<h2>Code generation<a class="headerlink" href="#code-generation" title="Link to this heading">¶</a></h2>
+<p>Julia was designed from the beginning for high performance and this is
+accomplished by compiling Julia programs to efficient native code for multiple
+platforms via the <a class="reference external" href="https://llvm.org/">LLVM</a> compiler toolchain and
+just-in-time (JIT) compilation.
+The Julia runtime code generator produces an LLVM <strong>Intermediate
+Representation</strong> (IR) which the LLMV compiler then converts to machine code
+using sophisticated optimization technology.</p>
+<ul class="simple">
+<li><p>Interpreted languages rely on a runtime which directly executes the source code.</p></li>
+<li><p>Compiled languages rely on ahead-of-time compilation where source
+code is converted to an executable before execution.</p></li>
+<li><p>Just-in-time compilation is when code is compiled to machine code at runtime.</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/julia-code-generation.png"><img alt="../_images/julia-code-generation.png" src="../_images/julia-code-generation.png" style="width: 642.0px; height: 657.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Adapted from <a class="reference external" href="https://arxiv.org/pdf/1604.03410.pdf">“High-level GPU programming in Julia”</a> by Tim Besard, Pieter Verstraete and Bjorn De Sutter .</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>To see the various forms of lowered code that is generated by the JIT compiler
+we can use several <em>macros</em>.
+Inspecting the lowered form for functions requires selection of the specific
+method to display, because generic functions may have many methods with different
+type signatures.</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Surface level AST</span>
+<span class="n">Meta</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;sumsquare(1, 2)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">dump</span>
+<span class="n">Meta</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;sumsquare(p1, p2)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">dump</span>
+
+<span class="c"># Lowered form of AST</span>
+<span class="nd">@code_lowered</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@code_lowered</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+
+<span class="c"># Type-inferred lowered form of AST</span>
+<span class="nd">@code_typed</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@code_typed</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="nd">@code_typed</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+
+<span class="c"># Lowered and type-inferred ASTs</span>
+<span class="nd">@code_warntype</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="nd">@code_warntype</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+
+<span class="c"># LLVM intermediate representation:</span>
+<span class="nd">@code_llvm</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@code_llvm</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="nd">@code_llvm</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+
+<span class="c"># native assembly instructions:</span>
+<span class="nd">@code_native</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@code_native</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="nd">@code_native</span><span class="w"> </span><span class="n">sumsquare</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="metaprogramming">
+<h2>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Link to this heading">¶</a></h2>
+<p>We saw in the compilation diagram above that after parsing the source code,
+the Julia compiler generates an <em>abstract syntax tree</em> (AST) - a tree-like data
+structure representing the source code. This is a legacy from the Lisp language.
+Since code is represented by objects that can be created and manipulated from
+within the language, it is possible for a program to transform and generate its
+own code.</p>
+<p>Let’s have a look at the AST of a simple expression:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">Meta</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;x + y&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">dump</span>
+</pre></div>
+</div>
+<p>It returns:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Expr
+  head: Symbol call
+  args: Array{Any}((3,))
+    1: Symbol +
+    2: Symbol x
+    3: Symbol y
+</pre></div>
+</div>
+<p>These three symbols +, x and y are leaves of the AST.
+A shorter form to create expressions is <code class="docutils literal notranslate"><span class="pre">:(x</span> <span class="pre">+</span> <span class="pre">y)</span></code>.
+We can create an expression and then evaluate it:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">:</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="n">eval</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span><span class="w">   </span><span class="c"># returns 4</span>
+</pre></div>
+</div>
+<p>A <em>macro</em> is like a function, except it accepts expressions as arguments,
+manipulates the expressions, and returns a new expression - thus modifying
+the AST.</p>
+<p>We can for example define a macro to create a <a class="reference external" href="https://en.wikipedia.org/wiki/Wilkinson%27s_polynomial">Wilkinson polynomial</a> defined as follows:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[w_n(x) = \prod_{i=1}^{n}(x-i)\]</div>
+</div>
+<p>Note the following pattern, we write a helper function that returns an expression and call that function from the macro. This is very useful for debugging while writing macros!</p>
+<div class="highlight-Julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">_make_wilkinson</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">  </span><span class="n">pol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">:</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="n">n</span>
+<span class="w">    </span><span class="n">pol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">:</span><span class="p">(</span><span class="o">$</span><span class="n">pol</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">$</span><span class="n">i</span><span class="p">))</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Symbol</span><span class="p">(</span><span class="ss">:wilkinson_</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">:</span><span class="p">(</span><span class="o">$</span><span class="p">(</span><span class="n">name</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="n">pol</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">macro</span><span class="w"> </span><span class="n">make_wilkinson</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">_make_wilkinson</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c"># creates the function wilkinson_5</span>
+<span class="nd">@make_wilkinson</span><span class="w"> </span><span class="mi">5</span>
+
+<span class="n">wilkinson_5</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To see what a macro expands to, we can use another macro:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@make_wilkinson</span><span class="w"> </span><span class="mi">5</span>
+</pre></div>
+</div>
+<p>The output shows that a for loop has been generated:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>:(Main.wilkinson_5(var&quot;#21#x&quot;) = begin
+    #= REPL[17]:6 =#
+    ((((var&quot;#21#x&quot; - 1) * (var&quot;#21#x&quot; - 2)) * (var&quot;#21#x&quot; - 3)) * (var&quot;#21#x&quot; - 4)) * (var&quot;#21#x&quot; - 5)
+end)
+</pre></div>
+</div>
+</section>
+<section id="unicode-support">
+<h2>Unicode support<a class="headerlink" href="#unicode-support" title="Link to this heading">¶</a></h2>
+<p>Julia has full support for Unicode characters. Some are reserved for
+constants or operators, like π, ∈ and √, while the
+majority can be used for names of variables, functions etc.
+Unicode characters are entered via tab completion of LaTeX-like abbreviations
+in the Julia REPL or IDEs with Julia extensions, including VSCode. If you are
+unsure how to enter a particular character, you can copy-paste it into
+Julia’s help mode to see the LaTeX-like syntax.</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="n">Σsqrt</span><span class="p">(</span><span class="n">Ω</span><span class="o">...</span><span class="p">)</span>
+<span class="w">    </span><span class="n">σ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">ω</span><span class="w"> </span><span class="o">∈</span><span class="w"> </span><span class="n">Ω</span>
+<span class="w">        </span><span class="n">σ</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">√</span><span class="n">ω</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="n">σ</span>
+<span class="k">end</span>
+
+<span class="n">ω₁</span><span class="p">,</span><span class="w"> </span><span class="n">ω₂</span><span class="p">,</span><span class="w"> </span><span class="n">ω₃</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">σ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Σsqrt</span><span class="p">(</span><span class="n">ω₁</span><span class="p">,</span><span class="w"> </span><span class="n">ω₂</span><span class="p">,</span><span class="w"> </span><span class="n">ω₃</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It’s also reassuring to know that Julia can solve the chicken-and-egg dilemma:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="ss">:🥚</span><span class="p">,</span><span class="w"> </span><span class="ss">:🐔</span><span class="p">]</span>
+<span class="c"># 2-element Vector{Symbol}:</span>
+<span class="c">#  :🥚</span>
+<span class="c">#  :🐔</span>
+
+<span class="n">sort</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="c"># 2-element Vector{Symbol}:</span>
+<span class="c">#  :🐔</span>
+<span class="c">#  :🥚</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
+<div class="admonition-write-a-composite-type-and-a-method-that-acts-on-it exercise important admonition" id="exercise-1">
+<p class="admonition-title">Write a composite type and a method that acts on it</p>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">mutable</span> <span class="pre">struct</span></code> called <cite>Ship</cite> with two fields: <code class="docutils literal notranslate"><span class="pre">name</span></code> (which is a String) and
+<code class="docutils literal notranslate"><span class="pre">location</span></code>, which is a Point (define the Point type if needed).</p>
+<p>Then write a function <code class="xref py py-meth docutils literal notranslate"><span class="pre">move!()</span></code> which takes three arguments: a <cite>Ship</cite> object, and
+two displacements, <cite>dx</cite> and <cite>dy</cite>.</p>
+<p>Finally create a <cite>Ship</cite> object with a name and initial location, and call the <code class="xref py py-meth docutils literal notranslate"><span class="pre">move!()</span></code>
+method on it. Print the <cite>Ship</cite> object to see if it has moved.</p>
+<p>Optional 1: Write an outer constructor for <cite>Ship</cite> which, instead of a Point object, takes
+<cite>x</cite> and <cite>y</cite> coordinates in separate arguments.</p>
+<p>Optional 2: Write another method for the <code class="xref py py-meth docutils literal notranslate"><span class="pre">move!()</span></code> where the x and y displacements are
+defined by a Point type.</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="kt">Point</span><span class="p">{</span><span class="kt">T</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">}</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">T</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">T</span>
+<span class="k">end</span>
+
+<span class="k">mutable</span><span class="w"> </span><span class="k">struct</span> <span class="kt">Ship</span>
+<span class="w">    </span><span class="n">name</span><span class="o">::</span><span class="kt">String</span>
+<span class="w">    </span><span class="n">location</span><span class="o">::</span><span class="kt">Point</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">move!</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">Ship</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">dy</span><span class="p">)</span>
+<span class="w">    </span><span class="n">oldloc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">location</span>
+<span class="w">    </span><span class="n">s</span><span class="o">.</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">oldloc</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">oldloc</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">beagle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ship</span><span class="p">(</span><span class="s">&quot;HMS Beagle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="c"># Ship(&quot;HMS Beagle&quot;, Point{Float64}(1.0, 2.0))</span>
+
+<span class="n">move!</span><span class="p">(</span><span class="n">beagle</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="n">beagle</span><span class="p">)</span>
+<span class="c"># Ship(&quot;HMS Beagle&quot;, Point{Float64}(3.0, 7.0))</span>
+
+<span class="c"># outer constructor</span>
+<span class="n">Ship</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ship</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+<span class="n">vasa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ship</span><span class="p">(</span><span class="s">&quot;Vasa&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+<span class="c"># Ship(&quot;Vasa&quot;, Point{Float64}(4.0, 2.0))</span>
+
+<span class="c"># new method</span>
+<span class="k">function</span><span class="w"> </span><span class="n">move!</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">Ship</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">::</span><span class="kt">Point</span><span class="p">)</span>
+<span class="w">    </span><span class="n">oldloc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">location</span>
+<span class="w">    </span><span class="n">s</span><span class="o">.</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="n">oldloc</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">oldloc</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">move!</span><span class="p">(</span><span class="n">beagle</span><span class="p">,</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">print</span><span class="p">(</span><span class="n">beagle</span><span class="p">)</span>
+<span class="c"># Ship(&quot;HMS Beagle&quot;, Point{Float64}(5.0, 9.0))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-introspect-type-stable-and-type-unstable-functions exercise important admonition" id="exercise-2">
+<p class="admonition-title">Introspect type-stable and type-unstable functions</p>
+<p>While the code-introspection macros produce complicated output which
+is hard for humans to read, some of them can be useful to write more
+efficient code.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;code_typed</span></code> shows the types of our code inferred by the compiler.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;code_warntype</span></code> shows type warnings and can be used to detect type instabilities.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;code_llvm</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;code_native</span></code> can be used to see the size of the resulting
+low-level code (the fewer instructions the faster).</p></li>
+</ul>
+<p>Use these macros to inspect the <code class="docutils literal notranslate"><span class="pre">relu_unstable</span></code> and <code class="docutils literal notranslate"><span class="pre">relu_stable</span></code> functions!</p>
+<ul class="simple">
+<li><p>Observe how <code class="docutils literal notranslate"><span class="pre">&#64;code_warntype</span></code> warns about the type instability when passing
+a floating point number: Julia is forced to use a <code class="docutils literal notranslate"><span class="pre">Union{Float64,</span> <span class="pre">Int64}</span></code> type
+in the function body.</p></li>
+<li><p>What is the difference in the low-level code between the two functions when
+passing integers or floats?</p></li>
+</ul>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<p>The type-unstable function gives us a warning
+(<code class="docutils literal notranslate"><span class="pre">Body::Union{Float64,</span> <span class="pre">Int64}</span></code> is in red in the REPL):</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@code_warntype</span><span class="w"> </span><span class="n">relu_unstable</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MethodInstance for relu_unstable(::Float64)
+  from relu_unstable(x) in Main at REPL[40]:2
+Arguments
+  #self#::Core.Const(relu_unstable)
+  x::Float64
+Body::Union{Float64, Int64}
+1 ─ %1 = (x &lt; 0)::Bool
+└──      goto #3 if not %1
+2 ─      return 0
+3 ─      return x
+</pre></div>
+</div>
+<p>The warning is gone in the type-stable function:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@code_warntype</span><span class="w"> </span><span class="n">relu_stable</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MethodInstance for relu_stable(::Float64)
+  from relu_stable(x) in Main at REPL[83]:2
+Arguments
+  #self#::Core.Const(relu_stable)
+  x::Float64
+Body::Float64
+1 ─ %1 = (x &lt; 0)::Bool
+└──      goto #3 if not %1
+2 ─ %3 = Main.zero(x)::Core.Const(0.0)
+└──      return %3
+3 ─      return x
+</pre></div>
+</div>
+<p>There’s a big difference in the amount of low-level code generated
+for the type-stable and unstable functions:</p>
+<blockquote>
+<div><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">&#64;code_llvm relu_stable(1.0)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">&#64;code_llvm relu_unstable(1.0)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>;  @ REPL[83]:2 within `relu_stable`
+define double @julia_relu_stable_841(double %0) #0 {
+top:
+;  @ REPL[83]:3 within `relu_stable`
+  %.inv = fcmp olt double %0, 0.000000e+00
+  %1 = select i1 %.inv, double 0.000000e+00, double %0
+;  @ REPL[83]:4 within `relu_stable`
+  ret double %1
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>;  @ REPL[40]:2 within `relu_unstable`
+define { {}*, i8 } @julia_relu_unstable_845([8 x i8]* noalias nocapture align 8 dereferenceable(8) %0, double %1) #0 {
+top:
+;  @ REPL[40]:3 within `relu_unstable`
+; ┌ @ float.jl:499 within `&lt;` @ float.jl:444
+   %2 = fcmp uge double %1, 0.000000e+00
+; └
+  br i1 %2, label %L8, label %L7
+
+L7:                                               ; preds = %L8, %top
+  %merge = phi { {}*, i8 } [ { {}* inttoptr (i64 4337979424 to {}*), i8 -126 }, %top ], [ { {}* null, i8 1 }, %L8 ]
+;  @ REPL[40]:4 within `relu_unstable`
+  ret { {}*, i8 } %merge
+
+L8:                                               ; preds = %top
+;  @ REPL[40]:6 within `relu_unstable`
+  %.0..sroa_cast = bitcast [8 x i8]* %0 to double*
+  store double %1, double* %.0..sroa_cast, align 8
+  br label %L7
+}
+</pre></div>
+</div>
+</div></div>
+</div></blockquote>
+</div>
+</div>
+<div class="admonition-inspect-a-few-macros exercise important admonition" id="exercise-3">
+<p class="admonition-title">Inspect a few macros</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">&#64;macroexpand</span></code> macro to investigate what the following macros do:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;assert</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;fastmath</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;show</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;time</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;enum</span></code></p></li>
+</ul>
+<p><strong>Hint</strong>: You will typically need to give arguments to the macros you are inspecting.
+Have a look at the help page of a macro if you’re unsure how it’s used.</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Solution</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@assert</span><span class="w"> </span><span class="mi">1</span><span class="o">==</span><span class="mi">1</span>
+
+<span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@fastmath</span><span class="w"> </span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span>
+
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@show</span><span class="w"> </span><span class="n">x</span>
+
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@time</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span>
+
+<span class="nd">@macroexpand</span><span class="w"> </span><span class="nd">@enum</span><span class="w"> </span><span class="n">Fruit</span><span class="w"> </span><span class="n">apple</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">orange</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">kiwi</span><span class="o">=</span><span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Aaron Christianson: <a class="reference external" href="https://github.com/ninjaaron/oo-and-polymorphism-in-julia">Object Orientation and Polymorphism in Julia</a>.</p></li>
+<li><p>Christopher Rackauckas: <a class="reference external" href="https://www.stochasticlifestyle.com/type-dispatch-design-post-object-oriented-programming-julia/">Type-Dispatch Design: Post Object-Oriented Programming for Julia</a>.</p></li>
+<li><p><a class="reference external" href="https://docs.julialang.org/en/v1/manual/metaprogramming/">Documentation on metaprogramming</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/dpsanders/Metaprogramming_JuliaCon_2021">Metaprogramming tutorial from JuliaCon21</a>.</p></li>
+<li><p><a class="reference external" href="https://docs.julialang.org/en/v1/manual/unicode-input/">Full list of supported unicode symbols</a>.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../development/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Developing in Julia</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../syntax-intro/">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Introduction to Julia syntax</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, ENCCS, The contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/ENCCS/julia-intro" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Special features of Julia</a><ul>
+<li><a class="reference internal" href="#types">Types</a><ul>
+<li><a class="reference internal" href="#composite-types">Composite types</a></li>
+<li><a class="reference internal" href="#constructors">Constructors</a></li>
+<li><a class="reference internal" href="#parametric-types">Parametric types</a></li>
+<li><a class="reference internal" href="#design-patterns">Design patterns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions-and-methods">Functions and methods</a><ul>
+<li><a class="reference internal" href="#type-stability">Type stability</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-generation">Code generation</a></li>
+<li><a class="reference internal" href="#metaprogramming">Metaprogramming</a></li>
+<li><a class="reference internal" href="#unicode-support">Unicode support</a></li>
+<li><a class="reference internal" href="#exercises">Exercises</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/tabs.js?v=3030b3cb"></script>
+    </body>
+</html>
